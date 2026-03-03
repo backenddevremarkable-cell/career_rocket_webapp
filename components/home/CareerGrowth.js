@@ -1,23 +1,26 @@
 "use client";
 
-import { FaBrain } from "react-icons/fa";
-import { MdGroups } from "react-icons/md";
-import growth from "../../assets/images/growth.svg";
+import growth from "../../assets/images/map-logo.svg";
+import icon1 from "../../assets/images/map-icon-1.svg";
+import icon2 from "../../assets/images/map-icon-2.svg";
+import background from "../../assets/images/map-bg.svg";
 import Image from "next/image";
 
 export default function CareerGroth() {
+
+  console.log(background,'');
   return (
     <section
       className="
         relative py-24 px-4 text-center text-white overflow-hidden
         bg-gradient-to-b from-purple-600 to-purple-800
       "
-        style={{
-          backgroundImage: `linear-gradient(rgba(125, 5, 123, 0.7), rgba(146, 3, 149, 0.7)), 
-          url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f')`,
-          backgroundSize : 'cover', // 👈 map image path
-          backgroundPosition: "center",
-        }}
+     style={{
+      backgroundImage: `url(${background.src})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat"
+    }}
     >
       {/* 🌍 MAP BACKGROUND IMAGE */}
       <div
@@ -53,12 +56,13 @@ export default function CareerGroth() {
                     flex items-center gap-6 
                     w-full h-32 shadow-lg">
 
-      <svg width="40" height="40" fill="currentColor">
-        {/* icon */}
-      </svg>
+        <Image
+          src={icon1}   // 👈 medal image
+          className="w-15"
+        />
 
       <div>
-        <h3 className="text-3xl font-bold">15,000+</h3>
+        <h3 className="text-3xl font-bold  text-left text-primary">15,000+</h3>
         <p className="text-sm text-gray-600">
           PSYCHOMETRIC ASSESSMENTS IN A SINGLE DAY
         </p>
@@ -70,12 +74,14 @@ export default function CareerGroth() {
                     flex items-center gap-6 
                     w-full h-32 shadow-lg">
 
-      <svg width="40" height="40" fill="currentColor">
-        {/* icon */}
-      </svg>
+      
+        <Image
+          src={icon2}   // 👈 medal image
+          className="w-15"
+        />
 
       <div>
-        <h3 className="text-3xl font-bold">8,500+</h3>
+        <h3 className="text-3xl font-bold text-left text-primary">8,500+</h3>
         <p className="text-sm text-gray-600">
           STUDENTS COUNSELLED IN A SINGLE DAY
         </p>

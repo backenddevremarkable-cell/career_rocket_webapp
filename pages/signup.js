@@ -5,6 +5,7 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import logo from "../assets/images/logo.svg";
 import Image from "next/image";
+import rightSide from "../assets/images/sign-up.svg";
 
 export default function SignIn() {
   const [showPass, setShowPass] = useState(false);
@@ -125,7 +126,7 @@ export default function SignIn() {
         {/* RIGHT SIDE IMAGE */}
         <div className="hidden md:block md:fixed right-0 top-0 w-1/2 h-screen">
   <img
-    src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1600&auto=format&fit=crop"
+    src={`${rightSide.src}?q=80&w=1600&auto=format&fit=crop`}
     className="w-full h-full object-cover"
   />
 </div>

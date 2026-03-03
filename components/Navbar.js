@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import logo from "../assets/images/logo.svg";
 import { HiOutlineMenu, HiX } from "react-icons/hi";
@@ -7,14 +7,27 @@ import Image from "next/image";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+useEffect(() => {
+  const handleScroll = () => {
+    setScrolled(window.scrollY > 1200);
+  };
+
+  window.addEventListener("scroll", handleScroll);
+  return () => window.removeEventListener("scroll", handleScroll);
+}, []);
 
   return (
-    <nav className="absolute w-full top-0 left-0 z-50">
-      <div className="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
+    <nav
+     className={`${scrolled ? 'fixed' : 'absolute' } w-full top-0 left-0 z-50 transition-all duration-300 
+       ${scrolled ? "bg-white shadow-md" : ""}`}
+>
+      <div className={`max-w-7xl mx-auto px-6 ${!scrolled ? 'py-6' : '' } flex justify-between items-center`}>
 
         {/* Logo */}
         <div className="text-2xl font-bold">
-          <Image src={logo}/>
+          <Image src={logo} width={scrolled ? 150 : null} className={scrolled ? `py-2` : null}/>
         </div>
 
         {/* Desktop Menu */}

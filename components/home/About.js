@@ -22,7 +22,7 @@ export default function About() {
     <>
       {/* ABOUT SECTION */}
       <section className="bg-gray-100 py-0">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center pr-0 mr-0">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center  pt-10 md:pt-0 px-4 sm:px-6 lg:px-8">
 
           {/* LEFT CONTENT */}
           <div>
@@ -61,9 +61,9 @@ export default function About() {
          {/* Floating Card 1 */}
             <motion.div
               animate={{ y: [-10, 80], x: [0, -0] }}
-              transition={{ repeat: 0, duration: 5, delay: 3 }}
+              transition={{ repeat: 0, duration: 1.5, delay: 3 }}
               viewport={{ once: true, amount: 0.1 }}
-              className="floating-card top-20 right-44"
+              className="floating-card top-20 right-44 motion-card-1"
             >
               {/* <FaUsers className="text-orange-500 text-xl" /> */}
               <Image src={success} width={40}/>
@@ -76,9 +76,9 @@ export default function About() {
                 {/* Certified Courses */}
                 <motion.div
                     animate={{ y: [-10, 80], x: [0, -70] }}
-                    transition={{ repeat: 0, duration: 5, delay: 8 }}
+                    transition={{ repeat: 0, duration: 1.5, delay: 5 }}
                     viewport={{ once: true, amount: 0.1 }}
-                    className="floating-card top-[35%] left-[5%] cerfiacte-motion"
+                    className="floating-card top-[35%] left-[5%] cerfiacte-motion motion-card-2"
                 >
                     <span className="font-semibold">Certified Courses</span>
                     <Image src={certificate} width={40}/>
@@ -88,10 +88,10 @@ export default function About() {
                 {/* Expert Mentors */}
                 <motion.div
                     initial={{ y: 0 }}
-                    transition={{  duration: 5, delay: 10 }}
+                    transition={{  duration: 1.5, delay: 5.2 }}
                     whileInView={{ opacity: 1, y: [-5, -60]  }}
                     viewport={{ once: true, amount: 0.1 }}
-                    className="floating-card bottom-[0%] right-[27%]"
+                    className="floating-card bottom-[0%] right-[27%] motion-card-3"
                 >
                     {/* <FaBrain className="text-indigo-500 text-lg" /> */}
                     <Image src={mentorship} width={40}/>

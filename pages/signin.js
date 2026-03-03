@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import logo from "../assets/images/logo.svg";
+import rightSide from "../assets/images/sign-in.svg";
 import Image from "next/image";
 
 export default function SignIn() {
@@ -114,8 +115,12 @@ export default function SignIn() {
 
         {/* RIGHT SIDE IMAGE */}
         <div className="hidden md:block md:fixed right-0 top-0 w-1/2 h-screen">
+  {/* <Image
+    src={`${rightSide}?q=80&w=1600&auto=format&fit=crop`}
+    className="w-full h-full object-cover"
+  /> */}
   <img
-    src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1600&auto=format&fit=crop"
+    src={`${rightSide.src}?q=80&w=1600&auto=format&fit=crop`}
     className="w-full h-full object-cover"
   />
 </div>

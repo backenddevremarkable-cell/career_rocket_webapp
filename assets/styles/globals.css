@@ -107,7 +107,7 @@
 /* Icon box */
 .icon-box {
   @apply w-16 h-16 flex items-center justify-center rounded-xl text-white text-2xl;
-  background: linear-gradient(135deg, #9333ea, #c026d3);
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-color));
   box-shadow: 0 10px 20px rgba(147, 51, 234, 0.25);
 }
 
@@ -140,6 +140,7 @@
 /* Big Number */
 .stat-number {
   @apply text-4xl font-bold text-purple-600;
+  color: var(--primary-color) !important; 
 }
 
 
@@ -176,5 +177,23 @@
 
   .search-btn{
     padding: 0px 10px;
+  }
+
+  .motion-card-1{
+    width: 93% !important;
+    left: 4% !important;
+    transform: translateY(0px) !important;
+  }
+
+ .motion-card-2{
+    width: 93% !important;
+    left: 4% !important;
+    transform: translateX(0px)translateY(30px) !important;
+  }
+
+ .motion-card-3{
+    width: 93% !important;
+    left: 4% !important;
+    transform: translateX(0px) translateY(-75px) !important;
   }
 }
