@@ -108,7 +108,7 @@ export default function SignIn() {
           <p className="text-center text-sm text-gray-500 mt-6">
             Need an account?{" "}
             <span className="text-purple-600 font-medium cursor-pointer">
-               <Link href={'signup'}>Create one</Link> 
+               <Link href={'sign-up'}>Create one</Link> 
             </span>
           </p>
         </div>

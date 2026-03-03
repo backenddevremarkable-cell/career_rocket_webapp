@@ -160,14 +160,41 @@
    padding: 4px 11px !important;
 }
 
+.about-section{
+  padding-right: 0px !important;
+}
+
+.border-gradient {
+  border: 2px solid transparent;
+  background-image: linear-gradient(white, white),
+    linear-gradient(90deg, #ec4899, #8b5cf6);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+
+a.menu-active{
+  color: var(--secondary-color) !important;
+  font-weight: 600 !important;
+}
+
 /* Tablet & Desktop */
 @media (max-width: 768px) {
+
+  .about-section {
+     padding-right: revert-layer !important;
+   }
 
   .mobile-menu a{
     width: 100%;
     display: block;
     border-bottom: solid 1px #f7f2f7;
     padding-bottom: 16px;
+  }
+
+  .heading-career-g{
+      font-size: 2rem !important;
+      font-weight: 700;
   }
   
   .search-input{
@@ -197,3 +224,4 @@
     transform: translateX(0px) translateY(-75px) !important;
   }
 }
+

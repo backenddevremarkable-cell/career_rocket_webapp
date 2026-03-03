@@ -1,10 +1,11 @@
 import { FiSearch } from "react-icons/fi";
 import { Typewriter } from "react-simple-typewriter";
+import Search from "../common/Search";
 
 export default function Hero() {
   
   return (
-    <section className="hero-bg relative pt-32 pb-24 text-center">
+    <section className="hero-bg relative pt-32 pb-24 text-center mt-4">
 
       <div className="max-w-5xl mx-auto px-6">
 
@@ -12,11 +13,11 @@ export default function Hero() {
           SCIENCE + HUMAN INTELLIGENCE
         </div>
 
-        <h1 className="mt-8 text-4xl md:text-6xl font-bold text-gray-800">
+        <h1 className="mt-6 text-4xl md:text-6xl font-bold text-gray-800">
           Find the career you were
         </h1>
 
-         <h1 className="text-4xl md:text-6xl font-bold gradient-text mt-3">
+         <h1 className="text-4xl md:text-6xl font-bold gradient-text mt-3 mb-16">
             <Typewriter
               words={[
                 "born to lead.",
@@ -35,16 +36,7 @@ export default function Hero() {
       </h1>
 
         {/* Search */}
-        <div className="search-wrapper  mt-10">
-          <input
-            type="text"
-            placeholder="Search for careers, skills, or industries..."
-            className="search-input"
-          />
-          <button className="search-btn">
-            <FiSearch className="mr-2" /> Search
-          </button>
-        </div>
+        <Search/>
 
         {/* Pills */}
         <div className="flex flex-wrap justify-center gap-4 mt-8">

@@ -4,14 +4,17 @@ import Link from "next/link";
 import logo from "../assets/images/logo.svg";
 import { HiOutlineMenu, HiX } from "react-icons/hi";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
 
 useEffect(() => {
-  const handleScroll = () => {
-    setScrolled(window.scrollY > 1200);
+   const handleScroll = () => {
+    setScrolled(window.innerWidth<769 ? window.scrollY > 20 : window.scrollY > 1450);
   };
 
   window.addEventListener("scroll", handleScroll);
@@ -20,20 +23,22 @@ useEffect(() => {
 
   return (
     <nav
-     className={`${scrolled ? 'fixed' : 'absolute' } w-full top-0 left-0 z-50 transition-all duration-300 
+     className={`${scrolled ? 'fixed' : pathname=='/' ? 'absolute' : '' } w-full top-0 left-0 z-50 transition-all duration-300
        ${scrolled ? "bg-white shadow-md" : ""}`}
 >
-      <div className={`max-w-7xl mx-auto px-6 ${!scrolled ? 'py-6' : '' } flex justify-between items-center`}>
+      <div className={`max-w-7xl mx-auto px-6 ${!scrolled ? 'py-3' : '' } flex justify-between items-center`}>
 
         {/* Logo */}
         <div className="text-2xl font-bold">
-          <Image src={logo} width={scrolled ? 150 : null} className={scrolled ? `py-2` : null}/>
+           <Link href="/">
+              <Image src={logo} width={scrolled ? 150 : null} className={scrolled ? `py-2` : null}/>
+           </Link>
         </div>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex gap-8 font-medium text-gray-700">
           {/* <Link href="/" className="text-purple-600 text-primary font-semibold">Home</Link> */}
-          <Link href="#">Career Library</Link>
+          <Link className={ pathname.includes('career-library') ? `menu-active` : ''} href="career-library">Career Library</Link>
           <Link href="#">Our Services</Link>
           <Link href="#">Tests</Link>
           <Link href="#">Experts</Link>
@@ -44,7 +49,7 @@ useEffect(() => {
 
         {/* Sign Up */}
         <div className="hidden md:block">
-          <Link href={'signup'} className="btn-gradient">Sign Up</Link>
+          <Link href={'sign-up'} className="btn-gradient">Sign Up</Link>
         </div>
 
         {/* Mobile Icon */}
@@ -68,7 +73,7 @@ useEffect(() => {
           <Link href="#">Courses</Link>
           <Link href="#">Pricing</Link>
           <Link href="#">Contact us</Link>
-          <button className="btn-gradient w-full mt-4">Sign Up</button>
+          <Link href={'signup'} className="btn-gradient w-full mt-4">Sign Up</Link>
         </div>
       )}
     </nav>

@@ -22,7 +22,8 @@ export default function About() {
     <>
       {/* ABOUT SECTION */}
       <section className="bg-gray-100 py-0">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center  pt-10 md:pt-0 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-8xl mx-auto grid md:grid-cols-2 gap-12 items-center 
+        pt-10 md:pt-0 px-4 sm:px-6 lg:px-8 about-section">
 
           {/* LEFT CONTENT */}
           <div>
@@ -83,7 +84,7 @@ export default function About() {
                     <span className="font-semibold">Certified Courses</span>
                     <Image src={certificate} width={40}/>
                     {/* <FaAward className="text-purple-500 text-lg" /> */}
-                </motion.div>
+                </motion.div> 
 
                 {/* Expert Mentors */}
                 <motion.div
