@@ -70,7 +70,6 @@ export default function personalityTest() {
 
   return (
     <main className="min-h-screen bg-[#f7f5f8]">
-      <NavDashboard/>
       { info ?
        <section className="mx-auto max-w-6xl px-4 py-5 sm:px-6 lg:px-8">
         {/* Main Content */}
