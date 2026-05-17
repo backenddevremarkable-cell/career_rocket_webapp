@@ -3,26 +3,50 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
-
+import { careerProgram } from "@/services/publicService";
+import { useDataStore } from "@/store/useDataStore";
+import { useState,useEffect } from "react";
 import "swiper/css";
 import "swiper/css/navigation";
+import SkeletonMoment from "./skeleton/SkeletonMoment";
 
-const moments = [
-  "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
-  "https://images.unsplash.com/photo-1509062522246-3755977927d7",
-  "https://images.unsplash.com/photo-1523580494863-6f3031224c94",
-  "https://images.unsplash.com/photo-1531482615713-2afd69097998",
-  "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
-];
 
 export default function MomentsSlider() {
-  return (
-    <section className="py-20 bg-[#f6f4f8] px-4 overflow-hidden">
+
+    const { setMoment, moment } = useDataStore((state) => state);
+    const [data, setData] = useState(moment);
+    const [loading, setLoading] = useState(false);
+
+      const fetchData = async () => {
+        try {
+          setLoading(true);
+          const payload = {
+            page: 1,
+            limit: 10,
+          };
+
+          const res = await careerProgram(payload);
+          const responseData = res?.data || [];
+          setData(responseData);
+          setMoment(responseData);
+
+        } catch (error) {
+          console.error("Error fetching stories:", error);
+        } finally {
+          setLoading(false);
+        }
+      }
+      
+      useEffect(() => {
+        if(!data) fetchData()
+      }, [])
+
+  return ( data && data?.listing?.length > 0 || loading ? 
+    <section className="py-15 bg-[#f6f4f8] px-4 overflow-hidden moments-section">
       <div className="max-w-7xl mx-auto text-center relative">
 
-         {/* Heading */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900">
+          <h2 className="text-4xl sm:text-4xl md:text-5xl font-bold text-gray-900 moments-heading">
             Moment from <br/> Our
             <span className="text-purple-600"> Career Guidance Programes</span>
           </h2>
@@ -31,7 +55,15 @@ export default function MomentsSlider() {
              students make the right academic and career choices.
           </p>
         </div>
-        
+
+           { loading ?
+            <div className="flex justify-center items-center gap-6">
+              {[...Array(3)].map((_, i) => (
+              <SkeletonMoment isActive={i === 1} key={i} />
+            ))}
+          </div>
+           : 
+        <>
         <button className="momPrev md:hidden absolute left-2 top-[50%] -translate-y-1/2 z-10 bg-white shadow-md rounded-full p-2">
             <HiChevronLeft size={24} />
         </button>
@@ -55,7 +87,7 @@ export default function MomentsSlider() {
             768: { slidesPerView: 3 },
           }}
         >
-          {moments.map((img, i) => (
+          {data?.listing.map((data, i) => (
             <SwiperSlide key={i}>
               {({ isActive }) => (
                 <div
@@ -64,7 +96,7 @@ export default function MomentsSlider() {
                   }`}
                 >
                   <img
-                    src={`${img}?auto=format&fit=crop&w=900&q=80`}
+                    src={`${data?.url}?auto=format&fit=crop&w=900&q=80`}
                     className="w-full h-[360px] object-cover"
                   />
                 </div>
@@ -72,8 +104,8 @@ export default function MomentsSlider() {
             </SwiperSlide>
           ))}
         </Swiper>
-
+        </> }
       </div>
-    </section>
+    </section> : null
   );
 }

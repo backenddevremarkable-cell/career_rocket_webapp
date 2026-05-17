@@ -2,9 +2,9 @@
 
 import { FaCheck } from "react-icons/fa";
 
-export default function Pricing() {
+export default function AppPromo() {
   return (
-    <section className="py-24 bg-[#f6f4f8] px-4">
+    <section id="pricing" className="py-10 md:py-10 bg-[#f6f4f8] px-4">
       <div className="max-w-4xl mx-auto text-center">
 
         {/* Heading */}
@@ -37,7 +37,9 @@ export default function Pricing() {
           </div>
 
           {/* PRO (CENTER ACTIVE) */}
-          <div className="relative bg-white rounded-2xl p-10 shadow-xl border-2 border-purple-600 scale-105">
+    
+          
+          <div className="relative bg-white rounded-2xl p-10 shadow-xl border-2 border-purple-600 scale-105 animated-border">
             
             {/* Badge */}
             <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-purple-600 text-white text-sm px-4 py-1 rounded-full">

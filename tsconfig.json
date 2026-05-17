@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-  ],
+, "pages/sign-up.js", "components/Navbar.js", "components/Navbar.js", "utils/token.js", "utils/token.js"  ],
   "exclude": ["node_modules"]
 }

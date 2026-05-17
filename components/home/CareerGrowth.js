@@ -7,14 +7,11 @@ import background from "../../assets/images/map-bg.svg";
 import Image from "next/image";
 
 export default function CareerGroth() {
-
-  console.log(background,'');
+ 
   return (
     <section
-      className="
-        relative py-24 px-4 text-center text-white overflow-hidden
-        bg-gradient-to-b from-purple-600 to-purple-800
-      "
+      className="relative py-15 px-4 text-center text-white overflow-hidden
+        bg-gradient-to-b from-purple-600 to-purple-800"
      style={{
       backgroundImage: `url(${background.src})`,
       backgroundSize: "cover",
@@ -49,7 +46,7 @@ export default function CareerGroth() {
 
         {/* Stats */}
        <div className="mt-14 flex justify-center">
-  <div className="grid md:grid-cols-2 gap-8 max-w-5xl w-full px-4">
+  <div className="grid md:grid-cols-2 gap-8 max-w-4xl w-full px-4">
 
     {/* Card 1 */}
     <div className="bg-white/90 text-purple-700 rounded-2xl p-8 
@@ -58,12 +55,12 @@ export default function CareerGroth() {
 
         <Image
           src={icon1}   // 👈 medal image
-          className="w-15"
+          className="w-20"
         />
 
       <div>
-        <h3 className="text-3xl font-bold  text-left text-primary">15,000+</h3>
-        <p className="text-sm text-gray-600">
+        <h3 className="text-5xl font-bold  text-left text-primary">15,000+</h3>
+        <p className="text-sm text-gray-600 jorney-text">
           PSYCHOMETRIC ASSESSMENTS IN A SINGLE DAY
         </p>
       </div>
@@ -77,12 +74,12 @@ export default function CareerGroth() {
       
         <Image
           src={icon2}   // 👈 medal image
-          className="w-15"
+          className="w-20"
         />
 
-      <div>
-        <h3 className="text-3xl font-bold text-left text-primary">8,500+</h3>
-        <p className="text-sm text-gray-600">
+      <div> 
+        <h3 className="text-5xl font-bold text-left text-primary">8,500+</h3>
+        <p className="text-sm text-gray-600 jorney-text">
           STUDENTS COUNSELLED IN A SINGLE DAY
         </p>
       </div>

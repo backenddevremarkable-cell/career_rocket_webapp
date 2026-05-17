@@ -1,53 +1,55 @@
 import { FiSearch } from "react-icons/fi";
 import { Typewriter } from "react-simple-typewriter";
 import Search from "../common/Search";
+import Link from "next/link";
+import { suffleCategory } from "@/services/publicService";
+import { useDataStore } from "@/store/useDataStore";
+import { useState,useEffect } from "react";
 
 export default function Hero() {
+
+      const career = ['pink','green','orange','purple','blue']
+      const { setHomeCareer, homeCareer } = useDataStore((state) => state);
+      const [data, setData] = useState(homeCareer);
+      const [loading, setLoading] = useState(false);
+    
+         const fetchData = async () => {
+          try {
+            setLoading(true);
+            const res = await suffleCategory();
+            const responseData = res?.data || [];
+            setData(responseData);
+            setHomeCareer(responseData);
+          } catch (error) {
+            console.error("Error fetching stories:", error);
+          } finally {
+            setLoading(false);
+          }
+        }
+      
+        useEffect(() => {
+          if(!data) fetchData()
+        }, [])
+
+    //suffleCategory
   
   return (
-    <section className="hero-bg relative pt-32 pb-24 text-center mt-4">
-
-      <div className="max-w-5xl mx-auto px-6">
-
-        <div className="inline-block px-4 py-2 bg-purple-100  text-purple-600 text-primary rounded-full text-xs font-bold">
-          SCIENCE + HUMAN INTELLIGENCE
-        </div>
-
-        <h1 className="mt-6 text-4xl md:text-6xl font-bold text-gray-800">
-          Find the career you were
-        </h1>
-
-         <h1 className="text-4xl md:text-6xl font-bold gradient-text mt-3 mb-16">
-            <Typewriter
-              words={[
-                "born to lead.",
-                "born to innovate.",
-                "born to create.",
-                "born to inspire.",
-                "born to build."
-              ]}
-              loop={true}
-              cursor
-              cursorStyle="|"
-              typeSpeed={70}
-              deleteSpeed={40}
-              delaySpeed={2000}
-        />
-      </h1>
-
-        {/* Search */}
-        <Search/>
-
-        {/* Pills */}
-        <div className="flex flex-wrap justify-center gap-4 mt-8">
-          <span className="pill gray">All</span>
-          <span className="pill pink">Technology</span>
-          <span className="pill green">Healthcare</span>
-          <span className="pill orange">Business</span>
-          <span className="pill purple">Creative</span>
-          <span className="pill blue">Engineering</span>
-        </div>
-
+    <section id="hero" className="hero-bg relative pt-32 pb-36 text-center">
+    <div className="max-w-5xl mx-auto px-6">
+        <Search isPopup={true}  placeholder={`Search for careers, skills, or industries...`} heading={`Find the career you were`} Badge={'SCIENCE + HUMAN INTELLIGENCE'} textSlide={true} />
+        
+       { data ? 
+        <div className="flex flex-wrap justify-center gap-4 mt-14">
+          <Link href={`/career-library`}>
+            <span className={`pill gray`}>ALL</span>
+          </Link>
+              {data && data.map((item, i) => {
+                  return <Link href={`/career-library${`?search=${item.name_en}`}`}>
+                      <span key={i} className={`pill ${career[i]}`}>{item.name_en}</span>
+                   </Link>
+               })
+             } 
+        </div> : null }
       </div>
     </section>
   );

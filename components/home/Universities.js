@@ -18,7 +18,7 @@ const universities = [
 
 export default function Universityes() {
   return (
-    <section className="py-20 bg-[#f6f4f8]">
+    <section className="py-10 bg-[#fff] trusted-leading">
       <div className="max-w-6xl mx-auto px-4 text-center">
 
         {/* Heading */}

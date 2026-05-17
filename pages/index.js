@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Navbar from "../components/Navbar";
 import Hero from "../components/home/Hero";
 import About from "../components/home/About";
 import Stats from "../components/home/Stats";
@@ -12,28 +11,32 @@ import Moments from "../components/home/Moments";
 import SuccessStories from "../components/home/SuccessStories";
 import Universityes from "../components/home/Universities";
 import Pricing from "../components/home/Pricing";
-import Footer from "../components/Footer";
 import Untitled from "../assets/images/Untitled.png";
 import Image from "next/image";
-
-
+import { customEncrypt } from "../utils/cryptoHelper";
+import AppPromo from "../components/home/AppPromo";
+ 
 export default function Home() {
-  return (
+
+    //  const runEncryption = async (e) => {
+    //   const encrypted = await customEncrypt(e);
+    //   console.log("Encrypted:", encrypted);
+    // };
+
+   return (
     <>
-      <Navbar />
       <Hero />
       <About />
       <Stats/>
       <Services/>
       <Assessment/>
       <CareerCounselors/>
-      <Courses/>
       <CareerGroth/>
+      <Courses/>
       <Moments/>
       <SuccessStories/>
       <Universityes/>
-      <Pricing/>
-      <Footer/>
+      <AppPromo/>
       {/* <Image src={Untitled}/> */}
     </>
   );

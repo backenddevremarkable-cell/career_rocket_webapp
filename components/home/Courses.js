@@ -2,52 +2,54 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-
 import "swiper/css";
 import "swiper/css/navigation";
-
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
-import { FaRegClock } from "react-icons/fa";
-import { MdBarChart } from "react-icons/md";
-import pic from "../../assets/images/courses.svg";
-import Image from "next/image";
-
-const courses = [
-  {
-    title: "Foundations of Behavioral Psychometrics",
-    img: pic,
-    weeks: "10 Weeks",
-    modules: "12 Modules",
-  },
-  {
-    title: "Foundations of Behavioral Psychometrics",
-    img: pic,
-    weeks: "10 Weeks",
-    modules: "12 Modules",
-  },
-  {
-    title: "Foundations of Behavioral Psychometrics",
-    img: pic,
-    weeks: "10 Weeks",
-    modules: "12 Modules",
-  },
-  {
-    title: "Foundations of Behavioral Psychometrics",
-    img: pic,
-    weeks: "10 Weeks",
-    modules: "12 Modules",
-  },
-   {
-    title: "Foundations of Behavioral Psychometrics",
-    img: pic,
-    weeks: "10 Weeks",
-    modules: "12 Modules",
-  },
-];
+import Link from "next/link";
+import CourseCard from "../../pages/course/elements/card";
+import { useEffect, useState } from "react";
+import { getCourses } from "@/services/authService";
+import { useDataStore } from "@/store/useDataStore";
+import SkeletonCourses from "./skeleton/SkeletonCourses";
+import LightButton from "../common/button/Light";
 
 export default function Courses() {
-  return (
-    <section className="py-20 bg-[#f6f4f8] px-4">
+  
+    const { setCourses, courses } = useDataStore((state) => state);
+    const [data, setData] = useState(courses);
+    const [loading, setLoading] = useState(false);
+
+     const fetchData = async () => {
+      try {
+        setLoading(true);
+        const payload = {
+          maincatId: 2,
+          subCatId: 2,
+          isPaid: 2,
+          page: 1,
+          limit: 10,
+          search: "",
+        };
+
+        const res = await getCourses(payload);
+        const responseData = res?.data || [];
+        setData(responseData);
+        setCourses(responseData);
+
+      } catch (error) {
+        console.error("Error fetching stories:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  
+    useEffect(() => {
+      if(!courses) fetchData()
+    }, [])
+  
+
+  return ( data?.records && data?.records.length || loading ?
+    <section id="courses" className="py-10 md:py-10 bg-[#fff] px-4 swiper-section" style={{ paddingBottom : '70px'}}>
       <div className="max-w-6xl mx-auto relative">
 
         {/* Top Heading */}
@@ -61,11 +63,18 @@ export default function Courses() {
             </p>
           </div>
 
-          <button className="border border-purple-600 text-purple-600 px-5 py-2 rounded-md  hover:text-white transition">
-            View All Course
-          </button>
+          <LightButton text={'View All Course'} link={'courses'}/>
         </div>
 
+        { loading ?    
+        <div className="max-w-7xl mx-auto px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {[...Array(4)].map((_, i) => (
+            <SkeletonCourses key={i} />
+          ))}
+        </div>
+      </div> :
+      <>
         {/* arrows */}
         <button className="coursePrev absolute -left-3 top-[55%] z-10 bg-white shadow-md rounded-full p-2">
           <HiChevronLeft size={24} />
@@ -74,6 +83,7 @@ export default function Courses() {
         <button className="courseNext absolute -right-3 top-[55%] z-10 bg-white shadow-md rounded-full p-2">
           <HiChevronRight size={24} />
         </button>
+
 
         {/* Slider */}
         <Swiper
@@ -90,50 +100,16 @@ export default function Courses() {
             1280: { slidesPerView: 4 },
           }}
         >
-          {courses.map((item, i) => (
+          {data?.records.map((item, i) => (
             <SwiperSlide key={i}>
-              <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
-
-                {/* Image */}
-                <div className="relative">
-                  <Image
-                    src={item.img}
-                    className="w-full h-[180px] object-cover"
-                  />
-
-                  <span className="absolute top-3 left-3 bg-gray-700 text-white text-xs px-3 py-1 rounded-full">
-                    Certificate
-                  </span>
-                </div>
-
-                {/* Content */}
-                <div className="p-5">
-                  <div className="flex gap-5 text-sm text-gray-500 mb-2">
-                    <span className="flex items-center gap-1">
-                      <FaRegClock className="text-purple-600" />
-                      {item.weeks}
-                    </span>
-
-                    <span className="flex items-center gap-1">
-                      <MdBarChart className="text-purple-600" />
-                      {item.modules}
-                    </span>
-                  </div>
-
-                  <h3 className="font-semibold text-gray-900">
-                    {item.title}
-                  </h3>
-
-                  <button className="w-full mt-4 border border-purple-600 text-purple-600 py-2 rounded-md btn-hover hover:text-white transition">
-                    View Course
-                  </button>
-                </div>
-              </div>
+              <CourseCard key={item.id} data={item} view={true} />
             </SwiperSlide>
           ))}
         </Swiper>
 
-      </div>
-    </section>
+        </> }
+
+      </div> 
+    </section> : null
   );
 }
