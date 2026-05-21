@@ -30,7 +30,7 @@ const contactItems = [
 ];
 
   return (
-    <main className="min-h-screen bg-[#f6f4f8]">
+    <main className=" min-h-screen bg-[#f6f4f8]">
       
       {/* FIXED */}
       <Sidebar />
@@ -38,7 +38,6 @@ const contactItems = [
 
       {/* SCROLLABLE CONTENT */}
       <section className="ml-[255px] pt-[78px]">
-        <div className="p-8">
           
           {/* TOP */}
           <div className="grid grid-cols-[1.6fr_.95fr] gap-5">
@@ -88,9 +87,9 @@ const contactItems = [
                     <div className="h-full w-[40%] rounded-full bg-primary"></div>
                   </div>
 
-                  <button className="mt-5 h-[36px] rounded-full bg-primary px-5 text-[12px] font-semibold text-white">
+                  <Link href="/my-course" className="mt-6 inline-flex h-[42px] w-[200px] items-center justify-center rounded-full bg-primary text-[13px] font-semibold text-white">
                     Continue Learning
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -143,7 +142,7 @@ const contactItems = [
   })}
 </div>
 
-              <Link   class="mt-6 inline-flex h-[42px] w-full items-center justify-center rounded-full bg-primary text-[13px] font-semibold text-white" href={'/counselors'} >
+              <Link className="mt-6 inline-flex h-[42px] w-full items-center justify-center rounded-full bg-primary text-[13px] font-semibold text-white" href={'/counselors'} >
                 Connect With Counsellor
               </Link>
             </div>
@@ -181,7 +180,6 @@ const contactItems = [
               )
             )}
           </div> */}
-        </div>
       </section>
     </main>
   );

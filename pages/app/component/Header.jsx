@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   Bell,
@@ -11,26 +11,41 @@ import {
   Settings,
   User,
 } from "lucide-react";
+import Link from "next/link";
+import { useDataStore } from "@/store/useDataStore";
+import CustomImage from "../../../components/common/ImageMedia";
+import { BASE_URL } from "@/config";
+import SearchGloabal from "../../../components/common/SearchGloabal";
+
 
 export default function Header() {
   const [openProfile, setOpenProfile] =
     useState(false);
 
+  const [userData, setUserData] = useState(null);
+  const { users } = useDataStore((state) => state);
+
+    useEffect(() => {
+        setUserData(users)
+    }, [users]);
+
+
   return (
     <header className="fixed right-0 top-0 z-30 flex h-[78px] w-[calc(100%-255px)] items-center justify-between border-b border-[#ebe7ef] bg-[#fbfafc]/95 px-8 backdrop-blur-lg">
       
       {/* SEARCH */}
-      <div className="relative w-[430px]">
-        <Search
+      <div className="relative w-[530px]">
+         <SearchGloabal isDashboard={true}/> 
+        {/* <Search
           size={17}
           className="absolute left-5 top-1/2 -translate-y-1/2 text-[#888]"
-        />
+        /> */}
 
-        <input
+        {/* <input
           type="text"
           placeholder="Search courses, mentors, or careers..."
           className="h-[44px] w-full rounded-full border border-[#ece7ef] bg-white pl-12 pr-5 text-[13px] outline-none transition-all duration-300 placeholder:text-[#999] focus:border-[#c026d3] focus:shadow-[0_0_0_4px_rgba(192,38,211,0.08)]"
-        />
+        /> */}
       </div>
 
       {/* RIGHT */}
@@ -59,15 +74,13 @@ export default function Header() {
               </p>
 
               <h4 className="text-[13px] font-bold text-[#222]">
-                Hi, Daiya Gopal 👋
+                Hi, {userData?.name} 👋
               </h4>
             </div>
 
-            <img
-              src="https://i.pravatar.cc/100"
-              alt=""
-              className="h-[38px] w-[38px] rounded-full object-cover"
-            />
+            <div className="h-[38px] w-[38px]">
+             <CustomImage errorMedia={`${BASE_URL}website/img/blog-details-author.png`} img={userData?.profilePhoto} className={`rounded-full`} alt={'career rocket'} />
+            </div>
 
             <ChevronDown
               size={15}
@@ -89,15 +102,12 @@ export default function Header() {
           >
             <div className="border-b border-[#f3eff6] p-4">
               <div className="flex items-center gap-3">
-                <img
-                  src="https://i.pravatar.cc/100"
-                  alt=""
-                  className="h-[44px] w-[44px] rounded-full"
-                />
-
+                <div className="h-[44px] w-[44px] shrink-0">
+                  <CustomImage errorMedia={`${BASE_URL}website/img/blog-details-author.png`} img={userData?.profilePhoto} className={`rounded-full`} alt={'career rocket'} />
+               </div> 
                 <div>
                   <h4 className="text-[14px] font-bold text-[#222]">
-                    Mohamed
+                    {userData?.name}
                   </h4>
 
                   <p className="text-[12px] text-[#777]">
@@ -111,16 +121,19 @@ export default function Header() {
               
               <DropdownItem
                 icon={User}
+                url="/profile"
                 title="My Profile"
               />
 
               <DropdownItem
                 icon={ClipboardList}
+                url="/my-test"
                 title="My Tests"
               />
 
               <DropdownItem
                 icon={LogOut}
+                url="/logout"
                 title="Logout"
                 danger
               />
@@ -137,10 +150,11 @@ export default function Header() {
 function DropdownItem({
   icon: Icon,
   title,
+  url,
   danger = false,
 }) {
   return (
-    <button
+    <Link href={url}
       className={`flex h-[44px] w-full items-center gap-3 rounded-[12px] px-3 transition-all duration-200 ${
         danger
           ? "text-red-500 hover:bg-red-50"
@@ -152,6 +166,6 @@ function DropdownItem({
       <span className="text-[13px] font-medium">
         {title}
       </span>
-    </button>
+    </Link>
   );
 }

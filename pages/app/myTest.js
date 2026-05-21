@@ -34,10 +34,8 @@ export default function myTest() {
 
   return (
     <main className="min-h-screen bg-[#f7f5f8]">
-      <NavDashboard/>
-
-   <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">       
-     <div className="min-h-screen p-6">
+   <section className="ml-[255px] pt-[78px]">       
+     <div className="min-h-screen">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">
         My Test Reports
       </h2>
@@ -95,8 +93,6 @@ export default function myTest() {
     </div>
    </section> 
 
-        {/* Footer */}
-      <FooterDashboard/>
     </main>
   );
 }

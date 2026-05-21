@@ -20,16 +20,13 @@ export default function profile() {
   }
 
 
-
   return (
-  <main className="min-h-screen">
-    <NavDashboard/>
-   
+  <main className="min-h-screen bg-[#f6f4f8]">
    { users ?
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-200 py-6 px-4">
-      <div className="max-w-5xl mx-auto">
+    <section className="ml-[255px] pt-[78px]">
+      <div className="mx-auto">
         {/* Top Card */}
-        <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
+        <div className="bg-white rounded-[12px] shadow-xl overflow-hidden">
           <div className="bg-gradient-to-r  to-indigo-600 h-40 relative bg-primary-color">
             <div className="absolute -bottom-16 left-8">
               <img
@@ -63,7 +60,7 @@ export default function profile() {
 
         {/* Details Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-          <div className="bg-white rounded-2xl shadow-md p-6">
+          <div className="bg-white rounded-[12px] shadow-md p-6">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">
               Personal Information
             </h2>
@@ -93,7 +90,7 @@ export default function profile() {
         </div>
 
         {/* Address Section */}
-        <div className="bg-white rounded-2xl shadow-md p-6 mt-8">
+        <div className="bg-white rounded-[12px] shadow-md p-6 mt-8">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Address</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -102,8 +99,9 @@ export default function profile() {
             <ProfileField label="City" value={users?.city?.name_en} />
           </div>
         </div>
-      </div>
-    </div> : null }
+      </div> 
+    </section>
+      : null }
    </main> 
   );
 }

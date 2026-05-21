@@ -6,6 +6,7 @@ const appPages = [
   { "url" : "community", "page" : "community"},
   { "url" : "my-test", "page" : "myTest"},
   { "url" : "my-course", "page" : "myCourse"},
+  { "url" : "scholarship-test", "page" : "scholarshipTest"},
   { "url" : "personality-test", "page" : "personalityTest"},
   { "url" : "profile", "page" : "profile"},
   { "url" : "reports", "page" : "reports"},
@@ -14,6 +15,9 @@ const appPages = [
   { "url" : "edit-profile", "page" : "editProfile"},
   { "url" : "logout", "page" : "logout"},
   { "url" : "attempt-test/:slug", "page" : "attemp-ideal-career-test/page?slug=:slu"},
+  { "url" : "course-subject/:slug", "page" : "myCourse/subjects?slug=:slu"},
+  { "url" : "course-subject-topics/:slug", "page" : "myCourse/subjectsTopics?slug=:slu"},
+  { "url" : "course-topic-contents/:slug", "page" : "myCourse/topicContents?slug=:slu"},
 ]
 
 const nextConfig: NextConfig = {

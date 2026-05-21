@@ -145,6 +145,11 @@ input[type="number"] {
   border-radius: 50px;
 }
 
+.search-wrapper-dashboard{
+    border: solid 1px #dfdfdf !important;
+
+}
+
 .search-input {
   @apply flex-1 px-6 py-4 outline-none text-gray-700;
 }

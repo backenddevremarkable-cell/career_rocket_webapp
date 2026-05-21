@@ -43,6 +43,19 @@ export const successPayment = async (data : string) => {
   return await apiPost(API_PATHS.COURSE.SUCCESS_PAYMENT, data);
 }
 
+export const subjectFromCourse = async (data : string) => {
+  return await apiPost(API_PATHS.COURSE.SUBJECT_FROM_COURSE, data);
+}
+
+export const courseTopicsBySubject = async (data : string) => {
+  return await apiPost(API_PATHS.COURSE.COURSE_TOPICS_BY_SUBJECTS, data);
+}
+
+export const contentByTopicId = async (data : string) => {
+  return await apiPost(API_PATHS.COURSE.CONTENT_BY_TOPOIC_ID, data);
+}
+
+
 export const updateProfileRe = async (data: { name: string; mail: string, educationLevel : string, mobile : string }) => {
   const updatepayload = {
     student_name : data?.name, 

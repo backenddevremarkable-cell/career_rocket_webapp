@@ -77,30 +77,30 @@ export default function idealCareerTest() {
        <section className="ml-[255px] pt-[78px]">
        {/* <section className="mx-auto max-w-6xl px-4 py-5 sm:px-6 lg:px-8"> */}
         {/* Main Content */}
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-12">
           {/* Left Side */}
           <div className="space-y-6 lg:col-span-8">
             {/* Banner Card */}
-            <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+            <div className="overflow-hidden rounded-[12px] border border-gray-200 bg-white shadow-sm">
               <img
                 src={info.image}
-                alt="career"
-                className="h-[260px] w-full object-cover md:h-[420px]"
+                alt={info.title}
+                className="w-full object-cover"
               />
 
               <div className="p-6 md:p-8">
-                <h3 className="text-2xl font-bold leading-tight text-[#18233b]">
+                <h3 className="text-2xl font-bold leading-tight uppercase text-[#18233b]">
                   Identifying Your  {info.title} Starts Here
                 </h3>
 
-                <p className="mt-5 text-lg leading-9 text-slate-500">
+                <p className="mt-5 text-lg leading-9  text-slate-500">
                   { parse(info.description) }
                 </p>
               </div>
             </div>
 
             {/* How It Works */}
-            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:p-8">
+            <div className="rounded-[12px] border border-gray-200 bg-white p-6 shadow-sm md:p-8">
               <h3 className="text-2xl font-bold uppercase text-[#18233b]">
                 HOW DOES IDEAL CAREER TEST WORK?
               </h3>
@@ -130,7 +130,7 @@ export default function idealCareerTest() {
 
           {/* Right Side Card */}
           <div className="lg:col-span-4">
-            <div className="sticky top-28 rounded-2xl border border-gray-200 bg-white p-5 shadow-xl shadow-gray-200/70">
+            <div className="sticky rounded-[12px] border border-gray-200 bg-white p-5 shadow-xl shadow-gray-200/70">
 
               <h3 className="mt-5 text-2xl font-bold text-[#18233b]" style={{ textTransform : 'uppercase'}}>
                   IDEAL CAREER TEST

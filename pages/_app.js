@@ -31,24 +31,30 @@ export default function MyApp({ Component, pageProps }) {
       fetchProfile();
     }
   }, [users]);
- //router.pathname.includes("sign-up")
+  const isSignUp = router.pathname.includes("sign-up")
   const isDashboard = router.pathname.includes("app");
  
   return (
     <>
     <Toaster position="bottom-center" />
       
-    { isDashboard ?
+    { isSignUp ? <Component {...pageProps} /> : isDashboard ?
       <>
-        <Sidebar/>
+        <div className="bg-[#F6F4F8]">
+          <Sidebar/>
         <Header />
+        <div className="max-w-7xl mx-auto p-4">
+          <Component {...pageProps} />
+        </div>
+        </div>
       </> 
       :
+      <>
       <Navbar />
+       <Component {...pageProps} />
+       {!isDashboard && <Footer />}
+      </>
     }
-
-      <Component {...pageProps} />
-      {!isDashboard && <Footer />}
     </>
   );
 }

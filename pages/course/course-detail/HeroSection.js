@@ -67,22 +67,25 @@ export default function HeroSection(props) {
       order_id: orderId,
 
       handler: async (response) => {
+
+        console.log(response.razorpay_payment_id,'responseresponseresponseresponse')
+
         try {
           // ✅ verify payment
-          const verifyRes = await fetch("/api/payment-success", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(response),
-          });
+          // const verifyRes = await fetch("/api/payment-success", {
+          //   method: "POST",
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //   },
+          //   body: JSON.stringify(response),
+          // });
 
-          const verifyData = await verifyRes.json();
+          // const verifyData = await verifyRes.json();
 
-          if (!verifyData.success) {
-            ERROR_MSG("Payment verification failed");
-            return;
-          }
+          // if (!verifyData.success) {
+          //   ERROR_MSG("Payment verification failed");
+          //   return;
+          // }
 
           // ✅ activate course
           const buyRes = await successPayment({

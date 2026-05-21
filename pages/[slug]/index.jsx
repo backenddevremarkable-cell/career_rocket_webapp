@@ -27,6 +27,7 @@ import about from "../../assets/images/about.svg";
 import chooseUs from "../../assets/images/seo-choose-us.png";
 import { FaTimes } from "react-icons/fa";
 import Modal from "../../components/common/Modal";
+import CustomImage from "../../components/common/ImageMedia";
 
 
 const services = [
@@ -139,11 +140,11 @@ export default function SeoDataPage() {
       {/* LEFT */}
       <div>
         {/* Animated Badge */}
-        <div className="relative inline-flex overflow-hidden rounded-full p-[1px]">
+        {/* <div className="relative inline-flex overflow-hidden rounded-full p-[1px]">
           <div className="relative z-10 rounded-full border border-white/20 bg-white/10 backdrop-blur-xl px-7 py-3 text-sm font-semibold text-white shadow-[0_0_25px_rgba(255,255,255,0.08)]">
             Best Career Counselling in Jaipur
           </div>
-        </div>
+        </div> */}
 
         <h1 className="mt-8 text-5xl leading-tight font-extrabold md:text-5xl">
             {data?.heading}
@@ -211,13 +212,19 @@ export default function SeoDataPage() {
 
         <div className="relative overflow-hidden rounded-[12px] border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
           
-          <Image
-              src={about}
+          <CustomImage
+             img={data?.image}
+             alt={data?.heading}
+             className="w-full object-cover"
+          />
+
+          {/* <Image
+              src={data?.image}
               alt="career"
               width={700}
               height={700}
               className="h-[600px] w-full object-cover"
-            />
+            /> */}
 
         </div>
 

@@ -306,11 +306,10 @@ export default function EditProfileForm() {
   }
 
   return (
-  <main className="min-h-screen">
-   <NavDashboard/>
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50 py-10 px-4">
+  <main className="min-h-screen bg-[#f6f4f8]">
+   <section className="ml-[255px] pt-[78px]">
       <div className="mx-auto max-w-6xl">
-        <div className="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl">
+        <div className="overflow-hidden rounded-[12px] border border-gray-200 bg-white shadow-xl">
           {/* Header */}
           <div className="border-b border-gray-100  from-indigo-600 to-purple-600 px-6 py-5 md:px-10 bg-primary-color">
             <h2 className="text-2xl md:text-3xl font-bold text-white">
@@ -558,7 +557,7 @@ export default function EditProfileForm() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
    </main> 
   );
 }

@@ -5,6 +5,7 @@ import { saveToStorage } from "@/utils/index";
 import axios from "axios";
 import { SUCCESS_MSG } from "@/utils";
 import NavDashboard from "../../../components/NavDashboard";
+import LoadingScreen from "../../../components/common/Loading";
 
 export default function idealCareerTest() {
 
@@ -82,8 +83,7 @@ export default function idealCareerTest() {
 
   return (
     <main className="min-h-screen bg-[#f7f5f8]">
-       <NavDashboard updateClass={'initial-header'}/>
-       
+      <section className="ml-[255px] pt-[78px]">
        { url ?  
         <div style={{ width: "100%", height: "100vh", margin: 0 }}>
             <iframe
@@ -95,9 +95,10 @@ export default function idealCareerTest() {
                 style={{ border: "none", display: "block" }}
                 allowFullScreen
             />
-            </div> : 'please wait....' }
+            </div> : <LoadingScreen/> }
         
       {/* Footer */}
+      </section>
     </main>
   );
 }

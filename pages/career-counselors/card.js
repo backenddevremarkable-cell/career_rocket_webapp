@@ -5,7 +5,6 @@ import { BASE_URL } from "@/config";
 import CustomImage from "../../components/common/ImageMedia";
 // components/CourseCard.jsx
 export default function CounselorCard({ item }) {
-    console.log( item.experience,'itemmmmmmmmmmmmmmmmmmmm')
 
     const totalYears = item ? item.experience.match(/\d+/)?.[0] : "10"
     const label =  item ? item.experience.match(/[a-zA-Z]+/)?.[0] : "yrs"

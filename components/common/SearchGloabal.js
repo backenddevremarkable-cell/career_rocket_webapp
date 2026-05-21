@@ -22,7 +22,7 @@ import CustomImage from "./ImageMedia";
 import Link from "next/link";
 import { useDataStore } from "@/store/useDataStore";
 
-export default function SearchGloabal() {
+export default function SearchGloabal({isDashboard}) {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
@@ -94,9 +94,8 @@ export default function SearchGloabal() {
   return (
     <>
       {/* Trigger */}
-      <div className="w-full max-w-[760px] mx-auto">
-
-        <div className="search-wrapper mt-10">
+      <div className={`w-full ${!isDashboard ? 'max-w-[760px]' : 'max-w-[860px]' } mx-auto`}>
+        <div className={`search-wrapper ${!isDashboard ? "mt-10" : "search-wrapper-dashboard"}`}>
         <input
         // onClick={() => setIsOpen(true)}
         value={search}
@@ -124,7 +123,7 @@ export default function SearchGloabal() {
     </div>
 
         { (data?.career) || (data?.counsellor) || (data?.course) ? 
-              <div className="mt-0 overflow-hidden max-w-2xl mx-auto rounded-[12px] border border-gray-200 bg-white shadow-[0_20px_70px_rgba(0,0,0,0.18)]">
+              <div className="mt-0 absolute overflow-hidden max-w-2xl mx-auto rounded-[12px] border border-gray-200 bg-white shadow-[0_20px_70px_rgba(0,0,0,0.18)]">
                 <div className="flex items-center justify-between px-7 py-5 border-b border-gray-100">
                   <h3 className="text-sm font-semibold text-gray-700 uppercase">
                     Popular Searches
@@ -152,12 +151,12 @@ export default function SearchGloabal() {
                       key={index}
                       className="group w-full flex items-center justify-between px-4 py-2 hover:bg-[#faf7ff] transition-all border-b border-gray-100 last:border-none"
                     >
-                      <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-3">
                         <div className="h-10 w-10 rounded-[8px] bg-gradient-to-br from-[#F3E8FF] to-[#FAE8FF] flex items-center justify-center text-[#9D2BA8] g-search">
                           <CustomImage className={`rounded-[8px] object-cover custom-img mx-auto`} alt={item?.name_en} img={item?.icon}/>
                         </div>
 
-                        <div className="text-left">
+                        <div className="text-left w-[380px]">
                           <h2 className="text-[15px] font-semibold text-gray-800">
                             {item?.name_en}
                           </h2>
@@ -182,12 +181,12 @@ export default function SearchGloabal() {
                       key={index}
                       className="group w-full flex items-center justify-between px-4 py-2 hover:bg-[#faf7ff] transition-all border-b border-gray-100 last:border-none"
                     >
-                      <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-3">
                         <div className="h-10 w-10 rounded-[8px] bg-gradient-to-br from-[#F3E8FF] to-[#FAE8FF] flex items-center justify-center text-[#9D2BA8]  g-search">
                           <CustomImage className={`rounded-[8px] object-cover custom-img mx-auto`} alt={item?.title} img={item?.thumbnailUrl}/>
                         </div>
 
-                        <div className="text-left">
+                        <div className="text-left  w-[380px]">
                           <h2 className="text-[15px] font-semibold text-gray-800">
                             {item?.title}
                           </h2>
@@ -211,12 +210,12 @@ export default function SearchGloabal() {
                         key={index}
                         className="group w-full flex items-center justify-between px-4 py-2 hover:bg-[#faf7ff] transition-all border-b border-gray-100 last:border-none"
                       >
-                      <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-3">
                         <div className="h-10 w-10 rounded-[8px] bg-gradient-to-br from-[#F3E8FF] to-[#FAE8FF] flex items-center justify-center text-[#9D2BA8] g-search">
                            <CustomImage className={`rounded-[8px] object-cover custom-img mx-auto`} alt={item?.name} img={item?.profilePic}/>
                         </div>
 
-                        <div className="text-left">
+                        <div className="text-left w-[380px]">
                           <h2 className="text-[15px] font-semibold text-gray-800">
                             {item?.name}
                           </h2>

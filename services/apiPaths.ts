@@ -50,6 +50,12 @@ export const API_PATHS = {
     BUY_FREE_COURSE: "/purchaseFreeCourse",
     SUCCESS_PAYMENT : "/fetchPaymentStatus",
     DETAILS: `/getCourseById`,
+    SUBJECT_FROM_COURSE: `/fetchSubjectfromContentByCourseId`,
+    COURSE_TOPICS_BY_SUBJECTS: `/getAllCourseTopicBySubjectId`,
+    CONTENT_BY_TOPOIC_ID: `/getContentByTopicId`,
+    // DETAILS: `/getCourseById`,
+    // DETAILS: `/getCourseById`,
+
   },
  
 };
