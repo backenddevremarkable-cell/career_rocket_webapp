@@ -7,6 +7,7 @@ import {
   FaChartLine,
 } from "react-icons/fa";
 import Modal from "../../../components/common/Modal";
+import NoRecordFound from "../../../components/common/NoRecordFound";
 
 export default function HeroSection(props) {
 
@@ -20,9 +21,8 @@ const TOTAL_MAX = 3000000;
 // calculate percentage
 const rangePercent = (max / TOTAL_MAX) * 100;
 
-console.log(props,'sdfsdf')
 
-  return (
+  return ( analytics ?
     <section className="relative overflow-hidden bg-gradient-to-r from-fuchsia-700 via-purple-700 to-violet-700 py-20 px-6 lg:px-20">
       
       {/* Glow Effects */}
@@ -152,6 +152,6 @@ console.log(props,'sdfsdf')
       <Modal setOpen={setOpen} heading={props?.name_en} description={props?.description_en} />
     )}
     
-    </section>
+    </section> : null
   );
 }

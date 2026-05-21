@@ -24,7 +24,7 @@ export const saveToStorage = (key : string, value: number) => {
 
 
 export const getSlug = (e: string) => {
-  return e.toLowerCase().replace(/\s+/g, "-"); // 1 day
+  return e ? e.toLowerCase().replace(/\s+/g, "-") : ""; // 1 day
 }
 export const getFromStorage = (key :string) => {  
  const data = localStorage.getItem(key);

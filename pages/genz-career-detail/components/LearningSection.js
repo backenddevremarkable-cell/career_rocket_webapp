@@ -43,7 +43,7 @@ export default function CareerInsights(props) {
  
   const current =
   intensityConfig[demandIntensity] || {};
-  return (
+  return ( props?.workNature ?
     <section className="w-full bg-[#faf7fb] py-20 px-4 md:px-10">
       <div className="max-w-5xl mx-auto">
         
@@ -296,6 +296,6 @@ export default function CareerInsights(props) {
         </div>
 
       </div>
-    </section>
+    </section> : null
   );
 }

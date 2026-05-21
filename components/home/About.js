@@ -41,8 +41,8 @@ export default function About() {
             </p>
 
             <div className="mt-8 flex gap-4">
-              <DarkButton className={'rounded-[25px]'} text={'Start Career Assessment →'}  />
-              <LightButton className={'rounded-[25px]'} text={'Explore Careers'} />
+              <DarkButton link="/ideal-career-test" className={'rounded-[25px]'} text={'Start Career Assessment →'}  />
+              <LightButton link="/career-library" className={'rounded-[25px]'} text={'Explore Careers'} />
             </div>
           </div>
 

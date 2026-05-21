@@ -1,6 +1,7 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
 import { Navigation } from "swiper/modules";
 
 import "swiper/css";
@@ -76,20 +77,32 @@ export default function Counselors() {
           ))}
         </div> :
         <>
+
+       <div className="relative">
         {/* arrows */}
-        <button className="prevBtn absolute left-0 top-[55%] z-10 bg-white shadow-md rounded-full p-2">
+        <button className="prevBtn absolute left-[-20px] top-1/2 cursor-pointer -translate-y-1/2 z-20 bg-white shadow-lg rounded-full w-12 h-12 flex items-center justify-center">
           <HiChevronLeft size={24} />
         </button>
-        <button className="nextBtn absolute right-0 top-[55%] z-10 bg-white shadow-md rounded-full p-2">
+
+        <button className="nextBtn absolute right-[-20px] top-1/2 cursor-pointer -translate-y-1/2 z-20 bg-white shadow-lg rounded-full w-12 h-12 flex items-center justify-center">
           <HiChevronRight size={24} />
         </button>
 
         <Swiper
-          modules={[Navigation]}
+          modules={[Navigation, Autoplay]}
+          loop={true}
+          speed={1000}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
           navigation={{
             nextEl: ".nextBtn",
             prevEl: ".prevBtn",
           }}
+          allowTouchMove={true}
+          grabCursor={true}
           spaceBetween={20}
           breakpoints={{
             320: { slidesPerView: 1 },
@@ -97,13 +110,21 @@ export default function Counselors() {
             1024: { slidesPerView: 3 },
             1280: { slidesPerView: 4 },
           }}
+          onTouchStart={(swiper) => {
+            swiper.autoplay.stop();
+          }}
+          onTouchEnd={(swiper) => {
+            swiper.autoplay.start();
+          }}
         >
-          {data && data.map((item, i) => (
-            <SwiperSlide key={i}>
-               <CounselorCard item={item} />
-            </SwiperSlide>
-          ))}
+          {data &&
+            data.map((item, i) => (
+              <SwiperSlide key={i}>
+                <CounselorCard item={item} />
+              </SwiperSlide>
+            ))}
         </Swiper>
+        </div>
          </> }
       </div>
     </section> : null

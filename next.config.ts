@@ -87,12 +87,12 @@ const nextConfig: NextConfig = {
       ];
     },
   /* config options here */
-  // output: 'export',
-  // basePath: '/career-rocket',
-  // assetPrefix: '/career-rocket/',
- // trailingSlash: true,   // IMPORTANT FIX
-  //skipTrailingSlashRedirect: true,
-  //devIndicators: false, 
+//   output: 'export',
+//   basePath: '/career-rocket',
+//   assetPrefix: '/career-rocket/',
+//  trailingSlash: true,   // IMPORTANT FIX
+//   skipTrailingSlashRedirect: true,
+//   devIndicators: false, 
   images: {
   domains: ["images.unsplash.com"],
   unoptimized: true,   // ⭐ VERY IMPORTANT

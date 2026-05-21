@@ -17,7 +17,7 @@ import CustomImage from "../../../components/common/ImageMedia";
 
 export default function OpportunitySection(props) {
   const [openIndex, setOpenIndex] = useState(0);
-  return (
+  return ( props?.opportunities ?
     <section className="bg-[#f7f6f8] py-16">
       <div className="mx-auto max-w-5xl px-5">
         {/* HEADING */}
@@ -117,6 +117,6 @@ export default function OpportunitySection(props) {
           })}
         </div> : null }
       </div>
-    </section>
+    </section> : null
   );
 }

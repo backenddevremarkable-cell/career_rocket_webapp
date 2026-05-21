@@ -165,8 +165,9 @@ export default function Footer() {
             <ul className="space-y-5">
               {[{menu:"About Us", link:"/about-us"},
                 {menu:"Contact Us", link:"/contact-us"},
-                {menu:"career Library", link:"/career-library"},
-                {menu:"News", link:"/news"}].map(
+                {menu:"career Library", link:"/career-library-gen-z"}
+                // {menu:"News", link:"/news"}
+              ].map(
                 (item, index) => (
                   <li key={index}>
                     <Link
@@ -185,7 +186,7 @@ export default function Footer() {
           {/* SPECIALIZATION LEFT */}
           <div>
             <h3 className="text-[20px] leading-none font-bold text-[#111] mb-8">
-              Our Specializations
+              Services
             </h3>
 
             <ul className="grid grid-cols-1 lg:grid-cols-2 gap-x-20 gap-y-4 w-full">

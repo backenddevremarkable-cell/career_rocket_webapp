@@ -31,7 +31,7 @@ export default function CareerNavigator(props) {
     },
   ];
 
-  return (
+  return ( roadmap ?
     <section className="py-0 bg-[#faf7fc] px-6 lg:px-20">
       <div className="max-w-5xl mx-auto">
 
@@ -76,6 +76,6 @@ export default function CareerNavigator(props) {
         </div>
 
       </div>
-    </section>
+    </section> : null
   );
 }

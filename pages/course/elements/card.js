@@ -60,9 +60,11 @@ export default function CourseCard({ data, view }) {
             <FaIndianRupeeSign className="text-xm" />
              {data.isPaid ? data.sellPrice ? 
               <>
+
+               { data.mrp>data.sellPrice ? 
                 <span className="line-through text-gray-400">
                   {data.mrp}
-                </span>
+                </span> : null }
 
                 <span className="font-semibold text-black">
                   {data.sellPrice}

@@ -238,7 +238,7 @@ export default function HeroSection(props) {
         
         {/* TAGS */}
         <div className="flex flex-wrap gap-3 mt-6">
-          {["10 Weeks", "12 Modules", "Certificate Included", "Beginner Friendly"].map((item, i) => (
+          {["Video lecture", "12 Modules", "Certificate Included", "Beginner Friendly"].map((item, i) => (
             <span
               key={i}
               className="bg-purple-100 text-gray-900 px-4 py-2 rounded-full text-sm"

@@ -51,6 +51,7 @@ const data = [
 
 export default function WhoShouldPursue(props) {
   return (
+    props.pursue ?
     <section className="py-24 bg-[#FFF1FF] px-6 lg:px-20">
       <div className="max-w-5xl mx-auto">
 
@@ -92,6 +93,6 @@ export default function WhoShouldPursue(props) {
           })}
         </div>
       </div>
-    </section>
+    </section> : null
   );
 }
