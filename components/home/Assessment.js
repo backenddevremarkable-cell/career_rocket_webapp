@@ -62,7 +62,7 @@ export default function Assessment() {
               </ul>
 
               <DarkButton className={'mt-6 rounded-md'} text={'Start Psychometric Test'} link={"ideal-career-test"} />
-{/* 
+              {/* 
               <button text={'Start Psychometric Test'} onClick={()=>router.push("/ideal-career-test")} className="mt-6 cursor-pointer bg-purple-600 text-white px-5 py-3 rounded-md hover:bg-purple-700 transition
                 hover:bg-[#981fa1]
                 hover:shadow-[0_15px_35px_rgba(175,38,185,0.35)]
@@ -97,7 +97,7 @@ export default function Assessment() {
                 <li>✓ Readiness Score</li>
               </ul>
 
-              <LightButton className={'mt-6 rounded-md'} text={'Start SRA Test'} link={'personality-test'}/>
+              <LightButton className={'mt-6 rounded-md'} text={'Start SRA Test'} link={'personality-test'} />
             </div>
           </div>
         </div>

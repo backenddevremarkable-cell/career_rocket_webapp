@@ -11,14 +11,8 @@ import { useDataStore } from "@/store/useDataStore";
 import {
   FaInstagram,
   FaFacebookF,
-  FaTwitter,
-  FaPinterestP,
   FaYoutube,
   FaMapMarkerAlt,
-  FaGooglePlay,
-  FaApple,
-  FaWindowClose,
-  FaClosedCaptioning,
   FaTimes,
 } from "react-icons/fa";
 import ContactForm from "./common/ContactForm";
@@ -43,62 +37,62 @@ export default function Footer() {
     "Skill Development Counselling",
   ];
 
-    const quickAccess = [
-      { menu : "Talk to A Counselor", link:"/counselors"},
-      { menu : "Self-Rating Test", link:"/personality-test"},
-      { menu : "Idea Career Test", link:"/ideal-career-test"},
-      { menu : "Expert Counselor", link:"/counselors"}
-    ];
+  const quickAccess = [
+    { menu: "Talk to A Counselor", link: "/counselors" },
+    { menu: "Self-Rating Test", link: "/personality-test" },
+    { menu: "Idea Career Test", link: "/ideal-career-test" },
+    { menu: "Expert Counselor", link: "/counselors" }
+  ];
 
-      const { setSeodata, seoData, setCounselorPopup,counselorPopup } = useDataStore((state) => state);
-      const [data, setData] = useState(seoData);
-  
-       const fetchData = async () => {
-        try {
-          const payload = {
-            page: 1,
-            limit: 50,
-          };
-  
-          const res = await seoPage(payload);
-          const responseData = res?.data || [];
-          setData(responseData);
-          setSeodata(responseData);
-  
-        } catch (error) {
-          console.error("Error fetching stories:", error);
-        }
-      }
-    
-      useEffect(() => {
-        if(!seoData) fetchData()
-      }, [])
-    
+  const { setSeodata, seoData, setCounselorPopup, counselorPopup } = useDataStore((state) => state);
+  const [data, setData] = useState(seoData);
 
-  return ( <>
+  const fetchData = async () => {
+    try {
+      const payload = {
+        page: 1,
+        limit: 50,
+      };
 
-  <div className="relative">
-  
-  {/* Gradient Border */}
-  <div className="absolute top-0 left-0 w-full flex justify-center">
-    <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-purple-600 to-transparent blur-[0.3px]"></div>
-  </div>
-</div>
+      const res = await seoPage(payload);
+      const responseData = res?.data || [];
+      setData(responseData);
+      setSeodata(responseData);
+
+    } catch (error) {
+      console.error("Error fetching stories:", error);
+    }
+  }
+
+  useEffect(() => {
+    if (!seoData) fetchData()
+  }, [])
+
+
+  return (<>
+
+    <div className="relative">
+
+      {/* Gradient Border */}
+      <div className="absolute top-0 left-0 w-full flex justify-center">
+        <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-purple-600 to-transparent blur-[0.3px]"></div>
+      </div>
+    </div>
     <footer className="bg-[#fff] border-t border-[#ececec]">
       <div className="max-w-6xl mx-auto px-5 sm:px-8 lg:px-10 pt-16">
         {/* TOP SECTION */}
-         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_.7fr_2fr] gap-x-16 gap-y-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_.7fr_2fr] gap-x-16 gap-y-12">
           {/* LEFT */}
           <div className="max-w-[390px]">
-           <Link href={'/'}>
-            <Image
-              src={logo}
-              alt="Career Rocket"
-              width={240}
-              height={60}
-              className="h-auto w-auto"
-            />
-            </Link> 
+            <Link href={'/'}>
+              <Image
+                src={logo}
+                alt="Career Rocket"
+                width={240}
+                height={60}
+                className="h-auto w-auto"
+              />
+            </Link>
 
             <p className="mt-6 text-[16px] leading-[34px] text-[#666666] font-normal">
               Find your path with expert guidance. We bridge the
@@ -108,34 +102,34 @@ export default function Footer() {
 
             {/* APP BUTTONS */}
             <div className="flex flex-wrap items-center gap-4 mt-8">
-                 {/* BUTTONS */}
+              {/* BUTTONS */}
 
-                <Link target="_blank" href={process.env.NEXT_PUBLIC_PLAY_STORE}>
-                  <Image
-                    src={playStore}
-                    alt="Google Play"
-                    width={140}
-                    height={45}
-                    className="cursor-pointer hover:scale-105 transition"
-                  />
-                </Link>
+              <Link target="_blank" href={process.env.NEXT_PUBLIC_PLAY_STORE}>
+                <Image
+                  src={playStore}
+                  alt="Google Play"
+                  width={140}
+                  height={45}
+                  className="cursor-pointer hover:scale-105 transition"
+                />
+              </Link>
 
-                 <Link target="_blank" href={process.env.NEXT_PUBLIC_APP_STORE}>
-                    <Image
-                    src={appStore}
-                    alt="App Store"
-                    width={140}
-                    height={45}
-                    className="cursor-pointer hover:scale-105 transition"/>
-                </Link>
-              </div>
+              <Link target="_blank" href={process.env.NEXT_PUBLIC_APP_STORE}>
+                <Image
+                  src={appStore}
+                  alt="App Store"
+                  width={140}
+                  height={45}
+                  className="cursor-pointer hover:scale-105 transition" />
+              </Link>
+            </div>
 
             {/* SOCIAL */}
             <div className="flex items-center gap-4 mt-9">
               {[
-                { icon: FaInstagram, title: "Instagram", link:process.env.NEXT_PUBLIC_FB_URL },
-                { icon: FaFacebookF, title: "Facebook", link:process.env.NEXT_PUBLIC_INSTA_URL },
-                { icon: FaYoutube, title: "Youtube", link:process.env.NEXT_PUBLIC_YOUTUBE_URL },
+                { icon: FaInstagram, title: "Instagram", link: process.env.NEXT_PUBLIC_FB_URL },
+                { icon: FaFacebookF, title: "Facebook", link: process.env.NEXT_PUBLIC_INSTA_URL },
+                { icon: FaYoutube, title: "Youtube", link: process.env.NEXT_PUBLIC_YOUTUBE_URL },
               ].map((item, index) => {
                 const Icon = item.icon;
 
@@ -143,11 +137,10 @@ export default function Footer() {
                   <Link href={item?.link} target="_blank"
                     key={index}
                     title={item.title}
-                    className={`group w-[36px] h-[36px] rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
-                      index === 4
-                        ? "bg-[#b12acb] text-white"
-                        : "bg-[#d8d8d8] text-white hover:bg-[#b12acb]"
-                    }`}
+                    className={`group w-[36px] h-[36px] rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${index === 4
+                      ? "bg-[#b12acb] text-white"
+                      : "bg-[#d8d8d8] text-white hover:bg-[#b12acb]"
+                      }`}
                   >
                     <Icon className="text-[17px]" />
                   </Link>
@@ -158,14 +151,14 @@ export default function Footer() {
 
           {/* COMPANY */}
           <div>
-            <h3 className="text-[20px] leading-none font-bold text-[#111] mb-8">
+            <h3 className="text-[22px] leading-none font-bold text-[#111] mb-8">
               Company
             </h3>
 
             <ul className="space-y-5">
-              {[{menu:"About Us", link:"/about-us"},
-                {menu:"Contact Us", link:"/contact-us"},
-                {menu:"career Library", link:"/career-library-gen-z"}
+              {[{ menu: "About Us", link: "/about-us" },
+              { menu: "Contact Us", link: "/contact-us" },
+              { menu: "career Library", link: "/career-library-gen-z" }
                 // {menu:"News", link:"/news"}
               ].map(
                 (item, index) => (
@@ -185,24 +178,24 @@ export default function Footer() {
 
           {/* SPECIALIZATION LEFT */}
           <div>
-            <h3 className="text-[20px] leading-none font-bold text-[#111] mb-8">
+            <h3 className="text-[22px] leading-none font-bold text-[#111] mb-8">
               Services
             </h3>
 
             <ul className="grid grid-cols-1 lg:grid-cols-2 gap-x-20 gap-y-4 w-full">
               {data && data?.records.map((item, index) => (
-                 <>
-               <li
-                  key={index}
-                  className="flex items-start gap-3 text-[16px] text-[#555]"
-                >
-                  <span className="w-[7px] h-[7px] rounded-full bg-[#b12acb] mt-[11px] shrink-0"></span>
-                   <Link title={item?.title} href={`/${item?.slug}`}>
-                    <span>{item?.title}</span>
-                  </Link>
-                </li>
-                
-                 </>
+                <>
+                  <li
+                    key={index}
+                    className="flex items-start gap-3 text-[16px] text-[#555]"
+                  >
+                    <span className="w-[7px] h-[7px] rounded-full bg-[#b12acb] mt-[11px] shrink-0"></span>
+                    <Link title={item?.title} href={`/${item?.slug}`}>
+                      <span>{item?.title}</span>
+                    </Link>
+                  </li>
+
+                </>
               ))}
             </ul>
           </div>
@@ -221,21 +214,21 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-wrap gap-3">
-         
-          {data?.records?.map((item, index) => {
-            const city = item?.title?.split(" ").pop();
 
-            return (
-              <Link
-                key={index}
-                title={city}
-                href={`/${item?.slug}`}
-                className="px-10 leading-8 rounded-full border border-[#e5c5eb] bg-[#f9f3fa] text-[#a02ac0] text-[14px] font-medium transition-all duration-300 hover:bg-[#b12acb] hover:text-white hover:border-[#b12acb] hover:shadow-md"
-              >
-                {city}
-              </Link>
-            );
-          })}
+            {data?.records?.map((item, index) => {
+              const city = item?.title?.split(" ").pop();
+
+              return (
+                <Link
+                  key={index}
+                  title={city}
+                  href={`/${item?.slug}`}
+                  className="px-10 leading-8 rounded-full border border-[#e5c5eb] bg-[#f9f3fa] text-[#a02ac0] text-[14px] font-medium transition-all duration-300 hover:bg-[#b12acb] hover:text-white hover:border-[#b12acb] hover:shadow-md"
+                >
+                  {city}
+                </Link>
+              );
+            })}
 
           </div>
         </div>
@@ -246,10 +239,10 @@ export default function Footer() {
             Quick Access
           </h3>
 
-      <div className="flex flex-wrap justify-center gap-5">
-        {quickAccess.map((item, index) => {
-          const commonClasses =
-            "min-w-[170px] h-[42px] px-8 rounded-[14px] text-[15px] font-medium transition-all duration-300 cursor-pointer hover:-translate-y-1 bg-[#ececec] text-[#222] hover:bg-[#dfdfdf]";
+          <div className="flex flex-wrap justify-center gap-5">
+            {quickAccess.map((item, index) => {
+              const commonClasses =
+                "min-w-[170px] h-[42px] px-8 rounded-[14px] text-[15px] font-medium transition-all duration-300 cursor-pointer hover:-translate-y-1 bg-[#ececec] text-[#222] hover:bg-[#dfdfdf]";
               return index === 0 ? (
                 <button
                   key={index}
@@ -269,8 +262,8 @@ export default function Footer() {
                 </Link>
               )
             })}
+          </div>
         </div>
-      </div>
 
         {/* BOTTOM */}
         <div className="border-t border-[#dfdfdf] py-7 flex flex-col md:flex-row items-center justify-between gap-4">
@@ -296,41 +289,41 @@ export default function Footer() {
             © 2026 Careerrocket. All rights reserved.
           </p>
 
-      {/* Modal */}
-      {counselorPopup && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          {/* Popup Box */}
-          <div className="relative w-full max-w-2xl rounded-[12px] bg-white shadow-2xl overflow-hidden animate-popup">
-            {/* Close Button */}
-            <button
-              onClick={() => setCounselorPopup(false)}
-              className="absolute top-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-black hover:bg-gray-200 transition"
-            >
-               <FaTimes size={22} className="text-black cursor-pointer" />
-              {/* <X size={20} /> */}
-            </button>
+          {/* Modal */}
+          {counselorPopup && (
+            <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+              {/* Popup Box */}
+              <div className="relative w-full max-w-2xl rounded-[12px] bg-white shadow-2xl overflow-hidden animate-popup">
+                {/* Close Button */}
+                <button
+                  onClick={() => setCounselorPopup(false)}
+                  className="absolute top-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-black hover:bg-gray-200 transition"
+                >
+                  <FaTimes size={22} className="text-black cursor-pointer" />
+                  {/* <X size={20} /> */}
+                </button>
 
-            {/* Header */}
-            <div className="bg-primary px-8 py-6">
-              <h2 className="text-2xl font-bold text-white">
-                Talk to A counselor
-              </h2>
+                {/* Header */}
+                <div className="bg-primary px-8 py-6">
+                  <h2 className="text-2xl font-bold text-white">
+                    Talk to A counselor
+                  </h2>
 
-              <p className="mt-1 text-sm text-white/90">
-                Fill out the form and our team will contact you shortly.
-              </p>
-            </div>
+                  <p className="mt-1 text-sm text-white/90">
+                    Fill out the form and our team will contact you shortly.
+                  </p>
+                </div>
 
-            {/* Form */}
-            <div className="max-h-[80vh] overflow-y-auto p-6" style={{paddingTop : 8}}>
-              <ContactForm isPopup={1} />
-            </div>
-          </div>
-        </div>  )}
-        
+                {/* Form */}
+                <div className="max-h-[80vh] overflow-y-auto p-6" style={{ paddingTop: 8 }}>
+                  <ContactForm isPopup={1} />
+                </div>
+              </div>
+            </div>)}
+
         </div>
       </div>
     </footer>
-    </>
+  </>
   );
 } 

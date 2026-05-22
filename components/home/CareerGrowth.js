@@ -5,19 +5,22 @@ import icon1 from "../../assets/images/map-icon-1.svg";
 import icon2 from "../../assets/images/map-icon-2.svg";
 import background from "../../assets/images/map-bg.svg";
 import Image from "next/image";
+import { useDataStore } from "@/store/useDataStore";
 
 export default function CareerGroth() {
- 
+
+  const { setCounselorPopup } = useDataStore((state) => state);
+
   return (
     <section
       className="relative py-15 px-4 text-center text-white overflow-hidden
         bg-gradient-to-b from-purple-600 to-purple-800"
-     style={{
-      backgroundImage: `url(${background.src})`,
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      backgroundRepeat: "no-repeat"
-    }}
+      style={{
+        backgroundImage: `url(${background.src})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat"
+      }}
     >
       {/* 🌍 MAP BACKGROUND IMAGE */}
       <div
@@ -45,51 +48,51 @@ export default function CareerGroth() {
         </h2>
 
         {/* Stats */}
-       <div className="mt-14 flex justify-center">
-  <div className="grid md:grid-cols-2 gap-8 max-w-4xl w-full px-4">
+        <div className="mt-14 flex justify-center">
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl w-full px-4">
 
-    {/* Card 1 */}
-    <div className="bg-white/90 text-purple-700 rounded-2xl p-8 
+            {/* Card 1 */}
+            <div className="bg-white/90 text-purple-700 rounded-2xl p-8 
                     flex items-center gap-6 
                     w-full h-32 shadow-lg">
 
-        <Image
-          src={icon1}   // 👈 medal image
-          className="w-20"
-        />
+              <Image
+                src={icon1}   // 👈 medal image
+                className="w-20"
+              />
 
-      <div>
-        <h3 className="text-5xl font-bold  text-left text-primary">15,000+</h3>
-        <p className="text-sm text-gray-600 jorney-text">
-          PSYCHOMETRIC ASSESSMENTS IN A SINGLE DAY
-        </p>
-      </div>
-    </div>
+              <div>
+                <h3 className="text-5xl font-bold  text-left text-primary">15,000+</h3>
+                <p className="text-sm text-gray-600 jorney-text">
+                  PSYCHOMETRIC ASSESSMENTS IN A SINGLE DAY
+                </p>
+              </div>
+            </div>
 
-    {/* Card 2 */}
-    <div className="bg-white/90 text-purple-700 rounded-2xl p-8 
+            {/* Card 2 */}
+            <div className="bg-white/90 text-purple-700 rounded-2xl p-8 
                     flex items-center gap-6 
                     w-full h-32 shadow-lg">
 
-      
-        <Image
-          src={icon2}   // 👈 medal image
-          className="w-20"
-        />
 
-      <div> 
-        <h3 className="text-5xl font-bold text-left text-primary">8,500+</h3>
-        <p className="text-sm text-gray-600 jorney-text">
-          STUDENTS COUNSELLED IN A SINGLE DAY
-        </p>
-      </div>
-    </div>
+              <Image
+                src={icon2}   // 👈 medal image
+                className="w-20"
+              />
 
-  </div>
-</div>
+              <div>
+                <h3 className="text-5xl font-bold text-left text-primary">8,500+</h3>
+                <p className="text-sm text-gray-600 jorney-text">
+                  STUDENTS COUNSELLED IN A SINGLE DAY
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
 
         {/* CTA */}
-        <button className="mt-12 bg-yellow-400 text-black px-8 py-3 rounded-md font-medium hover:scale-105 transition">
+        <button onClick={() => setCounselorPopup(true)} className="mt-12 bg-yellow-400 text-black px-8 py-3 cursor-pointer rounded-md font-medium hover:scale-105 transition">
           Start Your Journey
         </button>
 

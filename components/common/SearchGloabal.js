@@ -22,13 +22,13 @@ import CustomImage from "./ImageMedia";
 import Link from "next/link";
 import { useDataStore } from "@/store/useDataStore";
 
-export default function SearchGloabal({isDashboard}) {
+export default function SearchGloabal({ isDashboard }) {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
   const { setSearchCounselors, setSearchCareer, setSearchCourses } = useDataStore((state) => state);
- 
+
   const popupRef = useRef(null);
 
   // Suggestions
@@ -71,80 +71,80 @@ export default function SearchGloabal({isDashboard}) {
   }, [isOpen]);
 
 
-   const searchData = async (e) => {
-  try {
-    if (!e?.trim()) {
-      ERROR_MSG("Please search any keyword.");
-      setData({});
-      return;
+  const searchData = async (e) => {
+    try {
+      if (!e?.trim()) {
+        ERROR_MSG("Please search any keyword.");
+        setData({});
+        return;
+      }
+
+      setLoading(true);
+      const res = await globalSearch({ search: e });
+      console.log("Career Category Response:", res);
+
+      setData(res.data || {});
+    } catch (err) {
+      console.error("Error fetching profile:", err);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(true);
-    const res = await globalSearch({ search: e });
-    console.log("Career Category Response:", res);
-
-    setData(res.data || {});
-  } catch (err) {
-    console.error("Error fetching profile:", err);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   return (
     <>
       {/* Trigger */}
-      <div className={`w-full ${!isDashboard ? 'max-w-[760px]' : 'max-w-[860px]' } mx-auto`}>
+      <div className={`w-full ${!isDashboard ? 'max-w-[760px]' : 'max-w-[860px]'} mx-auto relative`}>
         <div className={`search-wrapper ${!isDashboard ? "mt-10" : "search-wrapper-dashboard"}`}>
-        <input
-        // onClick={() => setIsOpen(true)}
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        type="text"
-        placeholder={`Search careers, universities, courses...`}
-        className="search-input"
-        />
-    
-        
-         {(data?.career) || (data?.counsellor) || (data?.career) ? (
+          <input
+            // onClick={() => setIsOpen(true)}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            type="text"
+            placeholder={`Search careers, universities, courses...`}
+            className="search-input"
+          />
+
+
+          {(data?.career) || (data?.counsellor) || (data?.career) ? (
             <button
               onClick={() => { setData(null); setSearch("") }}
               className="h-11 w-11 mr-2 mt-1 cursor-pointer rounded-full hover:bg-gray-100 flex items-center justify-center transition"
             >
               <FiX className="text-[22px] text-gray-500" />
             </button>
-          ) : 
+          ) :
 
-          <Button onClick={() => loading ? null :  searchData(search)}   type="button" className={`${loading ? "cursor-not-allowed opacity-50 bg-gray-300" :  `cursor-pointer`} search-btn`} >
-            <FiSearch className="mr-2" /> Search
-          </Button>
-        }
-          
-    </div>
+            <Button onClick={() => loading ? null : searchData(search)} type="button" className={`${loading ? "cursor-not-allowed opacity-50 bg-gray-300" : `cursor-pointer`} search-btn`} >
+              <FiSearch className="mr-2" /> Search
+            </Button>
+          }
 
-        { (data?.career) || (data?.counsellor) || (data?.course) ? 
-              <div className="mt-0 absolute overflow-hidden max-w-2xl mx-auto rounded-[12px] border border-gray-200 bg-white shadow-[0_20px_70px_rgba(0,0,0,0.18)]">
-                <div className="flex items-center justify-between px-7 py-5 border-b border-gray-100">
-                  <h3 className="text-sm font-semibold text-gray-700 uppercase">
-                    Popular Searches
-                  </h3>
+        </div>
 
-                  <span className="text-xs text-gray-400">
-                        {((data?.career?.length || 0) +
-                        (data?.counsellor?.length || 0) +
-                        (data?.course?.length || 0))} Results
-                  </span>
-                </div>
-                
+        {(data?.career) || (data?.counsellor) || (data?.course) ?
+          <div className="mt-0 absolute left-0 right-0 z-50 overflow-hidden max-w-2xl mx-auto rounded-[12px] border border-gray-200 bg-white shadow-[0_20px_70px_rgba(0,0,0,0.18)]">
+            <div className="flex items-center justify-between px-7 py-5 border-b border-gray-100">
+              <h3 className="text-sm font-semibold text-gray-700 uppercase">
+                Popular Searches
+              </h3>
 
-             
-             
-               <div className="max-h-[300px] overflow-y-auto">
-                { data?.career?.length || data?.counsellor?.length || data?.course?.length > 0 ? (
+              <span className="text-xs text-gray-400">
+                {((data?.career?.length || 0) +
+                  (data?.counsellor?.length || 0) +
+                  (data?.course?.length || 0))} Results
+              </span>
+            </div>
+
+
+
+
+            <div className="max-h-[300px] overflow-y-auto">
+              {data?.career?.length || data?.counsellor?.length || data?.course?.length > 0 ? (
 
                 <>
-                  
-                  {  data?.career.map((item, index) => (
+
+                  {data?.career.map((item, index) => (
                     <Link
                       href="/career-library"
                       onClick={() => setSearchCareer(item)}
@@ -153,7 +153,7 @@ export default function SearchGloabal({isDashboard}) {
                     >
                       <div className="flex items-center gap-3">
                         <div className="h-10 w-10 rounded-[8px] bg-gradient-to-br from-[#F3E8FF] to-[#FAE8FF] flex items-center justify-center text-[#9D2BA8] g-search">
-                          <CustomImage className={`rounded-[8px] object-cover custom-img mx-auto`} alt={item?.name_en} img={item?.icon}/>
+                          <CustomImage className={`rounded-[8px] object-cover custom-img mx-auto`} alt={item?.name_en} img={item?.icon} />
                         </div>
 
                         <div className="text-left w-[380px]">
@@ -162,7 +162,7 @@ export default function SearchGloabal({isDashboard}) {
                           </h2>
 
                           <p className="text-[12px] text-gray-500">
-                             { truncateWords(item?.description_en,20)}
+                            {truncateWords(item?.description_en, 20)}
                           </p>
                         </div>
                       </div>
@@ -173,8 +173,8 @@ export default function SearchGloabal({isDashboard}) {
                     </Link>
                   ))}
 
-                  
-                  {  data?.course.map((item, index) => (
+
+                  {data?.course.map((item, index) => (
                     <Link
                       href="/courses"
                       onClick={() => setSearchCourses(item)}
@@ -183,7 +183,7 @@ export default function SearchGloabal({isDashboard}) {
                     >
                       <div className="flex items-center gap-3">
                         <div className="h-10 w-10 rounded-[8px] bg-gradient-to-br from-[#F3E8FF] to-[#FAE8FF] flex items-center justify-center text-[#9D2BA8]  g-search">
-                          <CustomImage className={`rounded-[8px] object-cover custom-img mx-auto`} alt={item?.title} img={item?.thumbnailUrl}/>
+                          <CustomImage className={`rounded-[8px] object-cover custom-img mx-auto`} alt={item?.title} img={item?.thumbnailUrl} />
                         </div>
 
                         <div className="text-left  w-[380px]">
@@ -203,16 +203,16 @@ export default function SearchGloabal({isDashboard}) {
                   ))}
 
 
-                  {  data?.counsellor.map((item, index) => (
-                     <Link
-                        href="/counselors"
-                        onClick={() => setSearchCounselors(item)}
-                        key={index}
-                        className="group w-full flex items-center justify-between px-4 py-2 hover:bg-[#faf7ff] transition-all border-b border-gray-100 last:border-none"
-                      >
+                  {data?.counsellor.map((item, index) => (
+                    <Link
+                      href="/counselors"
+                      onClick={() => setSearchCounselors(item)}
+                      key={index}
+                      className="group w-full flex items-center justify-between px-4 py-2 hover:bg-[#faf7ff] transition-all border-b border-gray-100 last:border-none"
+                    >
                       <div className="flex items-center gap-3">
                         <div className="h-10 w-10 rounded-[8px] bg-gradient-to-br from-[#F3E8FF] to-[#FAE8FF] flex items-center justify-center text-[#9D2BA8] g-search">
-                           <CustomImage className={`rounded-[8px] object-cover custom-img mx-auto`} alt={item?.name} img={item?.profilePic}/>
+                          <CustomImage className={`rounded-[8px] object-cover custom-img mx-auto`} alt={item?.name} img={item?.profilePic} />
                         </div>
 
                         <div className="text-left w-[380px]">
@@ -221,7 +221,7 @@ export default function SearchGloabal({isDashboard}) {
                           </h2>
 
                           <p className="text-[12px] text-gray-500">
-                             { item?.mobileNo}
+                            {item?.mobileNo}
                           </p>
                         </div>
                       </div>
@@ -232,27 +232,27 @@ export default function SearchGloabal({isDashboard}) {
                     </Link>
                   ))}
 
-                </> 
-                
-                ) : 
-                  
-                  <div className="py-20 text-center">
-                    <FiSearch className="mx-auto text-5xl text-gray-300 mb-4" />
+                </>
 
-                    <h3 className="text-lg font-semibold text-gray-700">
-                      No Results Found
-                    </h3>
+              ) :
 
-                    <p className="text-gray-400 mt-2">
-                      Try different keywords
-                    </p>
-                  </div>
-                  
-                  }
+                <div className="py-20 text-center">
+                  <FiSearch className="mx-auto text-5xl text-gray-300 mb-4" />
+
+                  <h3 className="text-lg font-semibold text-gray-700">
+                    No Results Found
+                  </h3>
+
+                  <p className="text-gray-400 mt-2">
+                    Try different keywords
+                  </p>
                 </div>
-              </div> : null }
-    </div>
-    
+
+              }
+            </div>
+          </div> : null}
+      </div>
+
 
       {/* POPUP */}
       {isOpen && (
@@ -297,8 +297,8 @@ export default function SearchGloabal({isDashboard}) {
                     placeholder="Search anything..."
                     className="w-full px-5 bg-transparent outline-none text-[20px] font-medium text-gray-700 placeholder:text-gray-400"
                   />
-                   <Button onClick={() => loading ? null :  searchData(search)}  type="button" className={`${loading ? "cursor-not-allowed opacity-50 bg-gray-300" :  `cursor-pointer`}  h-12 search-btn`}>
-                      <FiSearch className="mr-2" /> Search
+                  <Button onClick={() => loading ? null : searchData(search)} type="button" className={`${loading ? "cursor-not-allowed opacity-50 bg-gray-300" : `cursor-pointer`}  h-12 search-btn`}>
+                    <FiSearch className="mr-2" /> Search
                   </Button>
 
                   {/* {search && (
@@ -314,133 +314,133 @@ export default function SearchGloabal({isDashboard}) {
 
               {/* Suggestions */}
 
-             { (data?.career) || (data?.counsellor) || (data?.career) ? 
-              <div className="mt-2 overflow-hidden rounded-[12px] border border-gray-200 bg-white shadow-[0_20px_70px_rgba(0,0,0,0.08)]">
+              {(data?.career) || (data?.counsellor) || (data?.career) ?
+                <div className="mt-2 overflow-hidden rounded-[12px] border border-gray-200 bg-white shadow-[0_20px_70px_rgba(0,0,0,0.08)]">
 
 
-                <div className="flex items-center justify-between px-7 py-5 border-b border-gray-100">
-                  <h3 className="text-sm font-semibold text-gray-700 uppercase">
-                    Popular Searches
-                  </h3>
-
-                  <span className="text-xs text-gray-400">
-                        {((data?.career?.length || 0) +
-                        (data?.counsellor?.length || 0) +
-                        (data?.course?.length || 0))} Results
-                  </span>
-                </div>
-
-                <div className="max-h-[300px] overflow-y-auto">
-
-                { data?.career?.length || data?.counsellor?.length || data?.career?.length > 0 ? (
-
-                  <>
-                  
-                  {  data?.career.map((item, index) => (
-                    <button
-                      key={index}
-                      className="group w-full flex items-center justify-between px-4 py-2 hover:bg-[#faf7ff] transition-all border-b border-gray-100 last:border-none"
-                    >
-                      <div className="flex items-center gap-4">
-                        <div className="h-10 w-10 rounded-[8px] bg-gradient-to-br from-[#F3E8FF] to-[#FAE8FF] flex items-center justify-center text-[#9D2BA8] g-search">
-                          <CustomImage className={`rounded-[8px] object-cover custom-img mx-auto`} alt={item?.name_en} img={item?.icon}/>
-                        </div>
-
-                        <div className="text-left">
-                          <h2 className="text-[15px] font-semibold text-gray-800">
-                            {item?.name_en}
-                          </h2>
-
-                          <p className="text-[12px] text-gray-500">
-                             { truncateWords(item?.description_en,20)}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="h-11 w-11 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-[#9D2BA8] transition-all">
-                        <FiArrowUpRight className="text-gray-400 text-xl group-hover:text-white" />
-                      </div>
-                    </button>
-                  ))}
-
-                  
-                  {  data?.course.map((item, index) => (
-                    <button
-                      key={index}
-                      className="group w-full flex items-center justify-between px-4 py-2 hover:bg-[#faf7ff] transition-all border-b border-gray-100 last:border-none"
-                    >
-                      <div className="flex items-center gap-4">
-                        <div className="h-10 w-10 rounded-[8px] bg-gradient-to-br from-[#F3E8FF] to-[#FAE8FF] flex items-center justify-center text-[#9D2BA8]  g-search">
-                          <CustomImage className={`rounded-[8px] object-cover custom-img mx-auto`} alt={item?.title} img={item?.thumbnailUrl}/>
-                        </div>
-
-                        <div className="text-left">
-                          <h2 className="text-[15px] font-semibold text-gray-800">
-                            {item?.title}
-                          </h2>
-                          {/* <p className="text-[12px] text-gray-500">
-                             { truncateWords(item?.description_en,20)}
-                          </p> */}
-                        </div>
-                      </div>
-
-                      <div className="h-11 w-11 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-[#9D2BA8] transition-all">
-                        <FiArrowUpRight className="text-gray-400 text-xl group-hover:text-white" />
-                      </div>
-                    </button>
-                  ))}
-
-
-                  {  data?.counsellor.map((item, index) => (
-                    <button
-                      key={index}
-                      className="group w-full flex items-center justify-between px-4 py-2 hover:bg-[#faf7ff] transition-all border-b border-gray-100 last:border-none"
-                    >
-                      <div className="flex items-center gap-4">
-                        <div className="h-10 w-10 rounded-[8px] bg-gradient-to-br from-[#F3E8FF] to-[#FAE8FF] flex items-center justify-center text-[#9D2BA8] g-search">
-                           <CustomImage className={`rounded-[8px] object-cover custom-img mx-auto`} alt={item?.name} img={item?.profilePic}/>
-                        </div>
-
-                        <div className="text-left">
-                          <h2 className="text-[15px] font-semibold text-gray-800">
-                            {item?.name}
-                          </h2>
-
-                          <p className="text-[12px] text-gray-500">
-                             { item?.mobileNo}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="h-11 w-11 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-[#9D2BA8] transition-all">
-                        <FiArrowUpRight className="text-gray-400 text-xl group-hover:text-white" />
-                      </div>
-                    </button>
-                  ))}
-
-                </> 
-
-
-
-                
-                ) : 
-                  
-                  <div className="py-20 text-center">
-                    <FiSearch className="mx-auto text-5xl text-gray-300 mb-4" />
-
-                    <h3 className="text-lg font-semibold text-gray-700">
-                      No Results Found
+                  <div className="flex items-center justify-between px-7 py-5 border-b border-gray-100">
+                    <h3 className="text-sm font-semibold text-gray-700 uppercase">
+                      Popular Searches
                     </h3>
 
-                    <p className="text-gray-400 mt-2">
-                      Try different keywords
-                    </p>
+                    <span className="text-xs text-gray-400">
+                      {((data?.career?.length || 0) +
+                        (data?.counsellor?.length || 0) +
+                        (data?.course?.length || 0))} Results
+                    </span>
                   </div>
-                  
-                  }
-                </div>
-              </div> : null }
-              
+
+                  <div className="max-h-[300px] overflow-y-auto">
+
+                    {data?.career?.length || data?.counsellor?.length || data?.career?.length > 0 ? (
+
+                      <>
+
+                        {data?.career.map((item, index) => (
+                          <button
+                            key={index}
+                            className="group w-full flex items-center justify-between px-4 py-2 hover:bg-[#faf7ff] transition-all border-b border-gray-100 last:border-none"
+                          >
+                            <div className="flex items-center gap-4">
+                              <div className="h-10 w-10 rounded-[8px] bg-gradient-to-br from-[#F3E8FF] to-[#FAE8FF] flex items-center justify-center text-[#9D2BA8] g-search">
+                                <CustomImage className={`rounded-[8px] object-cover custom-img mx-auto`} alt={item?.name_en} img={item?.icon} />
+                              </div>
+
+                              <div className="text-left">
+                                <h2 className="text-[15px] font-semibold text-gray-800">
+                                  {item?.name_en}
+                                </h2>
+
+                                <p className="text-[12px] text-gray-500">
+                                  {truncateWords(item?.description_en, 20)}
+                                </p>
+                              </div>
+                            </div>
+
+                            <div className="h-11 w-11 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-[#9D2BA8] transition-all">
+                              <FiArrowUpRight className="text-gray-400 text-xl group-hover:text-white" />
+                            </div>
+                          </button>
+                        ))}
+
+
+                        {data?.course.map((item, index) => (
+                          <button
+                            key={index}
+                            className="group w-full flex items-center justify-between px-4 py-2 hover:bg-[#faf7ff] transition-all border-b border-gray-100 last:border-none"
+                          >
+                            <div className="flex items-center gap-4">
+                              <div className="h-10 w-10 rounded-[8px] bg-gradient-to-br from-[#F3E8FF] to-[#FAE8FF] flex items-center justify-center text-[#9D2BA8]  g-search">
+                                <CustomImage className={`rounded-[8px] object-cover custom-img mx-auto`} alt={item?.title} img={item?.thumbnailUrl} />
+                              </div>
+
+                              <div className="text-left">
+                                <h2 className="text-[15px] font-semibold text-gray-800">
+                                  {item?.title}
+                                </h2>
+                                {/* <p className="text-[12px] text-gray-500">
+                             { truncateWords(item?.description_en,20)}
+                          </p> */}
+                              </div>
+                            </div>
+
+                            <div className="h-11 w-11 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-[#9D2BA8] transition-all">
+                              <FiArrowUpRight className="text-gray-400 text-xl group-hover:text-white" />
+                            </div>
+                          </button>
+                        ))}
+
+
+                        {data?.counsellor.map((item, index) => (
+                          <button
+                            key={index}
+                            className="group w-full flex items-center justify-between px-4 py-2 hover:bg-[#faf7ff] transition-all border-b border-gray-100 last:border-none"
+                          >
+                            <div className="flex items-center gap-4">
+                              <div className="h-10 w-10 rounded-[8px] bg-gradient-to-br from-[#F3E8FF] to-[#FAE8FF] flex items-center justify-center text-[#9D2BA8] g-search">
+                                <CustomImage className={`rounded-[8px] object-cover custom-img mx-auto`} alt={item?.name} img={item?.profilePic} />
+                              </div>
+
+                              <div className="text-left">
+                                <h2 className="text-[15px] font-semibold text-gray-800">
+                                  {item?.name}
+                                </h2>
+
+                                <p className="text-[12px] text-gray-500">
+                                  {item?.mobileNo}
+                                </p>
+                              </div>
+                            </div>
+
+                            <div className="h-11 w-11 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-[#9D2BA8] transition-all">
+                              <FiArrowUpRight className="text-gray-400 text-xl group-hover:text-white" />
+                            </div>
+                          </button>
+                        ))}
+
+                      </>
+
+
+
+
+                    ) :
+
+                      <div className="py-20 text-center">
+                        <FiSearch className="mx-auto text-5xl text-gray-300 mb-4" />
+
+                        <h3 className="text-lg font-semibold text-gray-700">
+                          No Results Found
+                        </h3>
+
+                        <p className="text-gray-400 mt-2">
+                          Try different keywords
+                        </p>
+                      </div>
+
+                    }
+                  </div>
+                </div> : null}
+
             </div>
           </div>
         </div>
