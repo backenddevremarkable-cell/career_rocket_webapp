@@ -4,11 +4,14 @@ import { useDataStore } from "@/store/useDataStore";
 export default function CounselorCard({ item }) {
 
     const { setCounselorPopup } = useDataStore((state) => state);
-    const totalYears = item ? item.experience.match(/\d+/)?.[0] : "10"
+    const totalYears = item ? item.experience.match(/\d+/)?.[0] : "10";
+    const skillList = item && item.skills ? item.skills.split(",").map(s => s.trim()).filter(Boolean) : [];
+    const displaySkills = skillList.slice(0, 3);
+    const extraSkills = skillList.slice(3);
 
     return (
         item ?
-            <div className="bg-white rounded-2xl p-6 text-center shadow-md hover:shadow-xl transition">
+            <div className="bg-white rounded-2xl p-6 text-center shadow-md transition">
                 {/* avatar */}
                 <div className="relative w-fit mx-auto">
                     <div className="w-20 h-20">
@@ -32,13 +35,34 @@ export default function CounselorCard({ item }) {
                 </p>
 
                 {/* tags */}
-                <div className="h-[50px]">
-                    <div className="flex flex-wrap gap-2 justify-center mt-3">
-                        {item.skills ? item.skills.split(",").map((skill, index) => (
-                            <span key={index} className="text-[10px] bg-purple-100 text-purple-600 px-2 py-1 rounded">
-                                {skill.trim()}
+                <div className="h-[50px] flex items-center justify-center  mt-6 mb-6">
+                    <div className="flex flex-wrap gap-1.5 justify-center">
+                        {displaySkills.map((skill, index) => (
+                            <span key={index} className="text-[10px] bg-purple-50 text-purple-600 font-medium px-2 py-1 rounded-md border border-purple-100">
+                                {skill}
                             </span>
-                        )) : null}
+                        ))}
+                        {extraSkills.length > 0 && (
+                            <span className="relative group cursor-pointer text-[10px] bg-purple-100 text-purple-700 font-semibold px-2 py-1 rounded-md border border-purple-200 transition-all hover:bg-purple-200">
+                                +{extraSkills.length} more
+
+                                {/* SaaS Tooltip */}
+                                <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-[220px] hidden group-hover:flex flex-col bg-slate-900 text-white text-[10px] rounded-lg py-2 px-3 shadow-xl z-20 transition-all duration-200 pointer-events-none">
+                                    <span className="font-semibold text-slate-300 border-b border-slate-700 pb-1 mb-1.5 block">
+                                        More Skills
+                                    </span>
+                                    <span className="flex flex-wrap gap-1 justify-center max-w-[180px]">
+                                        {extraSkills.map((skill, idx) => (
+                                            <span key={idx} className="bg-slate-800 text-purple-300 px-2 py-0.5 rounded text-[9px] font-medium border border-slate-700">
+                                                {skill}
+                                            </span>
+                                        ))}
+                                    </span>
+                                    {/* Tooltip Arrow */}
+                                    <span className="absolute top-full left-1/2 -translate-x-1/2 border-[6px] border-transparent border-t-slate-900"></span>
+                                </span>
+                            </span>
+                        )}
                     </div>
                 </div>
 

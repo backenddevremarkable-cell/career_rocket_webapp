@@ -74,7 +74,7 @@ export default function idealCareerTest() {
     <main className="min-h-screen bg-[#f6f4f8]">
   
       { info ?
-       <section className="ml-[255px] pt-[78px]">
+       <section className="lg:ml-[255px] pt-[78px] px-4 md:px-6 pb-10">
        {/* <section className="mx-auto max-w-6xl px-4 py-5 sm:px-6 lg:px-8"> */}
         {/* Main Content */}
         <div className="grid grid-cols-1 gap-3 lg:grid-cols-12">

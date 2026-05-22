@@ -43,7 +43,7 @@ const Subjects = () => {
 
   return (
     <main className="min-h-screen bg-[#f5f7fb]">
-      <section className="pb-10 pt-[80px] lg:ml-[255px] lg:px-4">
+      <section className="px-4 pb-10 pt-[80px] lg:ml-[255px] lg:px-8">
 
         {!loading ? (
 
@@ -76,7 +76,7 @@ const Subjects = () => {
                     <div className="flex gap-4">
 
                       {/* IMAGE */}
-                      <div className="h-[90px] w-[90px] overflow-hidden rounded-[12px] border border-white/20 bg-white/10 backdrop-blur">
+                      <div className="relative h-[90px] w-[90px] overflow-hidden rounded-[12px] border border-white/20 bg-white/10 backdrop-blur">
 
                         <CustomImage
                           className="h-full w-full object-cover"

@@ -83,7 +83,7 @@ export default function idealCareerTest() {
 
   return (
     <main className="min-h-screen bg-[#f7f5f8]">
-      <section className="ml-[255px] pt-[78px]">
+      <section className="lg:ml-[255px] pt-[78px] px-4 md:px-6 pb-10">
        { url ?  
         <div style={{ width: "100%", height: "100vh", margin: 0 }}>
             <iframe

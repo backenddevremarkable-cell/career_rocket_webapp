@@ -1,21 +1,17 @@
 "use client";
 
 import { useDataStore } from "@/store/useDataStore";
-import NavDashboard from "../../components/NavDashboard";
 import Link from "next/link";
 export default function profile() {
   const { users } = useDataStore((state) => state);
 
   if (!users) {
     return (
-     <main className="min-h-screen">
-      <NavDashboard/> 
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className="min-h-[60vh] flex items-center justify-center lg:ml-[255px]">
         <div className="text-lg font-semibold text-gray-700 animate-pulse">
           Loading profile...
         </div>
       </div>
-     </main> 
     );
   }
 
@@ -23,7 +19,7 @@ export default function profile() {
   return (
   <main className="min-h-screen bg-[#f6f4f8]">
    { users ?
-    <section className="ml-[255px] pt-[78px]">
+    <section className="lg:ml-[255px] pt-[78px] px-4 md:px-6 pb-10">
       <div className="mx-auto">
         {/* Top Card */}
         <div className="bg-white rounded-[12px] shadow-xl overflow-hidden">

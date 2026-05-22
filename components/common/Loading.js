@@ -5,7 +5,7 @@ import Loader from "../../assets/images/loader.gif";
 
 export default function LoadingScreen({isDashboard}) {
   return (
-    <div className={`absolute ${isDashboard ? 'z-1 ml-[255px]' : 'z-50'} inset-0 bg-white flex items-center justify-center`}>
+    <div className={`absolute ${isDashboard ? 'z-1 ml-0 lg:ml-[255px]' : 'z-50'} inset-0 bg-white flex items-center justify-center`}>
       
       {/* Loader Content */}
       <div className="flex flex-col items-center">

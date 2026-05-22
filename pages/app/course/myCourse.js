@@ -1,9 +1,7 @@
-import FooterDashboard from "../../../components/FooterDashboard";
 import { useDataStore } from "@/store/useDataStore";
 import { RE_API } from "@/config";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import NavDashboard from "../../../components/NavDashboard";
 
 export default function myTest() {
 
@@ -34,10 +32,8 @@ export default function myTest() {
 
   return (
     <main className="min-h-screen bg-[#f7f5f8]">
-      <NavDashboard />
-
-      <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="min-h-screen p-6">
+      <section className="lg:ml-[255px] pt-[78px] px-4 md:px-6 pb-10">
+        <div className="min-h-screen">
           <h2 className="text-2xl font-bold mb-6 text-gray-800">
             My Test Reports
           </h2>
@@ -79,7 +75,7 @@ export default function myTest() {
                     <button
                       disabled={!isCompleted}
                       onClick={() => window.open(item.report, "_blank")}
-                      className={`w-full py-2  rounded-lg text-white font-medium transition ${isCompleted
+                      className={`w-full py-2 rounded-lg text-white font-medium transition ${isCompleted
                         ? "primary-btn hover:bg-blue-700 cursor-pointer"
                         : "bg-gray-300 cursor-not-allowed"
                         }`}
@@ -92,9 +88,6 @@ export default function myTest() {
             </div> : null}
         </div>
       </section>
-
-      {/* Footer */}
-      <FooterDashboard />
     </main>
   );
 }

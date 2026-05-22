@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -18,7 +18,7 @@ import {
 import Image from "next/image";
 import logo from "../../../assets/images/logo.svg";
 
-export default function Sidebar() {
+export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
   const pathname = usePathname();
 
@@ -36,21 +36,49 @@ export default function Sidebar() {
   const isAssessmentActive =
     assessmentPaths.includes(pathname);
 
+  // Close sidebar on page change
+  useEffect(() => {
+    if (setSidebarOpen) {
+      setSidebarOpen(false);
+    }
+  }, [pathname, setSidebarOpen]);
+
   return (
-    <aside className="fixed left-0 top-0 z-40 hidden h-screen w-[255px] border-r border-[#ebe7ef] bg-[#fbfafc] lg:flex lg:flex-col">
+    <>
+      {/* Backdrop overlay for mobile */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
 
-      {/* LOGO */}
-      <div className="flex h-[78px] items-center border-b border-[#f1edf4] px-6">
+      <aside className={`fixed left-0 top-0 z-50 h-screen w-[255px] border-r border-[#ebe7ef] bg-[#fbfafc] transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+        sidebarOpen ? "translate-x-0" : "-translate-x-full"
+      } flex flex-col`}>
 
-        <Link href="/">
-          <Image
-            src={logo}
-            width={180}
-            alt="logo"
-            className="py-2"
-          />
-        </Link>
-      </div>
+        {/* LOGO */}
+        <div className="flex h-[78px] items-center justify-between border-b border-[#f1edf4] px-6">
+
+          <Link href="/">
+            <Image
+              src={logo}
+              width={150}
+              alt="logo"
+              className="py-2"
+            />
+          </Link>
+
+          {/* CLOSE BUTTON FOR MOBILE */}
+          <button 
+            onClick={() => setSidebarOpen(false)}
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-[#666] hover:bg-[#f5eff9] lg:hidden"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
 
       {/* MENU */}
       <div className="flex-1 overflow-y-auto px-4 py-5">
@@ -199,6 +227,7 @@ export default function Sidebar() {
         </button>
       </div>
     </aside>
+    </>
   );
 }
 

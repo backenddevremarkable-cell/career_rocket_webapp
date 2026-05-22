@@ -7,7 +7,6 @@ import {
   getStates,
   getCities,
 } from "@/services/authService";
-import NavDashboard from "../../components/NavDashboard";
 import { ERROR_MSG, SUCCESS_MSG } from "@/utils";
 import axios from "axios";
 import {  getFromStorage } from "@/utils/index";
@@ -294,20 +293,17 @@ export default function EditProfileForm() {
 
   if (pageLoading) {
     return (
-    <main className="min-h-screen">
-     <NavDashboard/>
-     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+      <div className="min-h-[60vh] flex items-center justify-center lg:ml-[255px]">
         <div className="text-gray-600 text-lg font-medium animate-pulse">
           Loading profile...
         </div>
       </div>
-     </main> 
     );
   }
 
   return (
   <main className="min-h-screen bg-[#f6f4f8]">
-   <section className="ml-[255px] pt-[78px]">
+   <section className="lg:ml-[255px] pt-[78px] px-4 md:px-6 pb-10">
       <div className="mx-auto max-w-6xl">
         <div className="overflow-hidden rounded-[12px] border border-gray-200 bg-white shadow-xl">
           {/* Header */}

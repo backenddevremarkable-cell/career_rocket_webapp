@@ -9,7 +9,8 @@ export default function CustomImage({
   img,
   alt,
   className,
-  errorMedia
+  errorMedia,
+  noMediaImg = false
 }) {
   const [imageSrc, setImageSrc] = useState(img);
 
@@ -19,7 +20,7 @@ export default function CustomImage({
       alt={alt}
       fill
       loading="lazy"
-      className={`${className} media-img`}
+      className={`${className || ""} ${noMediaImg ? "" : "media-img"}`}
       onError={() => {
         setImageSrc(errorMedia || errorImg);
       }}

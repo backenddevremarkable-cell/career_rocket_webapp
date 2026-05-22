@@ -3,8 +3,6 @@
 import {
   Sparkles,
 } from "lucide-react";
-import Header from "./component/Header";
-import Sidebar from "./component/Sidebar";
 import {
   FaWhatsapp,
   FaPhoneAlt,
@@ -32,19 +30,15 @@ const contactItems = [
   return (
     <main className=" min-h-screen bg-[#f6f4f8]">
       
-      {/* FIXED */}
-      <Sidebar />
-      <Header />
-
       {/* SCROLLABLE CONTENT */}
-      <section className="ml-[255px] pt-[78px]">
+      <section className="lg:ml-[255px] pt-[78px] px-4 md:px-6 pb-10">
           
           {/* TOP */}
-          <div className="grid grid-cols-[1.6fr_.95fr] gap-5">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.6fr_.95fr] gap-5">
             
             {/* CARD */}
             <div className="rounded-[12px] bg-white p-5 shadow-[0_10px_40px_rgba(0,0,0,0.04)]">
-              <div className="flex gap-5">
+              <div className="flex flex-col sm:flex-row gap-5">
                 
                 {/* IMAGE */}
                 <div className="h-[95px] w-[95px] overflow-hidden rounded-[16px] bg-gradient-to-br from-[#53225d] via-[#7e2b8f] to-[#d946ef]">
@@ -149,9 +143,9 @@ const contactItems = [
           </div>
 
           {/* HERO */}
-          <div className="mt-7 rounded-[12px] bg-gradient-to-r from-[#a71ec7] to-[#df57ea] px-10 py-16 text-center shadow-[0_15px_50px_rgba(193,53,226,0.25)]">
+          <div className="mt-7 rounded-[12px] bg-gradient-to-r from-[#a71ec7] to-[#df57ea] px-6 py-10 md:px-10 md:py-16 text-center shadow-[0_15px_50px_rgba(193,53,226,0.25)]">
             
-            <h1 className="mx-auto max-w-[700px] text-[56px] font-black leading-[62px] text-white">
+            <h1 className="mx-auto max-w-[700px] text-2xl md:text-3xl lg:text-[56px] font-black leading-tight lg:leading-[62px] text-white">
               Discover Your Perfect Career With AI
             </h1>
 

@@ -71,7 +71,7 @@ export default function personalityTest() {
   return (
     <main className="min-h-screen bg-[#f7f5f8]">
       { info ?
-        <section className="ml-[255px] pt-[78px]">
+        <section className="lg:ml-[255px] pt-[78px] px-4 md:px-6 pb-10">
         {/* Main Content */}
         <div className="grid grid-cols-1 gap-3 lg:grid-cols-12">
           {/* Left Side */}

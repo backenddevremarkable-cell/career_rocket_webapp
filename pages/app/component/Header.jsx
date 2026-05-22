@@ -18,7 +18,7 @@ import { BASE_URL } from "@/config";
 import SearchGloabal from "../../../components/common/SearchGloabal";
 
 
-export default function Header() {
+export default function Header({ setSidebarOpen }) {
   const [openProfile, setOpenProfile] =
     useState(false);
 
@@ -31,11 +31,23 @@ export default function Header() {
 
 
   return (
-    <header className="fixed right-0 top-0 z-30 flex h-[78px] w-[calc(100%-255px)] items-center justify-between border-b border-[#ebe7ef] bg-[#fbfafc]/95 px-8 backdrop-blur-lg">
+    <header className="fixed right-0 top-0 z-30 flex h-[78px] w-full lg:w-[calc(100%-255px)] items-center justify-between border-b border-[#ebe7ef] bg-[#fbfafc]/95 px-4 sm:px-8 backdrop-blur-lg">
 
-      {/* SEARCH */}
-      <div className="relative w-[530px]">
-        <SearchGloabal isDashboard={true} />
+      {/* LEFT: HAMBURGER & SEARCH */}
+      <div className="flex items-center gap-3 w-full max-w-[530px]">
+        {/* HAMBURGER FOR MOBILE */}
+        <button 
+          onClick={() => setSidebarOpen(true)}
+          className="flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-[12px] border border-[#ece7ef] bg-white text-[#666] lg:hidden hover:border-primary hover:text-primary transition-colors"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+        </button>
+
+        {/* SEARCH */}
+        <div className="relative flex-1 hidden sm:block">
+          <SearchGloabal isDashboard={true} />
         {/* <Search
           size={17}
           className="absolute left-5 top-1/2 -translate-y-1/2 text-[#888]"
@@ -46,6 +58,7 @@ export default function Header() {
           placeholder="Search courses, mentors, or careers..."
           className="h-[44px] w-full rounded-full border border-[#ece7ef] bg-white pl-12 pr-5 text-[13px] outline-none transition-all duration-300 placeholder:text-[#999] focus:border-[#c026d3] focus:shadow-[0_0_0_4px_rgba(192,38,211,0.08)]"
         /> */}
+      </div>
       </div>
 
       {/* RIGHT */}
@@ -68,18 +81,30 @@ export default function Header() {
             }
             className="flex items-center gap-3 rounded-[12px] border border-[#ece7ef] bg-white px-3 py-2"
           >
-            <div className="text-left">
-              <p className="text-[11px] text-[#888]">
+            <div className="text-left hidden sm:block">
+              <p 
+                className="text-[11px] text-[#888] whitespace-nowrap" 
+                style={{ whiteSpace: "nowrap" }}
+              >
                 Welcome Back
               </p>
 
-              <h4 className="text-[13px] font-bold text-[#222]">
+              <h4 
+                className="text-[13px] font-bold text-[#222] whitespace-nowrap" 
+                style={{ whiteSpace: "nowrap" }}
+              >
                 Hi, {userData?.name} 👋
               </h4>
             </div>
 
-            <div className="h-[38px] w-[38px]">
-              <CustomImage errorMedia={`${BASE_URL}website/img/blog-details-author.png`} img={userData?.profilePhoto} className={`rounded-full`} alt={'career rocket'} />
+            <div className="relative h-[38px] w-[38px] shrink-0 overflow-hidden rounded-full border border-gray-100 bg-[#f3eff6]">
+              <CustomImage 
+                noMediaImg={true} 
+                errorMedia={`${BASE_URL}website/img/blog-details-author.png`} 
+                img={userData?.profilePhoto} 
+                className="absolute inset-0 h-full w-full object-cover rounded-full" 
+                alt={'career rocket'} 
+              />
             </div>
 
             <ChevronDown
@@ -100,8 +125,14 @@ export default function Header() {
           >
             <div className="border-b border-[#f3eff6] p-4">
               <div className="flex items-center gap-3">
-                <div className="h-[44px] w-[44px] shrink-0">
-                  <CustomImage errorMedia={`${BASE_URL}website/img/blog-details-author.png`} img={userData?.profilePhoto} className={`rounded-full`} alt={'career rocket'} />
+                <div className="relative h-[44px] w-[44px] shrink-0 overflow-hidden rounded-full border border-gray-100 bg-[#f3eff6]">
+                  <CustomImage 
+                    noMediaImg={true} 
+                    errorMedia={`${BASE_URL}website/img/blog-details-author.png`} 
+                    img={userData?.profilePhoto} 
+                    className="absolute inset-0 h-full w-full object-cover rounded-full" 
+                    alt={'career rocket'} 
+                  />
                 </div>
                 <div>
                   <h4 className="text-[14px] font-bold text-[#222]">

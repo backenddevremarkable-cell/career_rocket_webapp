@@ -30,6 +30,28 @@ export default function SearchGloabal({ isDashboard }) {
   const { setSearchCounselors, setSearchCareer, setSearchCourses } = useDataStore((state) => state);
 
   const popupRef = useRef(null);
+  const inputRef = useRef(null);
+
+  // Keyboard shortcut listener to focus search when '/' or 'Ctrl+K' / 'Cmd+K' is pressed
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      const activeEl = document.activeElement;
+      if (
+        activeEl &&
+        (activeEl.tagName === "INPUT" ||
+          activeEl.tagName === "TEXTAREA" ||
+          activeEl.isContentEditable)
+      ) {
+        return;
+      }
+      if (e.key === "/" || ((e.ctrlKey || e.metaKey) && e.key === "k")) {
+        e.preventDefault();
+        inputRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   // Suggestions
   const suggestions = [
@@ -95,160 +117,168 @@ export default function SearchGloabal({ isDashboard }) {
     <>
       {/* Trigger */}
       <div className={`w-full ${!isDashboard ? 'max-w-[760px]' : 'max-w-[860px]'} mx-auto relative`}>
-        <div className={`search-wrapper ${!isDashboard ? "mt-10" : "search-wrapper-dashboard"}`}>
-          <input
-            // onClick={() => setIsOpen(true)}
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            type="text"
-            placeholder={`Search careers, universities, courses...`}
-            className="search-input"
-          />
+        <div className={`search-wrapper ${!isDashboard ? "mt-10" : "search-wrapper-dashboard"} relative flex items-center`}>
+          <div className="relative flex-1 flex items-center">
+            <FiSearch className="absolute left-4 text-slate-400 text-lg pointer-events-none" />
+            <input
+              ref={inputRef}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              type="text"
+              placeholder={`Search careers, universities, courses...`}
+              className="search-input !pl-11 !pr-4"
+            />
+          </div>
 
+          <div className="flex items-center gap-2 pr-1.5 flex-shrink-0">
+            {/* Keyboard shortcut hint */}
 
-          {(data?.career) || (data?.counsellor) || (data?.career) ? (
-            <button
-              onClick={() => { setData(null); setSearch("") }}
-              className="h-11 w-11 mr-2 mt-1 cursor-pointer rounded-full hover:bg-gray-100 flex items-center justify-center transition"
+            {search && ((data?.career) || (data?.counsellor) || (data?.course)) ? (
+              <button
+                onClick={() => { setData(null); setSearch("") }}
+                className="h-9 w-9 cursor-pointer rounded-full hover:bg-gray-100 flex items-center justify-center transition flex-shrink-0"
+              >
+                <FiX className="text-lg text-gray-500" />
+              </button>
+            ) : null}
+
+            <Button
+              onClick={() => loading ? null : searchData(search)}
+              type="button"
+              className={`${loading ? "cursor-not-allowed opacity-50 bg-gray-300" : `cursor-pointer`} search-btn !my-1.5 !mr-1.5 !ml-0`}
             >
-              <FiX className="text-[22px] text-gray-500" />
-            </button>
-          ) :
-
-            <Button onClick={() => loading ? null : searchData(search)} type="button" className={`${loading ? "cursor-not-allowed opacity-50 bg-gray-300" : `cursor-pointer`} search-btn`} >
-              <FiSearch className="mr-2" /> Search
+              <FiSearch className="sm:mr-2 flex-shrink-0" />
+              <span className="hidden sm:inline">Search</span>
             </Button>
-          }
-
+          </div>
         </div>
 
         {(data?.career) || (data?.counsellor) || (data?.course) ?
-          <div className="mt-0 absolute left-0 right-0 z-50 overflow-hidden max-w-2xl mx-auto rounded-[12px] border border-gray-200 bg-white shadow-[0_20px_70px_rgba(0,0,0,0.18)]">
-            <div className="flex items-center justify-between px-7 py-5 border-b border-gray-100">
-              <h3 className="text-sm font-semibold text-gray-700 uppercase">
-                Popular Searches
+          <div className="mt-2 absolute left-0 right-0 z-50 overflow-hidden max-w-2xl mx-auto rounded-[16px] border border-slate-200/80 bg-white/95 backdrop-blur-md shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] animate-fade">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-slate-50/50">
+              <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                Search Results
               </h3>
 
-              <span className="text-xs text-gray-400">
+              <span className="text-xs font-medium text-slate-400">
                 {((data?.career?.length || 0) +
                   (data?.counsellor?.length || 0) +
-                  (data?.course?.length || 0))} Results
+                  (data?.course?.length || 0))} Found
               </span>
             </div>
 
-
-
-
-            <div className="max-h-[300px] overflow-y-auto">
-              {data?.career?.length || data?.counsellor?.length || data?.course?.length > 0 ? (
-
+            <div className="max-h-[340px] overflow-y-auto divide-y divide-gray-50">
+              {data?.career?.length > 0 || data?.counsellor?.length > 0 || data?.course?.length > 0 ? (
                 <>
-
-                  {data?.career.map((item, index) => (
+                  {data?.career && data.career.map((item, index) => (
                     <Link
                       href="/career-library"
                       onClick={() => setSearchCareer(item)}
-                      key={index}
-                      className="group w-full flex items-center justify-between px-4 py-2 hover:bg-[#faf7ff] transition-all border-b border-gray-100 last:border-none"
+                      key={`career-${index}`}
+                      className="group w-full flex items-center justify-between px-5 py-3 hover:bg-purple-50/40 transition-all duration-200 text-left"
                     >
-                      <div className="flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-[8px] bg-gradient-to-br from-[#F3E8FF] to-[#FAE8FF] flex items-center justify-center text-[#9D2BA8] g-search">
-                          <CustomImage className={`rounded-[8px] object-cover custom-img mx-auto`} alt={item?.name_en} img={item?.icon} />
+                      <div className="flex items-center gap-3.5">
+                        <div className="h-10 w-10 rounded-[10px] bg-gradient-to-br from-[#F3E8FF] to-[#FAE8FF] flex items-center justify-center text-[#9D2BA8] border border-purple-100 flex-shrink-0 relative overflow-hidden">
+                          <CustomImage className="rounded-[10px] object-cover custom-img mx-auto" alt={item?.name_en} img={item?.icon} />
                         </div>
 
-                        <div className="text-left w-[380px]">
-                          <h2 className="text-[15px] font-semibold text-gray-800">
+                        <div>
+                          <h2 className="text-[14px] font-bold text-slate-800 group-hover:text-[#9D2BA8] transition-colors">
                             {item?.name_en}
                           </h2>
 
-                          <p className="text-[12px] text-gray-500">
+                          <p className="text-[12px] text-slate-500 mt-0.5 line-clamp-1">
                             {truncateWords(item?.description_en, 20)}
                           </p>
                         </div>
                       </div>
 
-                      <div className="h-11 w-11 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-[#9D2BA8] transition-all">
-                        <FiArrowUpRight className="text-gray-400 text-xl group-hover:text-white" />
+                      <div className="flex items-center gap-3">
+                        <span className="hidden sm:inline-block text-[10px] font-bold px-2 py-0.5 rounded bg-purple-50 text-[#9D2BA8] border border-purple-100/50 uppercase tracking-wider">
+                          Career
+                        </span>
+                        <div className="h-8 w-8 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-[#9D2BA8] group-hover:text-white transition-all duration-300">
+                          <FiArrowUpRight className="text-slate-400 text-base group-hover:text-white" />
+                        </div>
                       </div>
                     </Link>
                   ))}
 
-
-                  {data?.course.map((item, index) => (
+                  {data?.course && data.course.map((item, index) => (
                     <Link
                       href="/courses"
                       onClick={() => setSearchCourses(item)}
-                      key={index}
-                      className="group w-full flex items-center justify-between px-4 py-2 hover:bg-[#faf7ff] transition-all border-b border-gray-100 last:border-none"
+                      key={`course-${index}`}
+                      className="group w-full flex items-center justify-between px-5 py-3 hover:bg-emerald-50/30 transition-all duration-200 text-left"
                     >
-                      <div className="flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-[8px] bg-gradient-to-br from-[#F3E8FF] to-[#FAE8FF] flex items-center justify-center text-[#9D2BA8]  g-search">
-                          <CustomImage className={`rounded-[8px] object-cover custom-img mx-auto`} alt={item?.title} img={item?.thumbnailUrl} />
+                      <div className="flex items-center gap-3.5">
+                        <div className="h-10 w-10 rounded-[10px] bg-gradient-to-br from-[#E6FBF0] to-[#F0FDF4] flex items-center justify-center text-emerald-700 border border-emerald-100 flex-shrink-0 relative overflow-hidden">
+                          <CustomImage className="rounded-[10px] object-cover custom-img mx-auto" alt={item?.title} img={item?.thumbnailUrl} />
                         </div>
 
-                        <div className="text-left  w-[380px]">
-                          <h2 className="text-[15px] font-semibold text-gray-800">
+                        <div>
+                          <h2 className="text-[14px] font-bold text-slate-800 group-hover:text-emerald-700 transition-colors">
                             {item?.title}
                           </h2>
-                          {/* <p className="text-[12px] text-gray-500">
-                             { truncateWords(item?.description_en,20)}
-                          </p> */}
                         </div>
                       </div>
 
-                      <div className="h-11 w-11 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-[#9D2BA8] transition-all">
-                        <FiArrowUpRight className="text-gray-400 text-xl group-hover:text-white" />
+                      <div className="flex items-center gap-3">
+                        <span className="hidden sm:inline-block text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-100/50 uppercase tracking-wider">
+                          Course
+                        </span>
+                        <div className="h-8 w-8 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300">
+                          <FiArrowUpRight className="text-slate-400 text-base group-hover:text-white" />
+                        </div>
                       </div>
                     </Link>
                   ))}
 
-
-                  {data?.counsellor.map((item, index) => (
+                  {data?.counsellor && data.counsellor.map((item, index) => (
                     <Link
                       href="/counselors"
                       onClick={() => setSearchCounselors(item)}
-                      key={index}
-                      className="group w-full flex items-center justify-between px-4 py-2 hover:bg-[#faf7ff] transition-all border-b border-gray-100 last:border-none"
+                      key={`counsellor-${index}`}
+                      className="group w-full flex items-center justify-between px-5 py-3 hover:bg-amber-50/30 transition-all duration-200 text-left"
                     >
-                      <div className="flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-[8px] bg-gradient-to-br from-[#F3E8FF] to-[#FAE8FF] flex items-center justify-center text-[#9D2BA8] g-search">
-                          <CustomImage className={`rounded-[8px] object-cover custom-img mx-auto`} alt={item?.name} img={item?.profilePic} />
+                      <div className="flex items-center gap-3.5">
+                        <div className="h-10 w-10 rounded-[10px] bg-gradient-to-br from-[#FEF3C7] to-[#FFFBEB] flex items-center justify-center text-amber-700 border border-amber-100 flex-shrink-0 relative overflow-hidden">
+                          <CustomImage className="rounded-[10px] object-cover custom-img mx-auto" alt={item?.name} img={item?.profilePic} />
                         </div>
 
-                        <div className="text-left w-[380px]">
-                          <h2 className="text-[15px] font-semibold text-gray-800">
+                        <div>
+                          <h2 className="text-[14px] font-bold text-slate-800 group-hover:text-amber-700 transition-colors">
                             {item?.name}
                           </h2>
 
-                          <p className="text-[12px] text-gray-500">
+                          <p className="text-[12px] text-slate-500 mt-0.5">
                             {item?.mobileNo}
                           </p>
                         </div>
                       </div>
 
-                      <div className="h-11 w-11 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-[#9D2BA8] transition-all">
-                        <FiArrowUpRight className="text-gray-400 text-xl group-hover:text-white" />
+                      <div className="flex items-center gap-3">
+                        <span className="hidden sm:inline-block text-[10px] font-bold px-2 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-100/50 uppercase tracking-wider">
+                          Counselor
+                        </span>
+                        <div className="h-8 w-8 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-amber-600 group-hover:text-white transition-all duration-300">
+                          <FiArrowUpRight className="text-slate-400 text-base group-hover:text-white" />
+                        </div>
                       </div>
                     </Link>
                   ))}
-
                 </>
-
-              ) :
-
-                <div className="py-20 text-center">
-                  <FiSearch className="mx-auto text-5xl text-gray-300 mb-4" />
-
-                  <h3 className="text-lg font-semibold text-gray-700">
+              ) : (
+                <div className="py-16 text-center">
+                  <FiSearch className="mx-auto text-4xl text-slate-300 mb-3" />
+                  <h3 className="text-sm font-bold text-slate-700">
                     No Results Found
                   </h3>
-
-                  <p className="text-gray-400 mt-2">
-                    Try different keywords
+                  <p className="text-xs text-slate-400 mt-1">
+                    Try different keywords or filters
                   </p>
                 </div>
-
-              }
+              )}
             </div>
           </div> : null}
       </div>

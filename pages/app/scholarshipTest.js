@@ -12,7 +12,7 @@ export default function Scholarship() {
 
   return (
    <main className="min-h-screen bg-[#f6f4f8]">
-    <section className="ml-[255px] pt-[78px]">     
+    <section className="lg:ml-[255px] pt-[78px] px-4 md:px-6 pb-10">     
      <div className="min-h-screen">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">
         Scholarship Test

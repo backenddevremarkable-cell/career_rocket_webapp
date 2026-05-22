@@ -27,7 +27,7 @@ export default function LogoutPage() {
 
   return (
     <main className="min-h-screen bg-[#f7f5f8]">
-      <section className="ml-[255px] pt-[78px]">
+      <section className="lg:ml-[255px] pt-[78px] px-4 md:px-6 pb-10">
         <div className="flex h-screen items-center justify-center bg-[#f7f5f8]">
           <div className="text-center">
             <div className="w-12 h-12 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>

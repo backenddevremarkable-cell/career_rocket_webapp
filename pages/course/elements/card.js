@@ -42,9 +42,9 @@ export default function CourseCard({ data, view }) {
             {data.title_en}
           </h3>
         </div>
-
+        { }
         <div className="flex items-center gap-1 course-modules  mb-3 mt-3">
-          <FaVideo /> {'12'} Modules
+          <FaVideo /> {data.CourseModule || '-'} Modules
         </div>
 
 
