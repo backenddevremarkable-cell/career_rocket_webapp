@@ -41,9 +41,11 @@ const Search = ({ heading, Badge, textSlide, placeholder, filterData, loading, i
 
   return (
     <>
-      <div className="inline-block px-4 py-2 bg-purple-100 uppercase text-purple-600 text-primary rounded-full text-xs font-bold">
-        {Badge}
-      </div>
+
+      {Badge ?
+        <div className="inline-block px-4 py-2 bg-purple-100 uppercase text-purple-600 text-primary rounded-full text-xs font-bold">
+          {Badge}
+        </div> : null}
 
       <h1 className="mt-6 text-4xl md:text-6xl font-bold text-gray-800">
         {heading}
