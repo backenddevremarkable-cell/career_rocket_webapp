@@ -45,7 +45,7 @@ export default function Assessment() {
             <div className="relative">
               <Image
                 src={pic1}   // 👈 apni image path lagao
-                className="w-full h-[260px] object-cover"
+                className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700 ease-out"
                 alt=""
               />
             </div>
@@ -81,7 +81,7 @@ export default function Assessment() {
             <div className="relative">
               <Image
                 src={pic2}   // 👈 apni image path lagao
-                className="w-full h-[260px] object-cover"
+                className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700 ease-out"
                 alt=""
               />
             </div>

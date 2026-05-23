@@ -1,16 +1,16 @@
 import { BadgeCheck, Share2, Building2 } from "lucide-react";
 import Image from "next/image";
-import certificateImg from "../../../assets/images/certificate.jpg";
+import certificateImg from "../../../assets/images/certificate.jpeg";
 
 export default function CertificationSection() {
   return (
     <section className="w-full bg-white-100 py-20">
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-        
+
         {/* LEFT IMAGE */}
         <div>
           <div className="bg-white p-3 rounded-3xl shadow-lg">
-            <Image src={certificateImg} alt="certificate" className="w-full h-full object-cover"/>
+            <Image src={certificateImg} alt="certificate" className="w-full h-full object-cover" />
           </div>
         </div>
 
@@ -27,7 +27,7 @@ export default function CertificationSection() {
 
           {/* POINTS */}
           <div className="mt-6 space-y-5">
-            
+
             <div className="flex gap-4">
               <div className="w-10 h-10 flex items-center justify-center bg-purple-100 text-purple-700 rounded-full">
                 <BadgeCheck size={20} />

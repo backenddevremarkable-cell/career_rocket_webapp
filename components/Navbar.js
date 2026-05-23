@@ -90,6 +90,7 @@ export default function Navbar() {
   const activeSection = useScrollSpy(menuItems.map((i) => i.key));
 
   const isItemActive = (item) => {
+    if (!pathname) return false;
     if (item.href) {
       if (item.href === "/") {
         return pathname === "/";
@@ -276,7 +277,7 @@ export default function Navbar() {
                   <div className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-40 opacity-100 mt-1" : "max-h-0 opacity-0 pointer-events-none"}`}>
                     <div className="pl-12 pr-4 py-1 space-y-1">
                       {item.children.map((sub) => {
-                        const subActive = pathname === sub.href || pathname.startsWith(sub.href + "/");
+                        const subActive = pathname && (pathname === sub.href || pathname.startsWith(sub.href + "/"));
                         return (
                           <Link
                             key={sub.href}

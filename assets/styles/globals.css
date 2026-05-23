@@ -598,6 +598,16 @@ textarea {
     padding: 10px 24px;
   }
 
+  @media (max-width: 639px) {
+    .search-btn {
+      padding: 0 !important;
+      width: 40px !important;
+      height: 40px !important;
+      aspect-ratio: 1 / 1 !important;
+      border-radius: 50% !important;
+    }
+  }
+
   .motion-card-1 {
     width: 93% !important;
     top: 80px !important;

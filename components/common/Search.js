@@ -4,11 +4,18 @@ import { useState, useEffect, useRef } from "react";
 import { FiSearch, FiX } from "react-icons/fi";
 import { Typewriter } from "react-simple-typewriter";
 import SearchGloabal from "./SearchGloabal";
+import { useRouter } from "next/router";
 
 const Search = ({ heading, Badge, textSlide, placeholder, filterData, loading, isPopup }) => {
-
-  const [searh, searhUpdate] = useState(null)
+  const router = useRouter();
+  const [searh, searhUpdate] = useState("");
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (router.isReady && router.query.search !== undefined) {
+      searhUpdate(router.query.search || "");
+    }
+  }, [router.isReady, router.query.search]);
 
   // Keyboard shortcut listener to focus search when '/' or 'Ctrl+K' / 'Cmd+K' is pressed
   useEffect(() => {
@@ -84,7 +91,10 @@ const Search = ({ heading, Badge, textSlide, placeholder, filterData, loading, i
 
             {searh ? (
               <button
-                onClick={() => { searhUpdate(""); }}
+                onClick={() => {
+                  searhUpdate("");
+                  filterData("");
+                }}
                 className="h-9 w-9 cursor-pointer rounded-full hover:bg-gray-100 flex items-center justify-center transition flex-shrink-0"
               >
                 <FiX className="text-lg text-gray-500" />
