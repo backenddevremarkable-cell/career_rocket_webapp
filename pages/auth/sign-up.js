@@ -196,7 +196,7 @@ function SignIn() {
                 Back to sign up
               </button>
             )}
-            <h1 className="text-3xl sm:text-[34px] font-extrabold text-slate-900 tracking-tight mb-3">
+            <h1 className="text-3xl sm:text-[34px] font-bold text-slate-900 tracking-tight mb-3">
               {isOtp ? 'Check your phone' : 'Create your account'}
             </h1>
             <p className="text-slate-500 text-[15px] leading-relaxed">
@@ -320,11 +320,11 @@ function SignIn() {
           <div className="relative w-full max-w-lg aspect-square flex items-center justify-center">
             <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent rounded-full border border-white/10 animate-pulse" style={{ animationDuration: '4s' }}></div>
             <div className="absolute inset-8 bg-gradient-to-b from-white/10 to-transparent rounded-full border border-white/10"></div>
-            <img
+            {/* <img
               src={rightSide.src}
               alt="Career Dashboard"
               className="w-[80%] h-[80%] object-contain relative z-20"
-            />
+            /> */}
           </div>
         </div>
 
