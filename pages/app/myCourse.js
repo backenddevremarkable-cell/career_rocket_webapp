@@ -1,3 +1,5 @@
+"use client";
+import { withAuth } from '../../utils/withAuth';
 import FooterDashboard from "../../components/FooterDashboard";
 import NavDashboard from "../../components/NavDashboard";
 import { useDataStore } from "@/store/useDataStore";
@@ -13,7 +15,7 @@ import NoRecordFound from "../../components/common/NoRecordFound";
 import CustomImage from "../../components/common/ImageMedia";
 import LoadingScreen from "../../components/common/Loading";
 
-export default function myTest() {
+function myTest() {
 
   const { users, myTest, setMytest } = useDataStore((state) => state);
   const [data, setData] = useState(myTest);
@@ -215,3 +217,5 @@ export default function myTest() {
     </main>
   );
 }
+
+export default withAuth(myTest);

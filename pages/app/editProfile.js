@@ -1,18 +1,19 @@
 "use client";
+import { withAuth } from '../../utils/withAuth';
 import { useEffect, useState } from "react";
 import {
   getProfile,
-  updateProfile, 
+  updateProfile,
   getCountries,
   getStates,
   getCities,
 } from "@/services/authService";
 import { ERROR_MSG, SUCCESS_MSG } from "@/utils";
 import axios from "axios";
-import {  getFromStorage } from "@/utils/index";
+import { getFromStorage } from "@/utils/index";
 import { useRouter } from "next/router";
 
- 
+
 const initialForm = {
   name: "",
   mail: "",
@@ -28,7 +29,7 @@ const initialForm = {
   profilePhoto: "",
 };
 
-export default function EditProfileForm() {
+function EditProfileForm() {
   const [formData, setFormData] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -217,7 +218,7 @@ export default function EditProfileForm() {
       await fetchProfile();
     };
 
-  const classMap = [
+    const classMap = [
       { id: 1, name: '8th' },
       { id: 2, name: '10th' },
       { id: 3, name: '11th' },
@@ -256,23 +257,23 @@ export default function EditProfileForm() {
           : 0,
       };
 
-        await updateProfile(payload);
-     
-        if(getFromStorage('re')){
-          const updatePayload = {
-            student_name: payload?.name,
-            student_email: payload?.mail,
-            mobile: mobile,
-            student_education_level: payload?.educationLevel,
-          };
+      await updateProfile(payload);
 
-          await axios.post(
-            `${process.env.NEXT_PUBLIC_RE_BASE_URL}edit-profile`,
-            updatePayload
-          )
-        }
+      if (getFromStorage('re')) {
+        const updatePayload = {
+          student_name: payload?.name,
+          student_email: payload?.mail,
+          mobile: mobile,
+          student_education_level: payload?.educationLevel,
+        };
 
-      if(getFromStorage('re')==1) router.push('/attempt-ideal-career-test');  
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_RE_BASE_URL}edit-profile`,
+          updatePayload
+        )
+      }
+
+      if (getFromStorage('re') == 1) router.push('/attempt-ideal-career-test');
       SUCCESS_MSG("Profile updated successfully!");
       //
     } catch (error) {
@@ -285,10 +286,9 @@ export default function EditProfileForm() {
 
   const inputClass = (error) =>
     `w-full rounded-xl border px-4 py-3 text-sm outline-none transition-all duration-200
-    ${
-      error
-        ? "border-red-500 focus:ring-2 focus:ring-red-200"
-        : "border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+    ${error
+      ? "border-red-500 focus:ring-2 focus:ring-red-200"
+      : "border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
     }`;
 
   if (pageLoading) {
@@ -302,258 +302,256 @@ export default function EditProfileForm() {
   }
 
   return (
-  <main className="min-h-screen bg-[#f6f4f8]">
-   <section className="lg:ml-[255px] pt-[78px] px-4 md:px-6 pb-10">
-      <div className="mx-auto max-w-6xl">
-        <div className="overflow-hidden rounded-[12px] border border-gray-200 bg-white shadow-xl">
-          {/* Header */}
-          <div className="border-b border-gray-100  from-indigo-600 to-purple-600 px-6 py-5 md:px-10 bg-primary-color">
-            <h2 className="text-2xl md:text-3xl font-bold text-white">
-              Edit Profile
-            </h2>
-            <p className="mt-1 text-sm text-indigo-100">
-              Update your personal and education details
-            </p>
-          </div>
+    <main className="min-h-screen bg-[#f6f4f8]">
+      <section className="lg:ml-[255px] pt-[78px] px-4 md:px-6 pb-10">
+        <div className="mx-auto max-w-6xl">
+          <div className="overflow-hidden rounded-[12px] border border-gray-200 bg-white shadow-xl">
+            {/* Header */}
+            <div className="border-b border-gray-100  from-indigo-600 to-purple-600 px-6 py-5 md:px-10 bg-primary-color">
+              <h2 className="text-2xl md:text-3xl font-bold text-white">
+                Edit Profile
+              </h2>
+              <p className="mt-1 text-sm text-indigo-100">
+                Update your personal and education details
+              </p>
+            </div>
 
-          {/* Form */}
-          <div className="p-6 md:p-10">
-            <form onSubmit={handleSubmit}>
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                {/* Name */}
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-gray-700">
-                    Name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    className={inputClass(errors.name)}
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Enter your name"
-                  />
-                  {errors.name && (
-                    <p className="mt-1 text-sm text-red-500">{errors.name}</p>
-                  )}
+            {/* Form */}
+            <div className="p-6 md:p-10">
+              <form onSubmit={handleSubmit}>
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  {/* Name */}
+                  <div>
+                    <label className="mb-2 block text-sm font-semibold text-gray-700">
+                      Name <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      className={inputClass(errors.name)}
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Enter your name"
+                    />
+                    {errors.name && (
+                      <p className="mt-1 text-sm text-red-500">{errors.name}</p>
+                    )}
+                  </div>
+
+                  {/* Email */}
+                  <div>
+                    <label className="mb-2 block text-sm font-semibold text-gray-700">
+                      Email <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      name="mail"
+                      className={inputClass(errors.mail)}
+                      value={formData.mail}
+                      onChange={handleChange}
+                      placeholder="Enter your email"
+                    />
+                    {errors.mail && (
+                      <p className="mt-1 text-sm text-red-500">{errors.mail}</p>
+                    )}
+                  </div>
+
+                  {/* Country */}
+                  <div>
+                    <label className="mb-2 block text-sm font-semibold text-gray-700">
+                      Country <span className="text-red-500">*</span>
+                    </label>
+                    <select
+                      name="countryId"
+                      className={`${inputClass(errors.countryId)} text-black bg-white`}
+                      value={formData.countryId}
+                      onChange={handleCountryChange}
+                    >
+                      <option value="">Select Country</option>
+                      {countries.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.name_en}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.countryId && (
+                      <p className="mt-1 text-sm text-red-500">
+                        {errors.countryId}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* State */}
+                  <div>
+                    <label className="mb-2 block text-sm font-semibold text-gray-700">
+                      State <span className="text-red-500">*</span>
+                    </label>
+                    <select
+                      name="stateId"
+                      className={`${inputClass(errors.stateId)} text-black bg-white ${!formData.countryId ? "bg-gray-100 cursor-not-allowed" : ""
+                        }`}
+                      value={formData.stateId}
+                      onChange={handleStateChange}
+                      disabled={!formData.countryId}
+                    >
+                      <option value="">Select State</option>
+                      {states.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.name_en}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.stateId && (
+                      <p className="mt-1 text-sm text-red-500">{errors.stateId}</p>
+                    )}
+                  </div>
+
+                  {/* City */}
+                  <div>
+                    <label className="mb-2 block text-sm font-semibold text-gray-700">
+                      City <span className="text-red-500">*</span>
+                    </label>
+                    <select
+                      name="cityId"
+                      className={`${inputClass(errors.cityId)} text-black bg-white ${!formData.stateId ? "bg-gray-100 cursor-not-allowed" : ""
+                        }`}
+                      value={formData.cityId}
+                      onChange={handleChange}
+                      disabled={!formData.stateId}
+                    >
+                      <option value="">Select City</option>
+                      {cities.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.name_en}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.cityId && (
+                      <p className="mt-1 text-sm text-red-500">{errors.cityId}</p>
+                    )}
+                  </div>
+
+                  {/* Education Level */}
+                  <div>
+                    <label className="mb-2 block text-sm font-semibold text-gray-700">
+                      Education Level <span className="text-red-500">*</span>
+                    </label>
+                    <select
+                      name="educationLevel"
+                      className={`${inputClass(errors.educationLevel)} text-black bg-white`}
+                      value={formData.educationLevel}
+                      onChange={handleChange}
+                    >
+                      <option value="">Select Education Level</option>
+                      {educationLevels.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.educationLevel && (
+                      <p className="mt-1 text-sm text-red-500">
+                        {errors.educationLevel}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Stream */}
+                  <div>
+                    <label className="mb-2 block text-sm font-semibold text-gray-700">
+                      Stream
+                    </label>
+                    <input
+                      type="text"
+                      name="stream"
+                      className={inputClass()}
+                      value={formData.stream}
+                      onChange={handleChange}
+                      placeholder="Enter stream"
+                    />
+                  </div>
+
+                  {/* Other */}
+                  <div>
+                    <label className="mb-2 block text-sm font-semibold text-gray-700">
+                      Other
+                    </label>
+                    <input
+                      type="text"
+                      name="other"
+                      className={inputClass()}
+                      value={formData.other}
+                      onChange={handleChange}
+                      placeholder="Enter other"
+                    />
+                  </div>
+
+                  {/* School ID */}
+                  <div>
+                    <label className="mb-2 block text-sm font-semibold text-gray-700">
+                      School ID
+                    </label>
+                    <input
+                      type="text"
+                      name="schoolId"
+                      className={inputClass()}
+                      value={formData.schoolId}
+                      onChange={handleChange}
+                      placeholder="Enter school ID"
+                    />
+                  </div>
+
+                  {/* Referral Code */}
+                  <div>
+                    <label className="mb-2 block text-sm font-semibold text-gray-700">
+                      Referral Code
+                    </label>
+                    <input
+                      type="text"
+                      name="referralCode"
+                      className={inputClass()}
+                      value={formData.referralCode}
+                      onChange={handleChange}
+                      placeholder="Enter referral code"
+                    />
+                  </div>
+
+                  {/* Reward Points */}
+                  <div>
+                    <label className="mb-2 block text-sm font-semibold text-gray-700">
+                      Reward Points
+                    </label>
+                    <input
+                      type="number"
+                      name="rewardPoints"
+                      className={inputClass()}
+                      value={formData.rewardPoints}
+                      onChange={handleChange}
+                      placeholder="Enter reward points"
+                    />
+                  </div>
                 </div>
 
-                {/* Email */}
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-gray-700">
-                    Email <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    name="mail"
-                    className={inputClass(errors.mail)}
-                    value={formData.mail}
-                    onChange={handleChange}
-                    placeholder="Enter your email"
-                  />
-                  {errors.mail && (
-                    <p className="mt-1 text-sm text-red-500">{errors.mail}</p>
-                  )}
-                </div>
-
-                {/* Country */}
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-gray-700">
-                    Country <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    name="countryId"
-                    className={`${inputClass(errors.countryId)} text-black bg-white`}
-                    value={formData.countryId}
-                    onChange={handleCountryChange}
-                  >
-                    <option value="">Select Country</option>
-                    {countries.map((item) => (
-                      <option key={item.id} value={item.id}>
-                        {item.name_en}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.countryId && (
-                    <p className="mt-1 text-sm text-red-500">
-                      {errors.countryId}
-                    </p>
-                  )}
-                </div>
-
-                {/* State */}
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-gray-700">
-                    State <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    name="stateId"
-                     className={`${inputClass(errors.stateId)} text-black bg-white ${
-                      !formData.countryId ? "bg-gray-100 cursor-not-allowed" : ""
-                    }`}
-                    value={formData.stateId}
-                    onChange={handleStateChange}
-                    disabled={!formData.countryId}
-                  >
-                    <option value="">Select State</option>
-                    {states.map((item) => (
-                      <option key={item.id} value={item.id}>
-                        {item.name_en}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.stateId && (
-                    <p className="mt-1 text-sm text-red-500">{errors.stateId}</p>
-                  )}
-                </div>
-
-                {/* City */}
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-gray-700">
-                    City <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    name="cityId"
-                    className={`${inputClass(errors.cityId)} text-black bg-white ${
-                      !formData.stateId ? "bg-gray-100 cursor-not-allowed" : ""
-                    }`}
-                    value={formData.cityId}
-                    onChange={handleChange}
-                    disabled={!formData.stateId}
-                  >
-                    <option value="">Select City</option>
-                    {cities.map((item) => (
-                      <option key={item.id} value={item.id}>
-                        {item.name_en}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.cityId && (
-                    <p className="mt-1 text-sm text-red-500">{errors.cityId}</p>
-                  )}
-                </div>
-
-                {/* Education Level */}
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-gray-700">
-                    Education Level <span className="text-red-500">*</span>
-                  </label> 
-                  <select
-                    name="educationLevel"
-                    className={`${inputClass(errors.educationLevel)} text-black bg-white`}
-                    value={formData.educationLevel}
-                    onChange={handleChange}
-                  >
-                    <option value="">Select Education Level</option>
-                    {educationLevels.map((item) => (
-                      <option key={item.id} value={item.id}>
-                        {item.name}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.educationLevel && (
-                    <p className="mt-1 text-sm text-red-500">
-                      {errors.educationLevel}
-                    </p>
-                  )}
-                </div>
-
-                {/* Stream */}
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-gray-700">
-                    Stream
-                  </label>
-                  <input
-                    type="text"
-                    name="stream"
-                    className={inputClass()}
-                    value={formData.stream}
-                    onChange={handleChange}
-                    placeholder="Enter stream"
-                  />
-                </div>
-
-                {/* Other */}
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-gray-700">
-                    Other
-                  </label>
-                  <input
-                    type="text"
-                    name="other"
-                    className={inputClass()}
-                    value={formData.other}
-                    onChange={handleChange}
-                    placeholder="Enter other"
-                  />
-                </div>
-
-                {/* School ID */}
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-gray-700">
-                    School ID
-                  </label>
-                  <input
-                    type="text"
-                    name="schoolId"
-                    className={inputClass()}
-                    value={formData.schoolId}
-                    onChange={handleChange}
-                    placeholder="Enter school ID"
-                  />
-                </div>
-
-                {/* Referral Code */}
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-gray-700">
-                    Referral Code
-                  </label>
-                  <input
-                    type="text"
-                    name="referralCode"
-                    className={inputClass()}
-                    value={formData.referralCode}
-                    onChange={handleChange}
-                    placeholder="Enter referral code"
-                  />
-                </div>
-
-                {/* Reward Points */}
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-gray-700">
-                    Reward Points
-                  </label>
-                  <input
-                    type="number"
-                    name="rewardPoints"
-                    className={inputClass()}
-                    value={formData.rewardPoints}
-                    onChange={handleChange}
-                    placeholder="Enter reward points"
-                  />
-                </div>
-              </div>
-
-              {/* Submit */}
-              <div className="mt-12" style={{ textAlign : 'right'}}>
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className={`inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold text-white shadow-md transition-all duration-200 bg-primary-color
-                    ${
-                      loading
+                {/* Submit */}
+                <div className="mt-12" style={{ textAlign: 'right' }}>
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className={`inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold text-white shadow-md transition-all duration-200 bg-primary-color
+                    ${loading
                         ? "cursor-not-allowed bg-gray-400"
                         : "bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98]"
-                    }`}
-                >
-                  {loading ? "Updating..." : "Update Profile"}
-                </button>
-              </div>
-            </form>
+                      }`}
+                  >
+                    {loading ? "Updating..." : "Update Profile"}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-   </main> 
+      </section>
+    </main>
   );
 }
+export default withAuth(EditProfileForm);

@@ -1,9 +1,10 @@
+import { withAuth } from '../../utils/withAuth';
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { removeTokenCookie, removeuserInfo } from "@/utils";
 import { useDataStore } from "@/store/useDataStore";
 
-export default function LogoutPage() {
+function LogoutPage() {
   const router = useRouter();
   const { setUsers, setMytest } = useDataStore((state) => state);
 
@@ -38,3 +39,5 @@ export default function LogoutPage() {
     </main>
   );
 }
+
+export default withAuth(LogoutPage);

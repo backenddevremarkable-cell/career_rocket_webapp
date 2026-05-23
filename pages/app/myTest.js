@@ -1,3 +1,6 @@
+
+"use client";
+import { withAuth } from '../../utils/withAuth';
 import FooterDashboard from "../../components/FooterDashboard";
 import NavDashboard from "../../components/NavDashboard";
 import { useDataStore } from "@/store/useDataStore";
@@ -5,7 +8,7 @@ import { RE_API } from "@/config";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export default function myTest() {
+function myTest() {
 
   const { users, myTest, setMytest } = useDataStore((state) => state);
   const [data, setData] = useState(myTest);
@@ -59,8 +62,8 @@ export default function myTest() {
                     {/* Status */}
                     <span
                       className={`inline-block px-3 py-1 text-sm rounded-full mb-3 ${isCompleted
-                          ? "bg-green-100 text-green-700"
-                          : "bg-red-100 text-red-600"
+                        ? "bg-green-100 text-green-700"
+                        : "bg-red-100 text-red-600"
                         }`}
                     >
                       {isCompleted ? "Completed" : "Pending"}
@@ -78,8 +81,8 @@ export default function myTest() {
                       disabled={!isCompleted}
                       onClick={() => window.open(item.report, "_blank")}
                       className={`w-full py-2 rounded-lg text-white font-medium transition ${isCompleted
-                          ? "primary-btn hover:bg-blue-700 cursor-pointer"
-                          : "bg-gray-300 cursor-not-allowed"
+                        ? "primary-btn hover:bg-blue-700 cursor-pointer"
+                        : "bg-gray-300 cursor-not-allowed"
                         }`}
                     >
                       View Report
@@ -94,3 +97,5 @@ export default function myTest() {
     </main>
   );
 }
+
+export default withAuth(myTest);

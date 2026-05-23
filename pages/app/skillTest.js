@@ -1,4 +1,6 @@
-export default function Skilltest() {
+"use client";
+import { withAuth } from '../../utils/withAuth';
+function Skilltest() {
   return (
     <main className="min-h-screen bg-[#f6f4f8]">
       <section className="lg:ml-[255px] pt-[78px] px-4 md:px-6 pb-10">
@@ -17,3 +19,5 @@ export default function Skilltest() {
     </main>
   );
 }
+
+export default withAuth(Skilltest);

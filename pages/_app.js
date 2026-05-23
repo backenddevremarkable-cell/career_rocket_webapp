@@ -16,6 +16,9 @@ export default function MyApp({ Component, pageProps }) {
   const { setUsers, users } = useDataStore((state) => state);
   const router = useRouter();
 
+  const isSignUp = router.pathname.includes("sign-up");
+  const isDashboard = router.pathname.includes("app");
+
   const fetchProfile = async () => {
     try {
       const res = await getProfile();
@@ -25,37 +28,53 @@ export default function MyApp({ Component, pageProps }) {
     }
   };
 
-  useEffect(() => {
-    const token = getTokenCookie();
+  const isBrowser = typeof window !== "undefined";
+  const token = isBrowser ? getTokenCookie() : null;
 
+  useEffect(() => {
     if (token && !users) {
       fetchProfile();
     }
-  }, [users]);
-  const isSignUp = router.pathname.includes("sign-up")
-  const isDashboard = router.pathname.includes("app");
- 
+
+    if (isDashboard && !token) {
+      router.replace('/sign-up');
+    } else if (isSignUp && token) {
+      router.replace('/dashboard');
+    }
+  }, [router.pathname, token, users]);
+
+  // Prevent UI flashing synchronously
+  if (isBrowser) {
+    if ((isDashboard && !token) || (isSignUp && token)) {
+      return (
+        <div className="flex items-center justify-center min-h-screen bg-[#F6F4F8]">
+          <div className="w-8 h-8 border-4 border-primary-color border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      );
+    }
+  }
+
   return (
     <>
-    <Toaster position="bottom-center" />
-      
-    { isSignUp ? <Component {...pageProps} /> : isDashboard ?
-      <>
-        <div className="bg-[#F6F4F8]">
-          <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-          <Header setSidebarOpen={setSidebarOpen} />
-          <div className="max-w-7xl mx-auto p-4">
-            <Component {...pageProps} />
+      <Toaster position="bottom-center" />
+
+      {isSignUp ? <Component {...pageProps} /> : isDashboard ?
+        <>
+          <div className="bg-[#F6F4F8]">
+            <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+            <Header setSidebarOpen={setSidebarOpen} />
+            <div className="max-w-7xl mx-auto p-4">
+              <Component {...pageProps} />
+            </div>
           </div>
-        </div>
-      </> 
-      :
-      <>
-      <Navbar />
-       <Component {...pageProps} />
-       {!isDashboard && <Footer />}
-      </>
-    }
+        </>
+        :
+        <>
+          <Navbar />
+          <Component {...pageProps} />
+          {!isDashboard && <Footer />}
+        </>
+      }
     </>
   );
 }

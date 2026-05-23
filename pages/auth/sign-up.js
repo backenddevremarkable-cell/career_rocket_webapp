@@ -1,5 +1,5 @@
 "use client";
-
+import { withoutAuth } from '../../utils/withAuth';
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { FaEdit } from "react-icons/fa";
@@ -11,7 +11,7 @@ import { loginUser, otpVerify } from "@/services/authService";
 import { useRouter } from "next/router";
 import { useDataStore } from "@/store/useDataStore";
 
-export default function SignIn() {
+function SignIn() {
   const [mobile, setMobile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isOtp, setisOtp] = useState(false);
@@ -316,3 +316,4 @@ export default function SignIn() {
     </section></>
   );
 }
+export default withoutAuth(SignIn);
