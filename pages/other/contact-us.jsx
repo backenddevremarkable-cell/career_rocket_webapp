@@ -32,7 +32,7 @@ export default function ContactPage() {
           </div>
 
           {/* RIGHT - MAP */}
-          <div className="w-full h-full">
+          <div className="w-full  max-h-[90vh]">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14312.242628388853!2d73.0351321!3d26.2596947!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39418c669622511d%3A0x5c27bd81ccdfaef9!2sRemarkable%20Education%20Private%20Limited!5e0!3m2!1sen!2sin!4v1716628631915!5m2!1sen!2sin"
               className="w-full h-map rounded-lg"
@@ -45,7 +45,6 @@ export default function ContactPage() {
 
 
         <div className="bg-[#faf7fc] py-20">
-
           {/* Location Switch */}
           <div className="flex justify-center mb-14 px-4">
             <div className="relative flex bg-white shadow-lg border border-[#f1e4ff] rounded-full p-1.5 w-[290px] overflow-hidden">
