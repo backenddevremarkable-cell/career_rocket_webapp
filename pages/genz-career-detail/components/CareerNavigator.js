@@ -31,41 +31,54 @@ export default function CareerNavigator(props) {
     },
   ];
 
-  return ( roadmap ?
-    <section className="py-0 bg-[#faf7fc] px-6 lg:px-20">
-      <div className="max-w-5xl mx-auto">
+  return (roadmap ?
+    <section className="relative overflow-hidden py-24 bg-[#faf7fc] px-6 lg:px-20 border-b border-slate-100">
+      {/* Decorative Dot Grid Overlay */}
+      <div className="absolute inset-0 bg-[radial-gradient(#9d2ba804_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
 
-        <h2 className="text-5xl font-bold text-center text-gray-900">
+      <div className="relative z-10 max-w-5xl mx-auto">
+
+        <span className="text-xs font-bold tracking-widest text-[#A02BAA] uppercase mb-3 block text-center">
+          Progression Roadmap
+        </span>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center text-gray-900 tracking-tight leading-tight">
           Career Navigators
         </h2>
 
-        <div className="relative mt-24">
-          <div className="absolute left-[22px] top-0 w-[2px] h-full bg-primary from-fuchsia-500 to-violet-300"></div>
+        <div className="relative mt-20">
+          {/* Progression Line */}
+          <div className="absolute left-[21px] top-0 w-[2px] h-full bg-gradient-to-b from-[#A02BAA]/60 via-purple-300/40 to-transparent"></div>
 
-          <div className="space-y-12">
+          <div className="space-y-10">
             {roadmap.map((item, index) => (
-              <div key={index} className="relative flex gap-8">
+              <div key={index} className="group relative flex gap-8 items-start">
 
-                <div className="relative z-10 min-w-[44px] h-[44px] rounded-xl bg-primary from-fuchsia-600 to-violet-700 text-white flex items-center justify-center font-bold shadow-lg">
+                {/* Step node badge */}
+                <div className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#A02BAA] to-violet-700 font-bold text-white shadow-lg transition-transform duration-300 group-hover:scale-105">
+                  <div className="absolute -inset-1 rounded-xl bg-[#A02BAA]/10 animate-pulse pointer-events-none" />
                   {item.step}
                 </div>
 
-                <div className="flex-1 bg-white rounded-[12px] p-10 shadow-sm border border-gray-100  transition-all duration-300">
-                  <h3 className="text-2xl font-bold text-gray-900">
+                {/* White card details */}
+                <div className="relative overflow-hidden flex-1 bg-white border border-slate-200/60 p-8 md:p-10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.015)] transition-all duration-300 hover:border-purple-500/25 hover:shadow-[0_20px_40px_-15px_rgba(160,43,170,0.06)]">
+                  {/* Glowing left line on hover */}
+                  <div className="absolute left-0 top-0 h-full w-[3px] bg-gradient-to-b from-[#A02BAA] to-purple-600 scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top rounded-l-2xl" />
+
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 tracking-tight">
                     {item.title}
                   </h3>
 
-                  <p className="text-gray-500 mt-5 leading-8">
+                  <p className="text-slate-500 mt-4 text-sm md:text-base leading-relaxed text-justify">
                     {item.desc}
                   </p>
 
-                  <div className="flex gap-6 mt-6">
-                    <span className="color-primary font-semibold">
-                      {item?.experience} Years
+                  <div className="flex flex-wrap gap-3 mt-6">
+                    <span className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-purple-50 text-[#80188E] border border-purple-100/80 transition-all hover:bg-purple-100/50">
+                      {item?.experience} Years Experience
                     </span>
 
-                    <span className="color-primary font-semibold">
-                      {item.salary}
+                    <span className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-100/80 transition-all hover:bg-emerald-100/50">
+                      {item.salary} Avg. Salary
                     </span>
                   </div>
                 </div>

@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaHourglassEnd, FaIndianRupeeSign } from "react-icons/fa6";
+import { ShieldCheck, Target, GraduationCap } from "lucide-react";
+import { motion } from "framer-motion";
 import {
   getTokenCookie,
   getFromStorage,
@@ -107,25 +109,7 @@ export default function HeroSection(props) {
       order_id: orderId,
 
       handler: async (response) => {
-
-
         try {
-          // ✅ verify payment
-          // const verifyRes = await fetch("/api/payment-success", {
-          //   method: "POST",
-          //   headers: {
-          //     "Content-Type": "application/json",
-          //   },
-          //   body: JSON.stringify(response),
-          // });
-
-          // const verifyData = await verifyRes.json();
-
-          // if (!verifyData.success) {
-          //   ERROR_MSG("Payment verification failed");
-          //   return;
-          // }
-
           // ✅ activate course
           const buyRes = await successPayment({
             paymentId: response.razorpay_payment_id,
@@ -232,142 +216,183 @@ export default function HeroSection(props) {
     }
   };
 
+  const discountPercent = props?.mrp && props?.sellPrice ? Math.round(((props.mrp - props.sellPrice) / props.mrp) * 100) : 0;
+
   return (props ?
-
     <>
+      <section className="relative overflow-hidden bg-[#0a0516] text-white py-16 sm:py-16">
+        {/* Decorative Grid Overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
 
-      <section className="relative overflow-hidden bg-[#050816] text-white">
-        {/* LEFT PURPLE GLOW */}
-        <div className="absolute left-[-180px] top-[120px] h-[500px] w-[500px] rounded-full bg-[#9D2BA7]/35 blur-[140px]" />
-        {/* RIGHT BLUE/PURPLE GLOW */}
-        <div className="absolute right-[-120px] top-[-100px] h-[450px] w-[450px] rounded-full bg-[#7e1f87]/30 blur-[130px]" />
-        {/* BOTTOM PINK GLOW */}
-        <div className="absolute bottom-[-220px] left-1/2 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-[#d90eef]/20 blur-[160px]" />
-        {/* EXTRA SOFT LIGHT */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.08),transparent_28%)]" />
-        {/* CENTER OVERLAY */}
-        <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(157,43,167,0.12),rgba(126,31,135,0.06),transparent)]" />
+        {/* Ambient Glows */}
+        <div className="absolute left-[-10%] top-[10%] h-[400px] w-[400px] rounded-full bg-purple-600/20 blur-[120px] pointer-events-none" />
+        <div className="absolute right-[-10%] top-[-10%] h-[450px] w-[450px] rounded-full bg-indigo-600/20 blur-[130px] pointer-events-none" />
+        <div className="absolute bottom-[-10%] left-1/2 -translate-x-1/2 h-[500px] w-[500px] rounded-full bg-fuchsia-600/15 blur-[150px] pointer-events-none" />
 
         {/* CONTENT */}
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-10 py-8">
-          <div className="grid items-center gap-16 lg:grid-cols-2">
-            {/* LEFT */}
-            <div>
-              {/* Animated Badge */}
-              <div className="relative inline-flex overflow-hidden rounded-full p-[1px]">
-                <div className="relative z-10 rounded-full border border-white/20 bg-white/10 backdrop-blur-xl px-7 py-3 text-sm font-semibold text-white shadow-[0_0_25px_rgba(255,255,255,0.08)]">
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="grid items-center gap-12 lg:grid-cols-12">
+
+            {/* LEFT COLUMN - TEXT CONTENT */}
+            <div className="lg:col-span-7 flex flex-col items-start text-left">
+              {/* Premium Category Badge */}
+              <div className="relative inline-flex overflow-hidden rounded-full p-[1px] mb-6">
+                <span className="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg,#9D2BA8_0%,#4c0f51_50%,#9D2BA8_100%)]" />
+                <div className="inline-flex items-center justify-center rounded-full bg-slate-950/90 px-4 py-1.5 text-xs font-semibold tracking-wide text-purple-200 backdrop-blur-3xl gap-2 border border-purple-500/20">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+                  </span>
                   {props?.mainCategoryName_en}
                 </div>
               </div>
 
-              <h1 className="mt-2 text-5xl leading-tight font-extrabold md:text-5xl">
+              {/* Title */}
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-purple-300">
                 {props?.title_en}
               </h1>
 
-              <p className="mt-6 text-lg leading-8 text-justify text-white/75 line-clamp-4">
+              {/* Description */}
+              <p className="mt-6 text-base sm:text-lg text-slate-300/85 leading-relaxed text-justify line-clamp-4">
                 {props?.description_en}
               </p>
-
 
               {props?.description_en && (
                 <button
                   onClick={() => setOpen(true)}
-                  className="mt-3 text-white/75 cursor-pointer font-semibold"
+                  className="mt-3 text-sm text-purple-400 hover:text-purple-300 font-semibold cursor-pointer transition-colors duration-200 flex items-center gap-1 group"
                 >
-                  More Info.
+                  Read Full Details
+                  <span className="transform group-hover:translate-x-1 transition-transform duration-200">→</span>
                 </button>
               )}
 
-              {/* TAGS */}
-              <div className="flex flex-wrap gap-3 mt-6">
-                {["Video lecturer", "12 Modules", "Certificate Included", "Beginner Friendly"].map((item, i) => (
+              {/* Modern Glassmorphic Badges */}
+              <div className="flex flex-wrap gap-2.5 mt-8">
+                {["Video Lectures", "12 Modules", "Certificate Included", "Beginner Friendly"].map((item, i) => (
                   <span
                     key={i}
-                    className="bg-purple-100 text-gray-900 px-4 py-2 rounded-full text-sm"
+                    className="inline-flex items-center gap-1.5 bg-white/5 border border-white/10 hover:border-purple-500/30 text-purple-200/90 hover:text-white px-3.5 py-1.5 rounded-full text-xs font-medium backdrop-blur-md transition-all duration-300"
                   >
+                    <span className="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
                     {item}
                   </span>
                 ))}
               </div>
 
+              {/* Access Details Box */}
+              <div className="flex items-center gap-3 mt-6 text-sm text-slate-300/85 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 backdrop-blur-sm">
+                <FaHourglassEnd className="text-purple-400" />
+                <span>
+                  Access details: <span className="font-semibold text-white">{props?.validity}</span> {props?.validityType === "date" ? 'Date access Available' : 'Days access Available'}
+                </span>
+              </div>
 
-              <span className="flex items-center gap-1 mt-6 text-white/75">
-                <FaHourglassEnd />
-                Access details : {props.validity} {props.validityType == "date" ? ' Date access Available' : ' Days access Available'}
-              </span>
-
-              {/* PRICE */}
-              <div className="mt-6">
-                <div className="flex items-center gap-1 text-[45px] font-bold">
-                  <FaIndianRupeeSign className="text-gray-400 mt-1" />
-                  {props.isPaid ? props.sellPrice ?
+              {/* Price & Savings */}
+              <div className="mt-8 flex items-baseline gap-4 flex-wrap">
+                {props?.isPaid ? (
+                  props?.sellPrice ? (
                     <>
-                      <span className="line-through text-gray-400">
-                        {props.mrp}
-                      </span>
-
-                      <span className="text-white ml-2">
-                        {props.sellPrice}/-
-                      </span>
+                      <div className="flex items-center text-4xl sm:text-5xl font-black text-white tracking-tight">
+                        <FaIndianRupeeSign className="text-purple-400 text-3xl mr-0.5" />
+                        <span>{props.sellPrice}/-</span>
+                      </div>
+                      {props?.mrp && props?.mrp > props?.sellPrice && (
+                        <div className="flex items-center gap-2">
+                          <span className="text-xl line-through text-slate-500 font-medium">
+                            ₹{props.mrp}
+                          </span>
+                          <span className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs px-2.5 py-1 rounded-md font-bold tracking-wide uppercase">
+                            Save {discountPercent}%
+                          </span>
+                        </div>
+                      )}
                     </>
-                    :
-                    <span className="text-gray-400">{props.mrp}/-</span>
-                    : <span className="text-gray-400">Free</span>}
-                </div>
+                  ) : (
+                    <div className="flex items-center text-4xl sm:text-5xl font-black text-white tracking-tight">
+                      <FaIndianRupeeSign className="text-purple-400 text-3xl mr-0.5" />
+                      <span>{props?.mrp}/-</span>
+                    </div>
+                  )
+                ) : (
+                  <span className="text-4xl sm:text-5xl font-black bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent tracking-tight">
+                    FREE
+                  </span>
+                )}
               </div>
 
-              {!loader ?
-                <button onClick={() => buyNow()} className="mt-6 bg-purple-600 hover:bg-purple-800 text-white px-8 py-3 rounded-lg cursor-pointer transition-all">
-                  {props.isPaid ? 'Buy Now →' : 'Add to my Course →'}
-                </button> :
-                <button className="flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-800 text-white px-4 mt-6 px-6 py-3 rounded-lg  cursor-not-allowed">
-                  <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  <span> Please wait...</span>
-                </button>}
+              {/* CTA Enroll Button */}
+              {!loader ? (
+                <button
+                  onClick={() => buyNow()}
+                  className="group relative mt-8 inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-xl bg-gradient-to-r from-purple-600 via-fuchsia-600 to-purple-700 px-8 py-3.5 font-bold text-white shadow-lg shadow-purple-600/20 transition-all duration-300 hover:shadow-purple-600/40 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+                >
+                  <span className="absolute inset-0 bg-white/10 opacity-0 transition-opacity group-hover:opacity-100" />
+                  <span>{props?.isPaid ? 'Unlock Full Course' : 'Enroll for Free'}</span>
+                  <span className="transform transition-transform duration-300 group-hover:translate-x-1 font-semibold text-lg">→</span>
+                </button>
+              ) : (
+                <button className="flex items-center justify-center gap-2.5 bg-purple-700/80 text-white px-8 py-3.5 rounded-xl mt-8 cursor-not-allowed border border-purple-500/30">
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  <span className="font-semibold">Securing transaction...</span>
+                </button>
+              )}
             </div>
 
-            {/* RIGHT IMAGE */}
-            <div className="relative">
-              {/* glow behind image */}
-              <div className="absolute inset-0 scale-110 rounded-[30px] bg-[#d90eef]/20 blur-3xl"></div>
-              <div className="relative overflow-hidden rounded-[12px] border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
-                <div className="bg-white">
-                  <CustomImage img={props?.bannerImage} alt={props?.title_en} className="rounded-2xl w-full" />
+            {/* RIGHT COLUMN - MEDIA VIEWPORT */}
+            <div className="lg:col-span-5 relative mt-8 lg:mt-0">
+              <div className="relative group/image max-w-md mx-auto lg:max-w-none">
+
+                {/* Glow behind image */}
+                <div className="absolute inset-0 scale-105 rounded-3xl bg-gradient-to-tr from-purple-600/25 to-indigo-600/25 blur-3xl opacity-70 transition-opacity duration-500 group-hover/image:opacity-95" />
+
+                {/* Custom Card Frame */}
+                <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/40 p-2 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] backdrop-blur-sm">
+                  <div className="overflow-hidden rounded-xl bg-white/5">
+                    <CustomImage img={props?.bannerImage} alt={props?.title_en} className="w-full h-auto object-cover transform duration-700 hover:scale-[1.02]" />
+                  </div>
                 </div>
 
-                {/* <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: -50 }}
-            transition={{ delay: 0.8, duration: 0.9 }}
-            className="absolute top-4 right-4 bg-white z-9000 px-4 py-2  text-sm font-medium flex items-center gap-2 c-detail-motion"
-          >
-            <Image src={industry} width={42}/>
-            <div className="c-montion-text">Certified </div>
-          </motion.div>
+                {/* Floating Badges */}
+                {/* Badge 1: Certified */}
+                <motion.div
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute -top-4 -right-4 bg-slate-950/90 border border-white/10 px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 shadow-2xl backdrop-blur-md text-white"
+                >
+                  <div className="w-5 h-5 flex items-center justify-center bg-purple-500/20 text-purple-400 rounded-full">
+                    <ShieldCheck size={13} />
+                  </div>
+                  <span>Verified Certificate</span>
+                </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: -30, }}
-            animate={{ opacity: 1, x: 10, y: -50 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="absolute bottom-10 left-0 bg-white  px-4 py-2  text-sm font-medium c-detail-motion"
-          >
-            <Image src={practicalLearn} width={42}/> 
-             <div className="c-montion-text">Practical Learning</div>
-          </motion.div>
+                {/* Badge 2: Practical */}
+                <motion.div
+                  animate={{ y: [0, 8, 0] }}
+                  transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                  className="absolute -bottom-4 -left-4 bg-slate-950/90 border border-white/10 px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 shadow-2xl backdrop-blur-md text-white"
+                >
+                  <div className="w-5 h-5 flex items-center justify-center bg-purple-500/20 text-purple-400 rounded-full">
+                    <Target size={13} />
+                  </div>
+                  <span>Practical Training</span>
+                </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0, y: -20 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-            className="absolute bottom-0 right-4 bg-white  px-4 py-2  text-sm font-medium c-detail-motion"
-          >
-            <Image src={certificate} width={42}/> 
-             <div className="c-montion-text"> Industry Relevant </div>
-          </motion.div> */}
+                {/* Badge 3: Industry */}
+                <motion.div
+                  animate={{ y: [0, -6, 0] }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                  className="absolute -bottom-6 right-8 bg-slate-950/90 border border-white/10 px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 shadow-2xl backdrop-blur-md text-white animate-pulse"
+                >
+                  <div className="w-5 h-5 flex items-center justify-center bg-purple-500/20 text-purple-400 rounded-full">
+                    <GraduationCap size={13} />
+                  </div>
+                  <span>Industry Standard</span>
+                </motion.div>
 
               </div>
-
             </div>
+
           </div>
         </div>
       </section>

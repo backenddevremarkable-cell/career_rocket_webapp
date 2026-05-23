@@ -1,34 +1,41 @@
 "use client";
 import parse from "html-react-parser";
 import { FaTimes } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 export default function Modal(props) {
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-      <div className="relative w-full max-w-3xl rounded-[12px] bg-white shadow-2xl overflow-hidden">
-            {/* CLOSE */}
-        <div className="bg-primary py-1"> 
-            <button
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-950/65 backdrop-blur-sm p-4">
+      {/* Modal Card motion container */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95, y: 10 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
+        className="relative w-full max-w-3xl rounded-[12px] bg-white border border-slate-200/80 shadow-2xl overflow-hidden flex flex-col"
+      >
+        {/* HEADER */}
+        <div className="relative flex items-center justify-between px-8 py-5 border-b border-slate-100 bg-gradient-to-r from-slate-50/50 to-purple-50/10">
+          <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 pr-10">
+            {props?.heading}
+          </h2>
+
+          {/* CLOSE BUTTON */}
+          <button
             onClick={() => props?.setOpen(false)}
-            className="absolute top-5 right-5 z-10 cursor-pointer flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition"
-            >
-            <FaTimes className="text-black text-lg" />
-            </button>
-            
+            className="flex items-center justify-center w-8 h-8 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
+            aria-label="Close modal"
+          >
+            <FaTimes className="text-base" />
+          </button>
+        </div>
 
-            {/* HEADER */}
-            <div className="px-8 py-6">
-            <h2 className="text-[25px] text-[#fff] font-semibold">
-                {props?.heading}
-            </h2>
-            </div>
-        </div> 
-
-            {/* CONTENT */}
-            <div className="max-h-[80vh] overflow-y-auto px-8 py-6 text-[17px] text-justify leading-8 text-gray-700">
+        {/* CONTENT */}
+        <div className="max-h-[70vh] overflow-y-auto px-8 py-6 text-sm sm:text-base text-slate-600 leading-relaxed text-justify">
+          <div className="space-y-4">
             {parse(props?.description || "")}
-            </div>
+          </div>
         </div>
-        </div>
+      </motion.div>
+    </div>
   );
 }

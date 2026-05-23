@@ -17,43 +17,43 @@ import LoadingScreen from "../../components/common/Loading";
 export default function Page() {
 
   const [page, setPage] = useState(1);
-  const [limit,setLimit] = useState(50);
+  const [limit, setLimit] = useState(50);
   const [data, SetData] = useState();
   const [loading, setLoading] = useState(false);
   const { zcourseId } = useDataStore((state) => state);
 
   const fetchData = async () => {
-            try {
-              const payload = {
-                id : zcourseId || getFromStorage('zcsid')
-              }
-              setLoading(true);
-              const res = await careerBycatIdGenZ(payload);
-              SetData(res?.data || {});
-            } catch (err) {
-              console.error("Error fetching profile:", err);
-            } finally {
-              setLoading(false);
-            }
-          };  
-      
-      useEffect(() => {
-          if(!data) fetchData();
-      }, []);
+    try {
+      const payload = {
+        id: zcourseId || getFromStorage('zcsid')
+      }
+      setLoading(true);
+      const res = await careerBycatIdGenZ(payload);
+      SetData(res?.data || {});
+    } catch (err) {
+      console.error("Error fetching profile:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!data) fetchData();
+  }, []);
 
   return (
     loading ?
-     <div className="relative min-h-[500px]">
-      <LoadingScreen/>
-     </div> 
+      <div className="relative min-h-[500px]">
+        <LoadingScreen />
+      </div>
       :
-   data ?
-    <main>
-      <HeroSection {...data} />
-      <WhoShouldPursue {...data} />
-      <LearningSection {...data} />
-      <CareerNavigator {...data} />
-      <OpportunitySection {...data} />
-    </main> : null
+      data ?
+        <main>
+          <HeroSection {...data} />
+          <WhoShouldPursue {...data} />
+          <LearningSection {...data} />
+          <CareerNavigator {...data} />
+          <OpportunitySection {...data} />
+        </main> : null
   );
 }

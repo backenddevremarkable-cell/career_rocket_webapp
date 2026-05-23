@@ -16,51 +16,51 @@ import LoadingScreen from "../../components/common/Loading";
 
 const Career = () => {
 
-    const { courseId } = useDataStore((state) => state);
-    const [data, setData] = useState();
-    const [loading, setLoading] = useState(false);
-    const router = useRouter();
-  
-    const fetchData = async ()=>{
+  const { courseId } = useDataStore((state) => state);
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-       try {
-        const payload = {
-            id : courseId || getFromStorage('csid')
-        }
+  const fetchData = async () => {
 
-        if(!payload?.id){
-             router.push("/courses")
-             return
-        }
-        setLoading(true)
-        const res = await getCoursesDetail(payload);
-        setData(res?.data || [])
-         } catch (err) {
-          console.error("Error fetching profile:", err);
-        } finally {
-          setLoading(false);
-       } 
+    try {
+      const payload = {
+        id: courseId || getFromStorage('csid')
+      }
+
+      if (!payload?.id) {
+        router.push("/courses")
+        return
+      }
+      setLoading(true)
+      const res = await getCoursesDetail(payload);
+      setData(res?.data || [])
+    } catch (err) {
+      console.error("Error fetching profile:", err);
+    } finally {
+      setLoading(false);
     }
-    
-    useEffect(() => {
-       fetchData()
-    }, [])
+  }
 
-  return (  loading ?
-      <div className="relative min-h-[500px]">
-        <LoadingScreen/>
-      </div> :
-   <>
-    <HeroSection {...data}/>
-    <FeaturesSection/>
-    <AboutSection />
-    {/* <LearnSection /> */}
-    {/* <FaqSection /> */}
-    {/* <AudienceSection /> */}
-    <CertificationSection />
-    {/* <TakeAwaySection /> */}
-    <CTASection />
-  </>)
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  return (loading ?
+    <div className="relative min-h-[500px]">
+      <LoadingScreen />
+    </div> :
+    <>
+      <HeroSection {...data} />
+      <FeaturesSection />
+      <AboutSection />
+      {/* <LearnSection /> */}
+      {/* <FaqSection /> */}
+      {/* <AudienceSection /> */}
+      <CertificationSection />
+      {/* <TakeAwaySection /> */}
+      <CTASection />
+    </>)
 }
 
 export default Career;

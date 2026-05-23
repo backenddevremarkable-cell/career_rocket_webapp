@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Clock, Laptop, BookOpen, Monitor } from "lucide-react";
 
 const features = [
@@ -28,37 +27,45 @@ const features = [
 
 export default function FeaturesSection() {
   return (
-  features ?  
-    <section className="w-full bg-purple-100 py-16">
-      <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-4 gap-6">
+    features ?  
+      <section className="relative w-full bg-gradient-to-b from-[#f8f6fb] to-white py-20 border-b border-slate-100">
+        {/* Subtle decorative dot pattern */}
+        <div className="absolute inset-0 bg-[radial-gradient(#9d2ba808_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" />
         
-        {features.map((item, i) => {
-          const Icon = item.icon;
+        <div className="relative max-w-6xl mx-auto px-6">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            
+            {features.map((item, i) => {
+              const Icon = item.icon;
 
-          return (
-            <div
-              key={i}
-              className="bg-white/70 backdrop-blur-md p-6 rounded-3xl shadow-sm hover:shadow-md transition-all"
-            >
-              {/* Icon */}
-              <div className="w-12 h-12 flex items-center justify-center bg-purple-100 text-purple-700 rounded-full mb-4">
-                <Icon size={22} />
-              </div>
+              return (
+                <div
+                  key={i}
+                  className="group relative bg-white border border-slate-100/90 rounded-2xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.015)] hover:shadow-[0_20px_40px_-12px_rgba(159,35,168,0.1)] hover:-translate-y-1.5 transition-all duration-300"
+                >
+                  {/* Glowing background accent on card hover */}
+                  <div className="absolute -inset-[1px] bg-gradient-to-br from-purple-500 to-indigo-500 rounded-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none" />
 
-              {/* Title */}
-              <h3 className="text-lg font-semibold text-gray-900">
-                {item.title}
-              </h3>
+                  {/* Icon with elegant linear gradient */}
+                  <div className="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-purple-500 to-indigo-600 text-white rounded-xl mb-5 shadow-md shadow-purple-200/50 transition-transform duration-300 group-hover:scale-110">
+                    <Icon size={22} className="stroke-[2.2]" />
+                  </div>
 
-              {/* Description */}
-              <p className="text-gray-600 text-sm mt-2">
-                {item.desc}
-              </p>
-            </div>
-          );
-        })}
+                  {/* Title */}
+                  <h3 className="text-lg font-bold text-gray-900 tracking-tight">
+                    {item.title}
+                  </h3>
 
-      </div>
-    </section> : null
+                  {/* Description */}
+                  <p className="text-gray-500 text-sm leading-relaxed mt-2.5">
+                    {item.desc}
+                  </p>
+                </div>
+              );
+            })}
+
+          </div>
+        </div>
+      </section> : null
   );
 }

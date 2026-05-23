@@ -26,12 +26,20 @@ const modules = [
 
 export default function FaqSection() {
   return ( modules ?
-    <section className="w-full bg-purple-100 py-20">
-      <div className="max-w-5xl mx-auto px-6">
+    <section className="relative w-full bg-slate-50/50 py-24 overflow-hidden border-b border-slate-100">
+      {/* Background ambient light */}
+      <div className="absolute left-[-5%] bottom-[10%] h-[300px] w-[300px] rounded-full bg-purple-600/5 blur-[100px] pointer-events-none" />
+      
+      <div className="relative max-w-4xl mx-auto px-6">
         
+        {/* Tagline */}
+        <span className="text-xs font-bold tracking-widest text-purple-600 uppercase mb-3 block text-center">
+          Syllabus Breakdown
+        </span>
+
         {/* Heading */}
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
-          Course <span className="text-purple-700">Modules</span>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-center text-gray-900 mb-16 leading-tight">
+          Course <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">Modules</span>
         </h2>
 
         {/* Accordion */}
@@ -40,44 +48,46 @@ export default function FaqSection() {
             <Disclosure key={i} defaultOpen={i === 0}>
               {({ open }) => (
                 <div
-                  className={`rounded-2xl p-5 transition-all ${
+                  className={`border rounded-2xl p-5 transition-all duration-300 bg-white ${
                     open
-                      ? "bg-white shadow-md border-l-4 border-purple-700"
-                      : "bg-white/70"
+                      ? "border-purple-500/25 shadow-[0_15px_35px_-10px_rgba(159,35,168,0.06)]"
+                      : "border-slate-200/60 hover:border-purple-500/20 shadow-[0_8px_30px_rgb(0,0,0,0.01)]"
                   }`}
                 >
                   {/* Header */}
-                  <Disclosure.Button className="w-full flex justify-between items-center text-left">
+                  <Disclosure.Button className="w-full flex justify-between items-center text-left cursor-pointer group">
                     <div>
-                      <p className="text-xs tracking-widest text-purple-600 mb-1">
+                      <span className="text-xs font-bold tracking-widest text-purple-600 mb-1.5 block uppercase">
                         MODULE {String(i + 1).padStart(2, "0")}
-                      </p>
-                      <h3 className="text-lg font-semibold text-gray-900">
+                      </span>
+                      <h3 className="text-lg font-bold text-gray-900 tracking-tight transition-colors group-hover:text-purple-800">
                         {item.title}
                       </h3>
                     </div>
 
-                    <ChevronUp
-                      className={`w-5 h-5 transition-transform ${
-                        open ? "rotate-180 text-purple-700" : "text-gray-500"
-                      }`}
-                    />
+                    <div className={`w-8 h-8 flex items-center justify-center rounded-full transition-colors ${open ? 'bg-purple-100 text-purple-700' : 'bg-slate-100 text-slate-500 group-hover:bg-purple-50 group-hover:text-purple-600'}`}>
+                      <ChevronUp
+                        className={`w-4 h-4 transition-transform duration-300 ${
+                          open ? "rotate-180" : ""
+                        }`}
+                      />
+                    </div>
                   </Disclosure.Button>
 
                   {/* Content */}
                   {item.content && (
-                    <Disclosure.Panel className="mt-4 text-gray-600 text-sm">
+                    <Disclosure.Panel className="mt-5 text-slate-600 text-sm sm:text-base border-t border-slate-100 pt-4 leading-relaxed">
                       <p>{item.content}</p>
 
                       {/* Points */}
                       {item.points && (
-                        <div className="flex flex-wrap gap-6 mt-4 text-sm">
+                        <div className="flex flex-wrap gap-3 mt-5">
                           {item.points.map((p, idx) => (
                             <span
                               key={idx}
-                              className="flex items-center gap-2 text-gray-500"
+                              className="inline-flex items-center gap-2 bg-purple-50/50 border border-purple-100/40 text-slate-600 px-3.5 py-1.5 rounded-full text-xs font-medium"
                             >
-                              <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
+                              <span className="w-1.5 h-1.5 bg-purple-500 rounded-full"></span>
                               {p}
                             </span>
                           ))}

@@ -290,37 +290,7 @@ export default function Footer() {
           </p>
 
           {/* Modal */}
-          {counselorPopup && (
-            <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-              {/* Popup Box */}
-              <div className="relative w-full max-w-2xl rounded-[12px] bg-white shadow-2xl overflow-hidden animate-popup">
-                {/* Close Button */}
-                <button
-                  onClick={() => setCounselorPopup(false)}
-                  className="absolute top-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-black hover:bg-gray-200 transition"
-                >
-                  <FaTimes size={22} className="text-black cursor-pointer" />
-                  {/* <X size={20} /> */}
-                </button>
-
-                {/* Header */}
-                <div className="bg-primary px-8 py-6">
-                  <h2 className="text-2xl font-bold text-white">
-                    Talk to A counselor
-                  </h2>
-
-                  <p className="mt-1 text-sm text-white/90">
-                    Fill out the form and our team will contact you shortly.
-                  </p>
-                </div>
-
-                {/* Form */}
-                <div className="max-h-[80vh] overflow-y-auto p-6" style={{ paddingTop: 8 }}>
-                  <ContactForm isPopup={1} />
-                </div>
-              </div>
-            </div>)}
-
+          {counselorPopup && (<ContactForm isPopup={1} />)}
         </div>
       </div>
     </footer>

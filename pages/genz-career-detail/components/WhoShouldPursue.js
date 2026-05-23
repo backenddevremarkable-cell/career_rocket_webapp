@@ -52,47 +52,52 @@ const data = [
 export default function WhoShouldPursue(props) {
   return (
     props.pursue ?
-    <section className="py-24 bg-[#FFF1FF] px-6 lg:px-20">
-      <div className="max-w-5xl mx-auto">
+      <section className="relative overflow-hidden py-24 bg-gradient-to-b from-slate-50 to-white px-6 lg:px-20 border-b border-slate-100">
+        {/* Dot Grid Background */}
+        <div className="absolute inset-0 bg-[radial-gradient(#9d2ba804_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" />
 
-        <div className="text-center max-w-3xl mx-auto">
-          <h2 className="text-5xl font-bold text-gray-900">
-            Who Should Pursue?
-          </h2>
+        <div className="relative z-10 max-w-5xl mx-auto">
 
-          <p className="text-gray-500 mt-6 text-lg leading-8">
-            This career path is designed for those who possess a unique blend
-            of analytical thinking and creative problem-solving.
-          </p>
-        </div>
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight">
+              Who Should Pursue?
+            </h2>
 
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mt-20">
-          {props.pursue.map((item, index) => {
-            const Icon = item.icon;
+            <p className="text-slate-500 mt-5 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
+              This career path is designed for those who possess a unique blend
+              of analytical thinking and creative problem-solving.
+            </p>
+          </div>
 
-            return (
-              <div
-                key={index}
-                className="group bg-[#FFF5FF] border border-0 rounded-[10px] p-8 hover:-translate-y-2 transition-all duration-500"
-              >
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 mt-16">
+            {props.pursue.map((item, index) => {
+              return (
                 <div
-                  className={`w-18 h-18 rounded-2xl bg-gradient-to-r border-[rgba(0,0,0,0.1)] border-[1px]  flex items-center justify-center text-white text-2xl`}
+                  key={index}
+                  className="group relative bg-white border border-slate-200/50 rounded-2xl p-7 hover:-translate-y-1.5 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.015)] hover:shadow-[0_20px_40px_-15px_rgba(160,43,170,0.08)] hover:border-purple-500/30 overflow-hidden"
                 >
-                   <CustomImage className={'rounded-2xl'} alt={item.name_en} img={item.icon} />
+                  {/* Glowing top line overlay on hover */}
+                  {/* Glowing blob */}
+                  <div className="absolute -top-10 -right-10 h-24 w-24 rounded-full bg-purple-500/5 blur-2xl group-hover:bg-purple-500/10 transition-colors" />
+
+                  <div
+                    className="relative z-10 w-15 h-15 rounded-xl bg-gradient-to-br from-purple-50 to-fuchsia-50/50 border border-purple-100/80 flex items-center justify-center shadow-sm transition-transform duration-350 group-hover:scale-108 group-hover:shadow-[0_0_15px_rgba(168,85,247,0.15)]"
+                  >
+                    <CustomImage className="rounded-xl object-contain" alt={item.name_en} img={item.icon} />
+                  </div>
+
+                  <h3 className="text-lg font-bold text-gray-900 mt-6 tracking-tight group-hover:text-[#80188E] transition-colors duration-200">
+                    {item.name_en}
+                  </h3>
+
+                  <p className="text-slate-500 text-sm leading-relaxed mt-3">
+                    {item.description_en}
+                  </p>
                 </div>
-
-                <h3 className="text-1xl font-semibold mt-5 text-gray-900">
-                  {item.name_en}
-                </h3>
-
-                <p className="text-gray-500 leading-8 mt-2">
-                  {item.description_en}
-                </p>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
-      </div>
-    </section> : null
+      </section> : null
   );
 }
