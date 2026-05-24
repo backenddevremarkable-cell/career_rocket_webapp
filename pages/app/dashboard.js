@@ -3,6 +3,9 @@ import { withAuth } from '../../utils/withAuth';
 
 import {
   Sparkles,
+  ChevronRight,
+  Brain,
+  Target
 } from "lucide-react";
 import {
   FaWhatsapp,
@@ -37,109 +40,140 @@ function Dashboard() {
         {/* TOP */}
         <div className="grid grid-cols-1 lg:grid-cols-[1.6fr_.95fr] gap-5">
 
-          {/* CARD */}
-          <div className="rounded-[12px] bg-white p-5 shadow-[0_10px_40px_rgba(0,0,0,0.04)]">
-            <div className="flex flex-col sm:flex-row gap-5">
+          {/* ASSESSMENTS CARD */}
+          <div className="relative overflow-hidden rounded-[12px] bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-[#eaeaea]">
+            {/* BACKGROUND ACCENT */}
+            <div className="absolute -top-[100px] -right-[100px] h-[250px] w-[250px] rounded-full bg-primary/10 blur-[60px]"></div>
 
-              {/* IMAGE */}
-              <div className="h-[95px] w-[95px] overflow-hidden rounded-[16px] bg-gradient-to-br from-[#53225d] via-[#7e2b8f] to-[#d946ef]">
-                <div className="flex h-full items-center justify-center">
-                  <Sparkles
-                    className="text-white"
-                    size={34}
-                  />
+            <div className="relative z-10 flex flex-col gap-6">
+
+              {/* HEADER */}
+              <div className="flex items-start gap-4">
+                <div className="flex h-[64px] w-[64px] shrink-0 items-center justify-center rounded-[12px] bg-gradient-to-br from-[#53225d] via-[#7e2b8f] to-[#d946ef]">
+                  <Sparkles className="text-white" size={30} />
+                </div>
+                <div className="flex flex-col justify-center pt-1">
+                  <h2 className="text-[22px] md:text-[26px] font-black tracking-tight font-bold text-[#1a1a1a] leading-tight">Career Assessments</h2>
+                  <p className="mt-1 text-[14px] font-medium text-[#666]">Discover your true potential through our AI-driven tests.</p>
                 </div>
               </div>
 
-              {/* CONTENT */}
-              <div className="flex-1">
+              {/* TEST LIST */}
+              <div className="grid gap-4 sm:grid-cols-2">
 
-                <p className="text-[10px] font-bold uppercase tracking-wide text-primary">
-                  In Progress
-                </p>
+                {/* PERSONALITY TEST */}
+                <Link
+                  href="/personality-test"
+                  className="group relative flex flex-col justify-between overflow-hidden rounded-[12px] border border-[#ececec] bg-[#fcfbfc] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:bg-white hover:shadow-[0_15px_40px_rgba(161,38,219,0.12)]"
+                >
+                  <div className="absolute right-0 top-0 h-[100px] w-[100px] -translate-y-1/2 translate-x-1/2 rounded-full bg-blue-500/5 blur-[25px] transition-all group-hover:bg-primary/15"></div>
 
-                <h2 className="mt-1 text-[20px] font-bold font-black text-[#222]">
-                  My Purchased Courses
-                </h2>
+                  <div className="relative z-10">
+                    <div className="mb-4 flex items-center justify-between">
+                      <div className="flex h-[42px] w-[42px] items-center justify-center rounded-[12px] bg-white border border-[#eaeaea] text-blue-600 shadow-sm transition-all group-hover:border-primary/30 group-hover:text-primary">
+                        <Brain size={20} />
+                      </div>
+                      <span className="inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-emerald-600 ring-1 ring-emerald-500/20">
+                        <span className="mr-1.5 h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Start Now
+                      </span>
+                    </div>
 
-                <p className="text-[13px] text-[#777]">
-                  UI/UX Masterclass: From Theory
-                  to High-Fidelity Design
-                </p>
+                    <h3 className="text-[17px] font-black text-[#1a1a1a] transition-colors font-bold group-hover:text-primary">Personality Test</h3>
+                    <p className="mt-1.5 text-[13px] font-medium leading-relaxed text-[#777]">Analyze your core traits to find the perfect work environment.</p>
 
-                {/* PROGRESS */}
-                <div className="mt-5 flex items-center justify-between">
-                  <span className="text-[12px] font-medium text-[#777]">
-                    40% Completed
-                  </span>
-
-                  <span className="text-[12px] font-semibold text-primary">
-                    12 / 30 Lessons
-                  </span>
-                </div>
-
-                <div className="mt-2 h-[5px] overflow-hidden rounded-full bg-[#ece7ef]">
-                  <div className="h-full w-[40%] rounded-full bg-primary"></div>
-                </div>
-
-                <Link href="/my-course" className="mt-6 inline-flex h-[42px] w-[200px] items-center justify-center rounded-full bg-primary text-[13px] font-semibold text-white">
-                  Continue Learning
+                    <div className="mt-5 flex items-center gap-1.5 text-[13px] font-bold text-primary">
+                      Take Assessment
+                      <ChevronRight size={16} className="transition-transform group-hover:translate-x-1" />
+                    </div>
+                  </div>
                 </Link>
+
+                {/* IDEAL CAREER TEST */}
+                <Link
+                  href="/ideal-career-test"
+                  className="group relative flex flex-col justify-between overflow-hidden rounded-[12px] border border-[#ececec] bg-[#fcfbfc] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:bg-white hover:shadow-[0_15px_40px_rgba(161,38,219,0.12)]"
+                >
+                  <div className="absolute right-0 top-0 h-[100px] w-[100px] -translate-y-1/2 translate-x-1/2 rounded-full bg-fuchsia-500/5 blur-[25px] transition-all group-hover:bg-primary/15"></div>
+
+                  <div className="relative z-10">
+                    <div className="mb-4 flex items-center justify-between">
+                      <div className="flex h-[42px] w-[42px] items-center justify-center rounded-[12px] bg-white border border-[#eaeaea]  text-fuchsia-600 shadow-sm transition-all group-hover:border-primary/30 group-hover:text-primary">
+                        <Target size={20} />
+                      </div>
+                      <span className="inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-emerald-600 ring-1 ring-emerald-500/20">
+                        <span className="mr-1.5 h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Start Now
+                      </span>
+                    </div>
+
+                    <h3 className="text-[17px] font-black text-[#1a1a1a] transition-colors group-hover:text-primary font-bold">Ideal Career Test</h3>
+                    <p className="mt-1.5 text-[13px] font-medium leading-relaxed text-[#777]">Discover the professions that perfectly match your skills and passion.</p>
+
+                    <div className="mt-5 flex items-center gap-1.5 text-[13px] font-bold text-primary">
+                      Take Assessment
+                      <ChevronRight size={16} className="transition-transform group-hover:translate-x-1" />
+                    </div>
+                  </div>
+                </Link>
+
               </div>
             </div>
           </div>
 
-          {/* RIGHT CARD */}
-          <div className="rounded-[12px] bg-white p-5 shadow-[0_10px_40px_rgba(0,0,0,0.04)]">
+          {/* COUNSELLING CARD */}
+          <div className="relative flex h-full flex-col overflow-hidden rounded-[12px] bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-[#eaeaea]">
+            {/* BACKGROUND GLOW */}
+            <div className="absolute -bottom-[50px] -right-[50px] h-[200px] w-[200px] rounded-full bg-primary/10 blur-[50px]"></div>
 
-            <div className="flex items-start gap-4">
-
-              <div className="flex h-[52px] w-[52px] items-center justify-center rounded-full bg-[#b12dd7]">
-                <Sparkles
-                  size={22}
-                  className="text-white"
-                />
+            <div className="relative z-10 flex flex-1 flex-col">
+              {/* HEADER */}
+              <div className="flex items-start gap-4">
+                <div className="flex h-[56px] w-[56px] shrink-0 items-center justify-center rounded-[16px] bg-gradient-to-br from-[#d946ef] to-[#8b1ab6]">
+                  <Sparkles size={26} className="text-white" />
+                </div>
+                <div className="pt-1">
+                  <h3 className="text-[20px] md:text-[21px] font-bold font-black tracking-tight text-[#1a1a1a] leading-tight">
+                    Get Career Counselling
+                  </h3>
+                  <p className="mt-1 text-[13px] font-medium text-[#666]">
+                    Expert guidance for your dream role
+                  </p>
+                </div>
               </div>
 
-              <div>
-                <h3 className="text-[20px] font-black font-bold leading-none text-[#222]">
-                  Get Career Counselling
-                </h3>
+              {/* SPACER - Automatically expands to push bottom content down */}
+              <div className="flex-1 min-h-[30px]"></div>
 
-                <p className="mt-1 text-[14px] text-[#777]">
-                  Expert guidance for your dream
-                  role
-                </p>
+              {/* OPTIONS */}
+              <div className="mt-6 grid grid-cols-3 gap-3">
+                {contactItems.map((item, i) => {
+                  const Icon = item.icon;
+                  return (
+                    <button
+                      key={i}
+                      className="group flex h-[85px] flex-col items-center justify-center rounded-[18px] border border-[#f0e8f5] bg-[#fcfbfc] transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:bg-white hover:shadow-[0_10px_25px_rgba(217,70,239,0.12)]"
+                    >
+                      {/* ICON */}
+                      <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-full bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110 group-hover:bg-primary group-hover:text-white">
+                        <Icon size={16} />
+                      </div>
+                      {/* TEXT */}
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-[#777] transition-colors group-hover:text-primary">
+                        {item.title}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
+
+              <Link
+                className="mt-6 inline-flex h-[50px] w-full items-center justify-center rounded-full bg-primary text-[14px] font-bold text-white transition-all hover:bg-[#8b1ab6]  hover:scale-[1.02]"
+                href={'/counselors'}
+              >
+                Connect With Counsellor
+              </Link>
             </div>
-
-            {/* OPTIONS */}
-            <div className="mt-7 grid grid-cols-3 gap-3">
-              {contactItems.map((item, i) => {
-                const Icon = item.icon;
-
-                return (
-                  <button
-                    key={i}
-                    className="group flex h-[78px] flex-col items-center justify-center rounded-[16px] border border-[#f0e8f5] transition-all duration-300 hover:-translate-y-1 hover:border-[#d946ef] hover:bg-white hover:shadow-[0_10px_30px_rgba(217,70,239,0.15)]"
-                  >
-                    {/* ICON */}
-                    <div className="mb-2 flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[#f3d7fa] text-[#c026d3] transition-all duration-300 group-hover:scale-110 group-hover:bg-[#c026d3] group-hover:text-white">
-                      <Icon size={14} />
-                    </div>
-
-                    {/* TEXT */}
-                    <span className="text-[10px] font-bold tracking-wide text-[#666]">
-                      {item.title}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-
-            <Link className="mt-6 inline-flex h-[42px] w-full items-center justify-center rounded-full bg-primary text-[13px] font-semibold text-white" href={'/counselors'} >
-              Connect With Counsellor
-            </Link>
           </div>
         </div>
 

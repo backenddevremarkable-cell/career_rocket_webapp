@@ -13,7 +13,9 @@ import {
   HiClipboardList,
   HiUsers,
   HiAcademicCap,
-  HiPhone
+  HiPhone,
+  HiLogout,
+  HiViewGrid
 } from "react-icons/hi";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -22,11 +24,23 @@ import useScrollSpy from "@/hooks/observerSection";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const [userData, setUserData] = useState(null);
   const [submenuOpen, setSubmenuOpen] = useState(null);
   const { users } = useDataStore((state) => state);
+
+  // Close profile dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!e.target.closest('#profile-menu-container')) {
+        setProfileOpen(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
 
   // user data sync
   useEffect(() => {
@@ -160,36 +174,87 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Right Button */}
-        <div className="hidden lg:block">
-          <Link
-            href={userData ? "/dashboard" : "/sign-up"}
-            className="btn-gradient"
-          >
-            {userData ? "Dashboard" : "Sign Up"}
-          </Link>
-        </div>
+        {/* Right Section */}
+        <div className="flex items-center gap-3 sm:gap-5">
+          {userData ? (
+            <div id="profile-menu-container" className="relative">
+              <div
+                onClick={() => setProfileOpen(!profileOpen)}
+                className="flex items-center gap-2 lg:gap-3 cursor-pointer p-1 lg:pr-3 rounded-full lg:border lg:border-slate-200 bg-white lg:hover:border-purple-300 transition-all"
+              >
+                <div className="w-9 h-9 md:w-10 md:h-10 rounded-full overflow-hidden bg-gradient-to-br from-[#d946ef] to-[#8b1ab6] flex items-center justify-center text-white font-bold shadow-[0_4px_10px_rgba(217,70,239,0.3)] ring-2 ring-white">
+                  {userData.profileImage ? (
+                    <img src={userData.profileImage} alt={userData.name} className="w-full h-full object-cover" />
+                  ) : (
+                    <span className="text-sm md:text-base">{(userData.name || "U")[0].toUpperCase()}</span>
+                  )}
+                </div>
+                <div className="hidden lg:flex flex-col">
+                  <span className="text-sm font-bold text-slate-800 leading-none">{userData.name || "User"}</span>
+                  <span className="text-[11px] font-semibold text-slate-500 mt-1">Student</span>
+                </div>
+                <HiChevronDown className={`hidden lg:block text-slate-400 transition-transform ${profileOpen ? "rotate-180" : ""}`} />
+              </div>
 
-        {/* Mobile Menu Icon (Tablet & Mobile viewports) */}
-        <div className="lg:hidden text-3xl cursor-pointer p-1 text-slate-700 hover:text-[#9D2BA8] transition">
-          <HiOutlineMenu onClick={() => setOpen(true)} />
+              {/* Dropdown Menu */}
+              <div className={`absolute right-0 top-[calc(100%+10px)] w-56 bg-white shadow-[0_15px_40px_rgba(0,0,0,0.12)] rounded-[16px] border border-slate-100 overflow-hidden z-50 transition-all duration-300 origin-top-right ${profileOpen ? "scale-100 opacity-100 visible" : "scale-95 opacity-0 invisible"}`}>
+
+                {/* Mobile only Header inside dropdown */}
+                <div className="lg:hidden px-5 py-4 bg-slate-50 border-b border-slate-100">
+                  <span className="block text-sm font-bold text-slate-800 truncate">{userData.name || "User"}</span>
+                  <span className="block text-[11px] font-semibold text-slate-500 mt-1">Student</span>
+                </div>
+
+                <div className="p-2">
+                  <Link
+                    href="/dashboard"
+                    onClick={() => setProfileOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 hover:bg-purple-50 rounded-[12px] text-slate-700 hover:text-purple-700 transition font-semibold"
+                  >
+                    <HiViewGrid className="text-xl" />
+                    <span className="text-sm">Dashboard</span>
+                  </Link>
+                  <button
+                    onClick={() => {
+                      setProfileOpen(false);
+                      localStorage.clear();
+                      window.location.href = '/';
+                    }}
+                    className="w-full flex items-center gap-3 px-4 py-3 mt-1 hover:bg-red-50 rounded-[12px] text-red-500 hover:text-red-600 transition cursor-pointer text-left font-semibold"
+                  >
+                    <HiLogout className="text-xl" />
+                    <span className="text-sm">Logout</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="hidden lg:block">
+              <Link href="/sign-up" className="btn-gradient">
+                Sign Up
+              </Link>
+            </div>
+          )}
+
+          {/* Mobile Menu Icon */}
+          <div className="lg:hidden text-[28px] cursor-pointer p-1 text-slate-700 hover:text-[#9D2BA8] transition">
+            <HiOutlineMenu onClick={() => setOpen(true)} />
+          </div>
         </div>
       </div>
 
       {/* Mobile & Tablet Slide-out Drawer */}
       {/* Backdrop overlay */}
       <div
-        className={`fixed inset-0 bg-black/40 backdrop-blur-xs z-[9998] transition-opacity duration-300 lg:hidden ${
-          open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-0 bg-black/40 backdrop-blur-xs z-[9998] transition-opacity duration-300 lg:hidden ${open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          }`}
         onClick={() => setOpen(false)}
       />
 
       {/* Drawer panel */}
       <div
-        className={`fixed top-0 left-0 bottom-0 w-80 max-w-[85vw] h-screen bg-white shadow-2xl z-[9999] transition-transform duration-300 ease-in-out lg:hidden flex flex-col ${
-          open ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed top-0 left-0 bottom-0 w-80 max-w-[85vw] h-screen bg-white shadow-2xl z-[9999] transition-transform duration-300 ease-in-out lg:hidden flex flex-col ${open ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         {/* Drawer Header or Profile Card */}
         {userData ? (
@@ -197,7 +262,7 @@ export default function Navbar() {
             {/* Background decorative glows */}
             <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-white/10 rounded-full blur-lg pointer-events-none"></div>
             <div className="absolute -left-6 -top-6 w-20 h-20 bg-white/10 rounded-full blur-md pointer-events-none"></div>
-            
+
             <div className="flex justify-between items-start z-10">
               {/* Profile Image / Initials */}
               <div className="relative w-12 h-12 rounded-full border border-white/30 overflow-hidden bg-white/10 flex items-center justify-center">
@@ -213,7 +278,7 @@ export default function Navbar() {
                   </span>
                 )}
               </div>
-              
+
               <button
                 onClick={() => setOpen(false)}
                 className="text-white/80 hover:text-white transition p-1 hover:bg-white/10 rounded-lg cursor-pointer"
@@ -221,7 +286,7 @@ export default function Navbar() {
                 <HiX className="text-xl" />
               </button>
             </div>
-            
+
             <div className="z-10 mt-1">
               <h4 className="font-bold text-sm leading-tight tracking-wide truncate">
                 {userData.name || "Career Rocket User"}
@@ -260,11 +325,10 @@ export default function Navbar() {
                     onClick={() =>
                       setSubmenuOpen(isOpen ? null : item.key)
                     }
-                    className={`flex justify-between items-center px-4 py-3 rounded-xl transition duration-200 cursor-pointer ${
-                      active
-                        ? "bg-[#9D2BA8]/10 text-[#9D2BA8] font-semibold"
-                        : "text-slate-700 hover:bg-slate-50 hover:text-[#9D2BA8] font-medium"
-                    }`}
+                    className={`flex justify-between items-center px-4 py-3 rounded-xl transition duration-200 cursor-pointer ${active
+                      ? "bg-[#9D2BA8]/10 text-[#9D2BA8] font-semibold"
+                      : "text-slate-700 hover:bg-slate-50 hover:text-[#9D2BA8] font-medium"
+                      }`}
                   >
                     <div className="flex items-center gap-3.5">
                       {Icon && <Icon className={`text-xl ${active ? "text-[#9D2BA8]" : "text-slate-500"}`} />}
@@ -283,11 +347,10 @@ export default function Navbar() {
                             key={sub.href}
                             href={sub.href}
                             onClick={() => setOpen(false)}
-                            className={`block py-2.5 px-3.5 rounded-lg text-sm transition duration-200 ${
-                              subActive
-                                ? "text-[#9D2BA8] font-semibold bg-[#9D2BA8]/5"
-                                : "text-slate-600 hover:text-[#9D2BA8] hover:bg-slate-50 font-medium"
-                            }`}
+                            className={`block py-2.5 px-3.5 rounded-lg text-sm transition duration-200 ${subActive
+                              ? "text-[#9D2BA8] font-semibold bg-[#9D2BA8]/5"
+                              : "text-slate-600 hover:text-[#9D2BA8] hover:bg-slate-50 font-medium"
+                              }`}
                           >
                             {sub.label}
                           </Link>
@@ -305,11 +368,10 @@ export default function Navbar() {
                 key={item.key}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className={`flex items-center gap-3.5 px-4 py-3 rounded-xl transition duration-200 ${
-                  active
-                    ? "bg-[#9D2BA8]/10 text-[#9D2BA8] font-semibold"
-                    : "text-slate-700 hover:bg-slate-50 hover:text-[#9D2BA8] font-medium"
-                }`}
+                className={`flex items-center gap-3.5 px-4 py-3 rounded-xl transition duration-200 ${active
+                  ? "bg-[#9D2BA8]/10 text-[#9D2BA8] font-semibold"
+                  : "text-slate-700 hover:bg-slate-50 hover:text-[#9D2BA8] font-medium"
+                  }`}
               >
                 {Icon && <Icon className={`text-xl ${active ? "text-[#9D2BA8]" : "text-slate-500"}`} />}
                 <span>{item.label}</span>
@@ -320,15 +382,29 @@ export default function Navbar() {
 
         {/* Drawer Footer */}
         <div className="p-6 border-t border-slate-100 bg-slate-50/50 flex-shrink-0">
-          <Link
-            href={userData ? "/dashboard" : "/sign-up"}
-            onClick={() => setOpen(false)}
-            className="btn-gradient w-full block text-center py-3 text-sm font-semibold rounded-full"
-          >
-            {userData ? "Dashboard" : "Sign Up"}
-          </Link>
+          {userData ? (
+            <button
+              onClick={() => {
+                setOpen(false);
+                localStorage.clear();
+                window.location.href = '/';
+              }}
+              className="w-full flex items-center justify-center gap-2 py-3 bg-red-50 text-red-600 font-bold rounded-xl border border-red-100 hover:bg-red-100 transition"
+            >
+              <HiLogout className="text-lg" />
+              Logout
+            </button>
+          ) : (
+            <Link
+              href="/sign-up"
+              onClick={() => setOpen(false)}
+              className="btn-gradient w-full block text-center py-3 text-sm font-semibold rounded-full"
+            >
+              Sign Up
+            </Link>
+          )}
         </div>
       </div>
     </nav>
   );
-}
+}

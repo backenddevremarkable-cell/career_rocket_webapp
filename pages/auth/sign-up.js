@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import logo from "../../assets/images/logo.svg";
 import Image from "next/image";
-import rightSide from "../../assets/images/sign-up.svg";
 import { ERROR_MSG, setTokenCookie, getFromStorage, setuserInfo, SUCCESS_MSG } from "@/utils";
 import { loginUser, otpVerify } from "@/services/authService";
 import { useRouter } from "next/router";
@@ -191,7 +190,7 @@ function SignIn() {
           {/* Heading */}
           <div className="mb-10">
             {isOtp && (
-              <button onClick={() => setisOtp(false)} className="mb-6 flex items-center text-sm font-semibold text-slate-500 hover:text-purple-600 transition-colors">
+              <button onClick={() => setisOtp(false)} className="mb-6 cursor-pointer flex items-center text-sm font-semibold text-slate-500 hover:text-purple-600 transition-colors">
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                 Back to sign up
               </button>
@@ -213,14 +212,14 @@ function SignIn() {
                   <p className="text-[11px] text-purple-600 font-bold uppercase tracking-widest mb-1">Code sent to</p>
                   <p className="text-slate-800 font-semibold text-sm tracking-wide">+91 {mobile}</p>
                 </div>
-                <button type="button" onClick={() => setisOtp(false)} className="w-10 h-10 flex items-center justify-center bg-white rounded-full text-purple-600 shadow-sm border border-purple-100 hover:bg-purple-600 hover:text-white transition-all">
+                <button type="button" onClick={() => setisOtp(false)} className="w-10 h-10 flex items-center justify-center bg-white rounded-full text-purple-600 shadow-sm border border-purple-100 hover:bg-purple-600 hover:text-white transition-all cursor-pointer resend-otp">
                   <FaEdit size={14} />
                 </button>
               </div>
 
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-3">Verification Code</label>
-                <div className="flex gap-3 sm:gap-4 justify-between">
+                <div className="gap-3 sm:gap-4 justify-between">
                   {otp.map((digit, index) => (
                     <input
                       key={index}
@@ -231,7 +230,7 @@ function SignIn() {
                       value={digit}
                       onChange={(e) => handleOtpChange(e.target.value, index)}
                       onKeyDown={(e) => handleOtpKeyDown(e, index)}
-                      className="w-14 h-14 sm:w-16 sm:h-16 text-center text-2xl font-bold bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all shadow-sm"
+                      className="w-14 h-14 mr-5 sm:w-16 sm:h-16 text-center text-2xl font-bold bg-slate-50 border border-slate-200 rounded-[12px] focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all shadow-sm"
                     />
                   ))}
                 </div>
@@ -282,7 +281,7 @@ function SignIn() {
                 </div>
               </div>
 
-              <button disabled={loading} type="submit" className="w-full bg-purple-600 text-white py-4 rounded-2xl font-semibold text-[15px] shadow-[0_8px_20px_rgba(147,51,234,0.25)] hover:bg-purple-700 hover:shadow-[0_10px_25px_rgba(147,51,234,0.35)] active:scale-[0.98] transition-all disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+              <button disabled={loading} type="submit" className="w-full bg-purple-600 text-white py-4 rounded-[12px] cursor-pointer font-semibold text-[15px]  hover:bg-purple-700 active:scale-[0.98] transition-all disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2">
                 {loading ? (
                   <><div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> Sending code...</>
                 ) : (

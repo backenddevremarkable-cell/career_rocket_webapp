@@ -46,6 +46,7 @@ export const API_PATHS = {
     LIST: "/getCourseListByCategory",
     MY_COURSES: "/purchasedCourseList",
     GET_MY_LIVE_CLASS: "/getPurchasedCourseLiveClasses",
+    GET_MY_PURCHASE_HISTORY: "/getPurchaseHistory",
     BUY_NOW_COURSE: "/createOrder",
     BUY_FREE_COURSE: "/purchaseFreeCourse",
     SUCCESS_PAYMENT: "/fetchPaymentStatus",
