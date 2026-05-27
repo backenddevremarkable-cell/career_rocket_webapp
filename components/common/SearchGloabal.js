@@ -116,7 +116,7 @@ export default function SearchGloabal({ isDashboard }) {
   return (
     <>
       {/* Trigger */}
-      <div className={`w-full ${!isDashboard ? 'max-w-[760px]' : 'max-w-[860px]'} mx-auto relative`}>
+      <div className={`w-full ${!isDashboard ? 'max-w-[760px]' : 'max-w-[860px]'} mx-auto relative z-[99]`}>
         <div className={`search-wrapper ${!isDashboard ? "mt-10" : "search-wrapper-dashboard"} relative flex items-center`}>
           <div className="relative flex-1 flex items-center">
             <FiSearch className="absolute left-4 text-slate-400 text-lg pointer-events-none" />
@@ -154,7 +154,7 @@ export default function SearchGloabal({ isDashboard }) {
         </div>
 
         {(data?.career) || (data?.counsellor) || (data?.course) ?
-          <div className="mt-2 absolute left-0 right-0 z-50 overflow-hidden max-w-2xl mx-auto rounded-[16px] border border-slate-200/80 bg-white/95 backdrop-blur-md shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] animate-fade">
+          <div className="mt-1 absolute left-0 right-0 z-50 overflow-hidden max-w-2xl mx-auto rounded-[16px] border border-slate-200/80 bg-white/95 backdrop-blur-md shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] animate-fade">
             <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-slate-50/50">
               <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                 Search Results
@@ -167,7 +167,7 @@ export default function SearchGloabal({ isDashboard }) {
               </span>
             </div>
 
-            <div className="max-h-[340px] overflow-y-auto divide-y divide-gray-50">
+            <div className="max-h-[340px] bg-[#fff] overflow-y-auto divide-y divide-gray-50">
               {data?.career?.length > 0 || data?.counsellor?.length > 0 || data?.course?.length > 0 ? (
                 <>
                   {data?.career && data.career.map((item, index) => (
@@ -218,8 +218,12 @@ export default function SearchGloabal({ isDashboard }) {
 
                         <div>
                           <h2 className="text-[14px] font-bold text-slate-800 group-hover:text-emerald-700 transition-colors">
-                            {item?.title}
+                            {item?.title_en}
                           </h2>
+
+                          <p className="text-[12px] text-slate-500 mt-0.5 line-clamp-1">
+                            {truncateWords(item?.description_en, 20)}
+                          </p>
                         </div>
                       </div>
 

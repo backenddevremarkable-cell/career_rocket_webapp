@@ -17,7 +17,7 @@ const CareerLibrary = () => {
   const router = useRouter();
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(50);
-  const { setCaree, setCareerList, careerList, searchCareer } = useDataStore();
+  const { setCaree, setCareerList, careerList, searchCareer, setSearchCareer } = useDataStore();
   const [data, setdata] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -49,6 +49,11 @@ const CareerLibrary = () => {
     } else {
       fetchData("");
     }
+
+    return () => {
+      setSearchCareer(null);
+    };
+
   }, [router.isReady, router.query.search]);
 
   const filterData = (e) => {
@@ -102,12 +107,16 @@ const CareerLibrary = () => {
 
               {searchCareer ? (
                 <div className="max-w-6xl mx-auto mb-10 pb-10 border-b border-slate-200/60">
-                  <h1 className="text-[20px] font-extrabold text-gray-900 tracking-tight mb-6">
-                    Showing Search Result
+                  <h1 className="text-[20px] font-bold text-gray-900 tracking-tight mb-6">
+                    Search Result
                   </h1>
                   <div className="max-w-6xl mx-auto grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     <Card key={searchCareer?.id} {...searchCareer} />
                   </div>
+
+                  <h1 className="text-[20px] font-bold text-gray-900 tracking-tight mt-12">
+                    Explore More Careers
+                  </h1>
                 </div>
               ) : null}
 

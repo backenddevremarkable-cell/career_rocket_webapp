@@ -44,7 +44,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="hero-bg relative overflow-hidden pt-20 pb-8 md:pt-32 md:pb-14 text-center"
+      className="hero-bg relative pt-20 pb-8 md:pt-32 md:pb-14 text-center"
     >
 
       {/* ── Decorative background blobs ── */}

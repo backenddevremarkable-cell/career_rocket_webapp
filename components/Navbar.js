@@ -123,7 +123,7 @@ export default function Navbar() {
   return (
     <nav
       className={`${scrolled ? "fixed" : pathname === "/" ? "absolute" : ""} 
-      w-full top-0 left-0 z-50 transition-all duration-300
+      w-full top-0 left-0 z-[999] transition-all duration-300
       ${scrolled ? "bg-white shadow-md" : ""}`}
     >
       <div className={`max-w-6xl mx-auto px-6 ${!scrolled ? "py-3" : ""} flex justify-between items-center`}>

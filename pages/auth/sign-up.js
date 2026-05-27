@@ -9,6 +9,7 @@ import { ERROR_MSG, setTokenCookie, getFromStorage, setuserInfo, SUCCESS_MSG } f
 import { loginUser, otpVerify } from "@/services/authService";
 import { useRouter } from "next/router";
 import { useDataStore } from "@/store/useDataStore";
+import rightSide from '@/assets/images/student.png'
 
 function SignIn() {
   const [mobile, setMobile] = useState(null);
@@ -300,34 +301,41 @@ function SignIn() {
       </div>
 
       {/* RIGHT SIDE - SaaS Visual */}
-      <div className="hidden md:flex md:w-1/2 fixed right-0 top-0 bottom-0 bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] p-12 flex-col justify-between overflow-hidden">
+      <div className="hidden md:flex md:w-1/2 fixed right-0 top-0 bottom-0 bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] pt-12 px-12 pb-0 flex-col justify-between overflow-hidden">
         {/* Abstract Glowing Orbs */}
         <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-purple-600/20 blur-[120px]"></div>
         <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-fuchsia-600/20 blur-[120px]"></div>
 
-        <div className="relative z-10 text-white mt-8 2xl:mt-16">
-          <h2 className="text-4xl lg:text-5xl xl:text-[56px] font-black leading-[1.1] tracking-tight mb-6">
+        <div className="relative z-20 text-white mt-2 lg:mt-0 2xl:mt-12">
+          <h2 className="text-2xl lg:text-3xl xl:text-[45px] 2xl:text-[56px] font-black leading-[1.1] tracking-tight mb-3 lg:mb-3">
             Unlock your <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-purple-400">true potential.</span>
           </h2>
-          <p className="text-purple-100/70 text-lg lg:text-xl max-w-lg leading-relaxed font-light">
+          <p className="text-purple-100/70 text-base lg:text-base xl:text-[20px] max-w-lg leading-relaxed font-light">
             Join thousands of ambitious professionals using AI-driven insights to navigate their career paths with absolute confidence.
           </p>
         </div>
 
-        <div className="relative z-10 flex-1 flex items-center justify-center mt-12 mb-8 drop-shadow-2xl">
-          <div className="relative w-full max-w-lg aspect-square flex items-center justify-center">
+        <div className="relative z-10 flex-1 flex items-end justify-center mt-6 lg:mt-8 mb-0 drop-shadow-2xl w-full min-h-0">
+          <div
+            className="relative w-full aspect-square flex items-end justify-center"
+            style={{ maxWidth: 'min(540px, 62vh)' }}
+          >
+            {/* Concentric rings */}
             <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent rounded-full border border-white/10 animate-pulse" style={{ animationDuration: '4s' }}></div>
-            <div className="absolute inset-8 bg-gradient-to-b from-white/10 to-transparent rounded-full border border-white/10"></div>
-            {/* <img
+            <div className="absolute inset-[12%] bg-gradient-to-b from-white/10 to-transparent rounded-full border border-white/10"></div>
+            <div className="absolute inset-[24%] bg-gradient-to-b from-white/10 to-transparent rounded-full border border-white/10"></div>
+
+            {/* Image anchored to bottom */}
+            <img
               src={rightSide.src}
               alt="Career Dashboard"
-              className="w-[80%] h-[80%] object-contain relative z-20"
-            /> */}
+              className="w-[100%] sm:w-[100%] h-auto max-h-full object-contain object-bottom relative z-20 pointer-events-none drop-shadow-[0_10px_30px_rgba(0,0,0,0.3)]"
+            />
           </div>
         </div>
 
-        <div className="relative z-10 mb-6">
+        {/* <div className="relative z-10 mb-6">
           <div className="flex items-center gap-4 bg-white/5 backdrop-blur-xl border border-white/10 p-4 sm:p-5 rounded-2xl w-fit shadow-2xl">
             <div className="flex -space-x-3">
               {[44, 12, 33, 47].map(i => (
@@ -341,7 +349,7 @@ function SignIn() {
               <p className="text-purple-200/80 text-xs sm:text-sm font-medium">Successfully mentored</p>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );
