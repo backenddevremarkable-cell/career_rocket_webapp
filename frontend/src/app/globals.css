@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --career-purple: #9c27b0;
+  --career-gold: #f5a623;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  /* font-family: var(--font-poppins), Poppins, sans-serif; */
+  /* font-family: Arial, sans-serif; */
+  font-family: var(--font-poppins), Poppins, Arial, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.service-card-pro {
+  opacity: 1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.service-card-pro:hover {
+  transform: translateY(-6px);
+  border-color: rgba(156, 39, 176, 0.35);
+  box-shadow: 0 12px 40px rgba(156, 39, 176, 0.15);
+}
+
+.service-card-pro:active {
+  transform: translateY(-2px);
+}

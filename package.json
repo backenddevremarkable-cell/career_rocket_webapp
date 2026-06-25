@@ -1,0 +1,22 @@
+{
+  "name": "career-advantage-portal",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev:full-stack",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "dev:backend": "npm run dev --prefix backend",
+    "build": "npm run build --prefix frontend",
+    "start:frontend": "npm run start --prefix frontend",
+    "start:backend": "npm start --prefix backend",
+    "install:all": "npm install --prefix frontend && npm install --prefix backend",
+    "start": "npm run start:frontend",
+    "dev:full-stack": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "dependencies": {
+    "next.js": "^1.0.3"
+  }
+}
